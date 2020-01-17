@@ -16,5 +16,8 @@ void() precache_everything =
 	precache_model("models/arrow.iqm");
 	precache_model("models/needle.iqm");
 	precache_model("models/grass.iqm");
+	precache_model("models/grass_cut.iqm");
+	precache_model("models/grass_debris.iqm");
+	precache_model("models/rope.iqm");
 	
 };

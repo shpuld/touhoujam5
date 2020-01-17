@@ -45,6 +45,16 @@ void() item_needle =
 	setsize(self, '-16 -16 0', '16 16 32');
 }
 
+void() item_rope =
+{
+	setmodel(self, "models/rope.iqm");
+	self.modelflags = MF_ROTATE;
+	self.touch = item_touch;
+	self.items = IT_ROPE;
+	self.solid = SOLID_TRIGGER;
+	setsize(self, '-16 -16 0', '16 16 32');
+}
+
 void() tele_touch =
 {
 	if (other.classname != "player") return;

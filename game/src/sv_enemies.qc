@@ -24,6 +24,14 @@ void() misc_bowl =
 
 void(float amount, vector dir, entity dealer) grass_die =
 {
+	setmodel(self, "models/grass_cut.iqm");
+	
+	entity debris = spawn();
+	setorigin(debris, self.origin);
+	setmodel(debris, "models/grass_debris.iqm");
+	debris.movetype = MOVETYPE_TOSS;
+	debris.solid = SOLID_NOT;
+	debris.velocity = dir * 300 + '0 0 500';
 	self.solid = SOLID_NOT;
 }
 

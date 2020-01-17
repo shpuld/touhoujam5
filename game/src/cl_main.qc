@@ -67,10 +67,10 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	R_BeginPolygon("watersurf", 0, 0);
 	
 	float fac = 10;
-	R_PolygonVertex(fac*[4096, 4096, 0] + '0 0 2', fac*[0, 0], '1 1 1', 1);
-	R_PolygonVertex(fac*[4096, -4096, 0] + '0 0 2', fac*[10, 0], '1 1 1', 1);
-	R_PolygonVertex(fac*[-4096, -4096, 0] + '0 0 2', fac*[10, 10], '1 1 1', 1);
-	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 2', fac*[0, 10], '1 1 1', 1);
+	R_PolygonVertex(fac*[4096, 4096, 0] + '0 0 3', fac*[0, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[4096, -4096, 0] + '0 0 3', fac*[10, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, -4096, 0] + '0 0 3', fac*[10, 10], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 3', fac*[0, 10], '1 1 1', 1);
 	
 	R_EndPolygon();
 	
