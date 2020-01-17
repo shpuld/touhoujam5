@@ -1,26 +1,28 @@
 @echo off
 
 cd\
-cd E:\touhoujam5\game\maps
+cd C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps
 
 
 echo Copying Files...
-copy E:\touhoujam5\game\maps\main.map E:\touhoujam5\game\maps
+copy C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps\main.map C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps
 
 
 echo Converting map...
 
 
 echo --------------QBSP--------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\qbsp.exe main
+C:\Users\Astor\Desktop\GameDev\shpgame\shpuldspersonalfolderdonottuch\tools\ericw-tools-v0.18-win32\bin\qbsp.exe main
 
 echo --------------VIS---------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\vis.exe -fast main
+C:\Users\Astor\Desktop\GameDev\shpgame\shpuldspersonalfolderdonottuch\tools\ericw-tools-v0.18-win32\bin\vis.exe -fast main
 
 echo -------------LIGHT--------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\light.exe -bounce -bouncescale 0.5 -dirt -dirtscale 1.0 -soft -extra main
+C:\Users\Astor\Desktop\GameDev\shpgame\shpuldspersonalfolderdonottuch\tools\ericw-tools-v0.18-win32\bin\light.exe -bounce -bouncescale 0.5 -dirt -soft -extra main
 
-copy main.bsp E:\touhoujam5\game\maps
-copy main.pts E:\touhoujam5\game\maps
-copy main.lit E:\touhoujam5\game\maps
-pause
+copy main.bsp C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps
+copy main.pts C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps
+copy main.lit C:\Users\Astor\Desktop\GameDev\touhoujam5\game\maps
+cd\
+cd C:\Users\Astor\Desktop\GameDev\touhoujam5
+fteglqw  +map main
