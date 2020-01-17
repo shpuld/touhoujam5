@@ -6,6 +6,10 @@ const float FL_JUMPRELEASED = 4096;
 .void(float amount, vector dir, entity dealer) hurt;
 .void(float amount, vector dir, entity dealer) die;
 
+const float IT_NEEDLE = 1;
+const float IT_PARACHUTE = 2;
+const float IT_ROPE = 4;
+
 void() sub_remove =
 {
 	remove(self);

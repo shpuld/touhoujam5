@@ -176,6 +176,12 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-48 -48 -24', '48 48 16');
 		e.solid = SOLID_BBOX;
 		break;
+	case "item_parachute":
+		setmodel(e, "models/barrel.iqm");
+		setsize(e, '-48 -48 -24', '48 48 16');
+		e.scale = 0.5;
+		e.solid = SOLID_NOT;
+		break;
 	default: return FALSE;
 	}
 	

@@ -34,6 +34,7 @@ vector() get_spawn_point =
 	return spawnpoint.origin + '0 0 1';
 };
 
+.float parachuting;
 void() PlayerPreThink =
 {	
 	CheckImpulses();
@@ -45,15 +46,41 @@ void() PlayerPreThink =
 	if(self.button2)
 	{
 		PlayerJump();
+		
+		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 150 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
+		{
+			self.flags -= self.flags & FL_JUMPRELEASED;
+			if (!self.parachuting)
+			{
+				print("activate para\n");
+				self.velocity_z *= 0.2;
+				self.parachuting = TRUE;
+				self.gravity = 0.15;
+			}
+			else
+			{
+				print("deactivate para\n");
+				self.parachuting = FALSE;
+				self.gravity = 1;
+			}
+		}
 	}
 	else
 	{
+		
 		self.flags = self.flags | FL_JUMPRELEASED;
 	}
+	
 };
 
 void() PlayerPostThink =
 {
+	if (self.flags & FL_ONGROUND && self.parachuting)
+	{
+		print("turning off para\n");
+		self.parachuting = FALSE;
+		self.gravity = 1;
+	}
 };
 
 void() ClientKill =
@@ -128,6 +155,14 @@ void(string command_string) SV_ParseClientCommand =
 void() SV_RunClientCommand =
 {
 	runstandardplayerphysics(self);
+	
+	if (self.parachuting)
+	{
+		makevectors(self.v_angle);
+		vector proposed_velocity = self.velocity + (input_movevalues_x * v_forward + input_movevalues_y * v_right) * input_timelength * 1.5;
+		if (vlen([proposed_velocity_x, proposed_velocity_y]) < 300)
+			self.velocity = proposed_velocity;
+	}
 };
 
 
