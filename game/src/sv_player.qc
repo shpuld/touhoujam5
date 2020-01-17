@@ -41,7 +41,14 @@ void() PlayerPreThink =
 	makevectors(self.v_angle);
 	if(self.button0)
 	{
-
+		if (self.items & IT_NEEDLE && time > self.attack_finished)
+		{
+			print("attack\n");
+			self.attack_finished = time + 0.5; 
+			traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 48, 0, self);
+			if (trace_ent) 
+				damage(trace_ent, 5, v_forward, self);
+		}
 	}
 	if(self.button2)
 	{

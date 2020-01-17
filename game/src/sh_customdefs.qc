@@ -14,5 +14,7 @@ void() precache_everything =
 	precache_model("models/sky.iqm");
 	precache_model("models/trigger.iqm");
 	precache_model("models/arrow.iqm");
+	precache_model("models/needle.iqm");
+	precache_model("models/grass.iqm");
 	
 };

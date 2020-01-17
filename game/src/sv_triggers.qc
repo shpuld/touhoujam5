@@ -35,6 +35,16 @@ void() item_parachute =
 	setsize(self, '-16 -16 0', '16 16 32');
 }
 
+void() item_needle =
+{
+	setmodel(self, "models/needle.iqm");
+	self.modelflags = MF_ROTATE;
+	self.touch = item_touch;
+	self.items = IT_NEEDLE;
+	self.solid = SOLID_TRIGGER;
+	setsize(self, '-16 -16 0', '16 16 32');
+}
+
 void() tele_touch =
 {
 	if (other.classname != "player") return;

@@ -135,6 +135,19 @@ sky1
 	surfaceparm nodraw
 }
 
+defaultskin
+{
+	{
+		map $diffuse
+	}
+	{
+		map $diffuse
+		rgbGen const 0.5 0.5 0.5
+		blendFunc GL_ONE GL_ONE
+	}
+}
+
+
 
 menu/cursor
 {

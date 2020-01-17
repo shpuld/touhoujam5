@@ -178,8 +178,13 @@ float(entity e, string type) editor_set_ent_type =
 		break;
 	case "item_parachute":
 		setmodel(e, "models/barrel.iqm");
-		setsize(e, '-48 -48 -24', '48 48 16');
+		setsize(e, '-16 -16 0', '16 16 32');
 		e.scale = 0.5;
+		e.solid = SOLID_BBOX;
+		break;
+	case "item_needle":
+		setmodel(e, "models/needle.iqm");
+		setsize(e, '-16 -16 0', '16 16 32');
 		e.solid = SOLID_BBOX;
 		break;
 	case "trigger_tele_big":
@@ -200,6 +205,11 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-16 -16 -16', '16 16 16');
 		e.solid = SOLID_BBOX;
 		e.alpha = 0.5;
+		break;
+	case "misc_grass":
+		setmodel(e, "models/grass.iqm");
+		setsize(e, '-24 -24 -16', '24 24 64');
+		e.solid = SOLID_BBOX;
 		break;
 	default: return FALSE;
 	}
