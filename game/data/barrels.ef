@@ -1,0 +1,30 @@
+ent_begin
+class misc_barrel
+organg 608 128 128 0 0 0
+end
+
+ent_begin
+class misc_barrel
+organg 672 -64 144 0 0 0
+end
+
+ent_begin
+class misc_barrel
+organg 592 -128 208 -0 -90 -0
+end
+
+ent_begin
+class misc_barrel
+organg 400 -112 112 -0 -90 -0
+end
+
+ent_begin
+class misc_barrel
+organg 304 16 272 -0 -180 -0
+end
+
+ent_begin
+class misc_barrel
+organg 416 160 80 0 90 0
+end
+

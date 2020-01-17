@@ -19,10 +19,23 @@ float selected_entity_index;
 
 string entlist[] = {
 	"misc_barrel",
-	"misc_box"
+	"misc_box",
+	"misc_bowl"
 };
 
 vector entity_menu_scroll;
+
+string editor_selection_org;
+string editor_selection_ang;
+string editor_selection_spawnflags;
+string editor_selection_target;
+string editor_selection_targetname;
+
+void() send_org = { print("send org\n"); localcmd(sprintf("cmd edit_setprop origin %s\n", editor_selection_org)); }
+void() send_ang = { localcmd(sprintf("cmd edit_setprop angles %s\n", editor_selection_ang)); }
+void() send_spawnflags = { localcmd(sprintf("cmd edit_setprop spawnflags %s\n", editor_selection_spawnflags)); }
+void() send_target = { localcmd(sprintf("cmd edit_setprop target %s\n", editor_selection_target)); }
+void() send_targetname = { localcmd(sprintf("cmd edit_setprop targetname %s\n", editor_selection_targetname)); }
 
 void(string id, vector pos, vector size, __inout vector scrollofs) entity_list =
 {
@@ -43,7 +56,49 @@ void(string id, vector pos, vector size, __inout vector scrollofs) entity_list =
 		sui_pop_frame();
 	}
 	sui_list_view_end();	
-};
+}
+
+var void() current_apply;
+void() no_apply = {};
+float prop_editor_cursor;
+void(string id, vector pos, vector size, string label, __inout string str, void() apply) entity_prop_input =
+{
+	sui_push_frame(pos, size);
+	vector tsize = [size_y/2, size_y/2];
+	string inid = strcat("in_", id);
+	string before = str;
+	sui_text([0, 0], tsize, label, '1 1 1', 1, 0);
+	sui_text_input(inid, [0, tsize_y], [size_x, tsize_y], str, prop_editor_cursor);
+	sui_fill([0, tsize_y], [size_x, tsize_y], '0.2 0.2 0.2', 0.5, 0);
+	sui_text([0, tsize_y], tsize, str, '1 1 1', 1, 0);
+	if (sui_is_last_clicked(inid))
+	{
+		sui_fill([tsize_x*prop_editor_cursor, tsize_y], tsize, '1 1 1', 0.5, 0);
+		current_apply = apply;
+	}
+
+	sui_pop_frame();
+}
+
+
+void(vector pos, vector size) entity_prop_editor =
+{
+	sui_fill(pos, size, '0 0 0', 0.5, 0);
+	float xpos = 4;
+	float ypos = 4;
+	float insize = 16;
+	
+	entity_prop_input("org", [xpos, ypos], [size_x - 8, insize], "Origin", editor_selection_org, send_org);
+	ypos += insize;
+	entity_prop_input("ang", [xpos, ypos], [size_x - 8, insize], "Angles", editor_selection_ang, send_ang);
+	ypos += insize;
+	entity_prop_input("sf", [xpos, ypos], [size_x - 8, insize], "Spawnflags", editor_selection_spawnflags, send_spawnflags);
+	ypos += insize;
+	entity_prop_input("target", [xpos, ypos], [size_x - 8, insize], "Target", editor_selection_target, send_target);
+	ypos += insize;
+	entity_prop_input("targetname", [xpos, ypos], [size_x - 8, insize], "Targetname", editor_selection_targetname, send_targetname);
+	ypos += insize;
+}
 
 void() cl_editor_draw =
 {
@@ -65,7 +120,23 @@ void() cl_editor_draw =
 	entity_list("entlist", [0, 0], ent_menu_size - [2, 2], entity_menu_scroll);
 	
 	sui_pop_frame();
+	
+	sui_set_align([SUI_ALIGN_END, SUI_ALIGN_END]);
+	ent_menu_size = [140, 140];
+	sui_push_frame([0, 0], ent_menu_size);
+	entity_prop_editor([0, 0], ent_menu_size);
+	
+	sui_pop_frame();
 
+}
+
+void() cl_editor_update_selection =
+{
+	editor_selection_org = sprintf("%v", readvector());
+	editor_selection_ang = sprintf("%v", readvector());
+	editor_selection_spawnflags = sprintf("%.0f", readfloat());
+	editor_selection_target = readstring();
+	editor_selection_targetname = readstring();
 }
 
 // This must be called in CSQC_ConsoleCommand
@@ -96,6 +167,8 @@ float(float evtype, float scanx, float chary, float devid) cl_editor_input_event
 	switch(evtype)
 	{
 	case IE_KEYDOWN:
+		if (substring(sui_get_last_clicked(), 0, 3) == "in_") return TRUE;
+		
 		if (chr2str(chary) == "n") {
 			localcmd(sprintf("cmd edit_add %s\n", entlist[selected_entity_index]));
 		}
@@ -149,6 +222,13 @@ float(float evtype, float scanx, float chary, float devid) cl_editor_input_event
 			grid_size = max(1, grid_size);
 			localcmd(sprintf("cmd edit_grid %f\n", grid_size));
 			last_scroll_time = time;
+			return TRUE;
+		}
+		
+		if (scanx == K_ENTER)
+		{
+			current_apply();
+			current_apply = no_apply;
 			return TRUE;
 		}
 		

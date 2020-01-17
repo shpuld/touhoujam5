@@ -1,26 +1,26 @@
 @echo off
 
 cd\
-cd E:\empty_sui\game\maps
+cd E:\touhoujam5\game\maps
 
 
 echo Copying Files...
-copy E:\empty_sui\game\maps\test.map E:\empty_sui\game\maps
+copy E:\touhoujam5\game\maps\main.map E:\touhoujam5\game\maps
 
 
 echo Converting map...
 
 
 echo --------------QBSP--------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\qbsp.exe test
+E:\mapping\tools\ericw-tools-v0.18-win32\bin\qbsp.exe main
 
 echo --------------VIS---------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\vis.exe -fast test
+E:\mapping\tools\ericw-tools-v0.18-win32\bin\vis.exe -fast main
 
 echo -------------LIGHT--------------
-E:\mapping\tools\ericw-tools-v0.18-win32\bin\light.exe -bounce -bouncescale 0.5 -dirt -dirtscale 1.0 -soft -extra test
+E:\mapping\tools\ericw-tools-v0.18-win32\bin\light.exe -bounce -bouncescale 0.5 -dirt -dirtscale 1.0 -soft -extra main
 
-copy test.bsp E:\empty_sui\game\maps
-copy test.pts E:\empty_sui\game\maps
-copy test.lit E:\empty_sui\game\maps
+copy main.bsp E:\touhoujam5\game\maps
+copy main.pts E:\touhoujam5\game\maps
+copy main.lit E:\touhoujam5\game\maps
 pause

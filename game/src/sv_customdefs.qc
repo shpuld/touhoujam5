@@ -13,6 +13,19 @@ void() sub_remove =
 
 void() sub_noop = {};
 
+void(entity e) fake_remove =
+{
+	e.modelindex = 0;
+	e.solid = SOLID_NOT;
+	e.movetype = MOVETYPE_NONE;
+	setorigin(e, '0 0 -90000');
+}
+
+void() sub_fake_remove =
+{
+	fake_remove(self);
+};
+
 entity oself;
 #define withself(e, ...) oself = self; self = e; __VA_ARGS__; self = oself
 

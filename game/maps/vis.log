@@ -2,16 +2,16 @@
 fastvis = true
 running with 4 threads
 testlevel = 4
-LoadBSPFile: 'test.bsp'
+LoadBSPFile: 'main.bsp'
 BSP is version 29
-     6 leafs
-     0 portals
+    46 leafs
+    96 portals
 Calculating Base Vis:
-
+0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
-average leafs visible: 1
+average leafs visible: 21
 c_noclip: 0
 c_chains: 0
-visdatasize:6  compressed from 6
-Writing test.bsp as BSP version 29
+visdatasize:276  compressed from 276
+Writing main.bsp as BSP version 29
   0.1 seconds elapsed

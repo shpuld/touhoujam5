@@ -323,6 +323,12 @@ float(string id) sui_last_clicked_index =
 	return -1;
 };
 
+string() sui_get_last_clicked =
+{
+	if (_last_clicked_action_count == 0) return "";
+	return _last_clicked_actions[0];
+}
+
 
 // release: a thing was held, but now it was released, once
 

@@ -8,11 +8,27 @@ void() CSQC_Shutdown =
 {
 };
 
+float(float isnew) bowl_listen =
+{
+	self.angles += [sin(time)*2, 0, cos(1.1*time+0.5)*1.8];
+	return 1; 
+}
+
+entity sky;
+vector sun_dir;
 noref void(float apiver, string enginename, float enginever) CSQC_Init =
 {
 	precache_everything();
 	
+	sky = spawn();
+	setmodel(sky, "models/sky.iqm");
+	
 	cl_editor_init();
+	
+	makevectors('60 45 0');
+	sun_dir = -v_forward;
+	
+	deltalisten("models/bowl.iqm", bowl_listen, 0);
 };
 
 noref void() CSQC_WorldLoaded =
@@ -32,7 +48,7 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	g_width = width;
 	g_height = height;
 	
-
+	
 	//disable quake status bar and quake crosshair
 	setproperty(VF_DRAWENGINESBAR, 0);	
 	setproperty(VF_DRAWCROSSHAIR, 0);
@@ -40,13 +56,56 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	campos = getproperty(VF_ORIGIN);
 	camang = getproperty(VF_ANGLES);
 	
+	sky.origin = [campos_x, campos_y, 0];
+	addentity(sky);
+	
 	setproperty(VF_ANGLES, camang);
 
 	//autoadd entities received from servers for drawing	
 	addentities(MASK_ENGINE);
 	
+	R_BeginPolygon("watersurf", 0, 0);
+	
+	float fac = 10;
+	R_PolygonVertex(fac*[4096, 4096, 0] + '0 0 2', fac*[0, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[4096, -4096, 0] + '0 0 2', fac*[10, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, -4096, 0] + '0 0 2', fac*[10, 10], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 2', fac*[0, 10], '1 1 1', 1);
+	
+	R_EndPolygon();
+	
 	//does what you think it does
 	renderscene();
+	
+	makevectors(camang);
+	float sunstrength = max(0, (v_forward * sun_dir - 0.65));
+	sunstrength += bound(0, (-camang_x + 25) * 0.005, 0.25);
+	sunstrength = bound(0, sunstrength, 1.2);
+	
+	vector sun_screen_pos = project(sky.origin + sun_dir * -1000000);
+	if (sun_screen_pos_z > 0) sun_screen_pos_y = -90000;
+	if (sun_screen_pos_y < 0) sun_screen_pos_y = 0;
+	if (sun_screen_pos_y > g_height) sun_screen_pos = 0;
+	
+	float top = sun_screen_pos_y - g_height * 1.5;
+	float bot = sun_screen_pos_y + g_height * 1.5;
+	
+	R_BeginPolygon("ss_sun", 0, 1);
+	vector col = '0.8 0.6 0.4' * sunstrength;
+	R_PolygonVertex([0, top, 0], [0, 0], '0 0 0', 1);
+	R_PolygonVertex([g_width, top, 0], [0, 0], '0 0 0', 1);
+	R_PolygonVertex([g_width, sun_screen_pos_y, 0], [0, 0], col, 1);
+	R_PolygonVertex([0, sun_screen_pos_y, 0], [0, 0], col, 1);
+	
+	R_EndPolygon();
+	
+	R_PolygonVertex([0, sun_screen_pos_y, 0], [0, 0], col, 1);
+	R_PolygonVertex([g_width, sun_screen_pos_y, 0], [0, 0], col, 1);
+	R_PolygonVertex([g_width, bot, 0], [0, 0], '0 0 0', 1);
+	R_PolygonVertex([0, bot, 0], [0, 0], '0 0 0', 1);
+	
+	R_EndPolygon();
+	
 	
 	sui_begin(g_width, g_height);
 	
@@ -108,6 +167,9 @@ void() CSQC_Parse_Event =
 {
 	float first = readbyte();
 	switch(first) {
+		case EV_ED_UPDATE:
+			cl_editor_update_selection();
+			break;
 		default:
 			printf("No action for byte %f\n", first);
 			break;

@@ -17,6 +17,7 @@ struct editor_ent
 	string classname;
 	string target;
 	string targetname;
+	float spawnflags;
 };
 
 // two-way connection, client knows what entity he is editing, and entity knows who is editing it
@@ -26,6 +27,8 @@ struct editor_ent
 // entity properties
 .float is_edent;
 .editor_ent * edent;
+
+void(entity e) editor_send_selection;
 
 void(entity e) editor_reset_ent
 {
@@ -42,6 +45,10 @@ void(entity e) editor_reset_ent
 	e.alpha = e.edent->alpha;
 	e.target = e.edent->target;
 	e.targetname = e.edent->targetname;
+	e.spawnflags = e.edent->spawnflags;
+	e.nextthink = 0;
+	e.flags = 0;
+	e.touch = sub_noop;
 }
 
 void(entity e) editor_delete_ent =
@@ -72,6 +79,7 @@ void(entity e, editor_ent * ed_ent) editor_copy_to_edent =
 	ed_ent->classname = e.classname;
 	ed_ent->target = e.target;
 	ed_ent->targetname = e.targetname;
+	ed_ent->spawnflags = e.spawnflags;
 }
 
 void(float filehandle, entity e) editor_write_ent =
@@ -83,6 +91,8 @@ void(float filehandle, entity e) editor_write_ent =
 		fputs(filehandle, sprintf("target %s\n", e.edent->target));
 	if (e.edent->targetname != "")
 		fputs(filehandle, sprintf("targetname %s\n", e.edent->targetname));
+	if (e.edent->spawnflags)
+		fputs(filehandle, sprintf("spawnflags %.0f\n", e.edent->spawnflags));
 		
 	fputs(filehandle, "end\n");
 }
@@ -114,6 +124,9 @@ void(float filehandle) editor_read_ent =
 			break;
 		case "targetname":
 			e.targetname = argv(1);
+			break;
+		case "spawnflags":
+			e.spawnflags = stof(argv(1));
 			break;
 		case "ent_begin":
 			print("!!!!! BROKEN FILE !!!!!\n! ent_begin before end !\n");
@@ -157,6 +170,11 @@ float(entity e, string type) editor_set_ent_type =
 		setmodel(e, "models/barrel.iqm");
 		e.solid = SOLID_NOT;
 		setsize(e, '0 0 0', '0 0 0');
+		break;
+	case "misc_bowl":
+		setmodel(e, "models/bowl.iqm");
+		setsize(e, '-48 -48 -24', '48 48 16');
+		e.solid = SOLID_BBOX;
 		break;
 	default: return FALSE;
 	}
@@ -210,6 +228,8 @@ void() editor_select_ent =
 	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 8096, 0, self);
 
 	editor_set_select(self, trace_ent);
+	
+	editor_send_selection(trace_ent);
 }
 
 void(entity e, vector org) editor_set_origin =
@@ -217,6 +237,8 @@ void(entity e, vector org) editor_set_origin =
 	if (!e.is_edent) return;
 	setorigin(e, org);
 	e.edent->origin = org;
+	
+	editor_send_selection(e);
 }
 
 void(float dir) editor_move_selection =
@@ -244,6 +266,8 @@ void(float angle) editor_rotate_selection =
 	
 	e.angles_y += angle;
 	e.edent->angles.y = e.angles_y;
+	
+	editor_send_selection(e);
 }
 
 void(string type) editor_add_ent = 
@@ -283,6 +307,8 @@ void(string type) editor_add_ent =
 	}
 	
 	editor_set_select(self, new_ent);
+	
+	editor_send_selection(new_ent);
 }
 
 void(string filename) editor_save_ents =
@@ -342,6 +368,75 @@ void(string filename) editor_load_ents =
 	fclose(filehandle);
 }
 
+void() editor_play =
+{
+	entity ed_ent = findfloat(world, is_edent, TRUE);
+	while (ed_ent)
+	{
+		withself(ed_ent, callfunction(ed_ent.classname));
+		ed_ent = findfloat(ed_ent, is_edent, TRUE);
+	}
+}
+
+void() editor_reset =
+{
+	entity ed_ent = findfloat(world, is_edent, TRUE);
+	while (ed_ent)
+	{
+		editor_reset_ent(ed_ent);
+		ed_ent = findfloat(ed_ent, is_edent, TRUE);
+	}
+}
+
+void(entity e) editor_send_selection =
+{
+	if (!e.editor_selection) return;
+	msg_entity = e.editor_selection;
+	BeginEvent(EV_ED_UPDATE);
+	MulticastVector(e.origin);
+	MulticastVector(e.angles);
+	MulticastFloat(e.spawnflags);
+	MulticastString(e.target);
+	MulticastString(e.targetname);
+	multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void(float argc) editor_set_property =
+{
+	if (!self.editor_selection) return;
+	entity e = self.editor_selection;
+	switch (argv(1))
+	{
+	case "origin":
+		vector org = [stof(argv(2)), stof(argv(3)), stof(argv(4))];
+		editor_set_origin(e, org);
+		break;
+	
+	case "angles":
+		vector ang = [stof(argv(2)), stof(argv(3)), stof(argv(4))];
+		e.angles = ang;
+		e.edent->angles = ang;
+		break;
+	
+	case "target":
+		e.target = argv(2);
+		e.edent->target = argv(2);
+		break;
+	
+	case "targetname":
+		e.targetname = argv(2);
+		e.edent->targetname = argv(2);
+		break;
+		
+	case "spawnflags":
+		e.spawnflags = stof(argv(2));
+		e.edent->spawnflags = e.spawnflags;
+		break;
+	}
+	
+	editor_send_selection(e);
+}
+
 // This must be called in SV_ParseClientCommand
 // input entity self
 // input string cmd: same as in SV_ParseClientCommand
@@ -352,8 +447,15 @@ float(string cmd) sv_editor_command =
 	switch (argv(0))
 	{
 	case "toggleeditmode":
-		print("edit mode toggled\n");
 		edit_mode = !edit_mode;
+		if (edit_mode)
+		{
+			editor_reset();
+		}
+		else
+		{
+			editor_play();
+		}
 		return TRUE;
 		
 	case "edit_add":
@@ -393,6 +495,11 @@ float(string cmd) sv_editor_command =
 	case "edit_rotate":
 		if (edit_mode && argc >= 2)
 			editor_rotate_selection(stof(argv(1)));
+		return TRUE;
+		
+	case "edit_setprop":
+		if (edit_mode && argc >= 3)
+			editor_set_property(argc);
 		return TRUE;
 
 	default: break;
