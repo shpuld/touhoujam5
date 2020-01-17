@@ -1,0 +1,10 @@
+ent_begin
+class misc_grass
+organg 112 -48 128 0 90 0
+end
+
+ent_begin
+class item_needle
+organg 128 -128 128 0 90 0
+end
+

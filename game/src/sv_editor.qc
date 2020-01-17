@@ -187,6 +187,11 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-16 -16 0', '16 16 32');
 		e.solid = SOLID_BBOX;
 		break;
+	case "item_rope":
+		setmodel(e, "models/rope.iqm");
+		setsize(e, '-16 -16 0', '16 16 32');
+		e.solid = SOLID_BBOX;
+		break;
 	case "trigger_tele_big":
 		setmodel(e, "models/trigger.iqm");
 		setsize(e, '-64 -64 0', '64 64 128');
