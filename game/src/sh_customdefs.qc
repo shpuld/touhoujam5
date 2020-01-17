@@ -12,5 +12,7 @@ void() precache_everything =
 	precache_model("models/barrel.iqm");
 	precache_model("models/bowl.iqm");
 	precache_model("models/sky.iqm");
+	precache_model("models/trigger.iqm");
+	precache_model("models/arrow.iqm");
 	
 };

@@ -180,7 +180,26 @@ float(entity e, string type) editor_set_ent_type =
 		setmodel(e, "models/barrel.iqm");
 		setsize(e, '-48 -48 -24', '48 48 16');
 		e.scale = 0.5;
-		e.solid = SOLID_NOT;
+		e.solid = SOLID_BBOX;
+		break;
+	case "trigger_tele_big":
+		setmodel(e, "models/trigger.iqm");
+		setsize(e, '-64 -64 0', '64 64 128');
+		e.solid = SOLID_BBOX;
+		e.alpha = 0.2;
+		break;
+	case "trigger_tele":
+		setmodel(e, "models/trigger.iqm");
+		setsize(e, '-32 -32 0', '32 32 64');
+		e.solid = SOLID_BBOX;
+		e.scale = 0.5;
+		e.alpha = 0.2;
+		break;
+	case "info_null":
+		setmodel(e, "models/arrow.iqm");
+		setsize(e, '-16 -16 -16', '16 16 16');
+		e.solid = SOLID_BBOX;
+		e.alpha = 0.5;
 		break;
 	default: return FALSE;
 	}
@@ -231,8 +250,8 @@ void() editor_select_ent =
 	
 	
 	makevectors(self.v_angle);
-	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 8096, 0, self);
-
+	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 8096, MOVE_EVERYTHING, self);
+	
 	editor_set_select(self, trace_ent);
 	
 	editor_send_selection(trace_ent);

@@ -20,6 +20,9 @@ float selected_entity_index;
 string entlist[] = {
 	"misc_barrel",
 	"item_parachute",
+	"trigger_tele",
+	"trigger_tele_big",
+	"info_null",
 	"misc_bowl"
 };
 

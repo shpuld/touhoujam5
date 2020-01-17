@@ -9,10 +9,6 @@ void() trigger_example =
 };
 */
 
-void() info_null =
-{
-};
-
 void() func_illusionary =
 {
 	setmodel(self, self.model);
@@ -37,5 +33,38 @@ void() item_parachute =
 	self.items = IT_PARACHUTE;
 	self.solid = SOLID_TRIGGER;
 	setsize(self, '-16 -16 0', '16 16 32');
+}
+
+void() tele_touch =
+{
+	if (other.classname != "player") return;
 	
+	entity tgt = find(world, targetname, self.target);
+	if (!tgt) return;
+	
+	other.angles = tgt.angles;
+	other.fixangle = TRUE;
+	setorigin(other, tgt.origin);
+	other.velocity = '0 0 0';
+}
+
+void() trigger_tele
+{
+	self.modelindex = 0;
+	setsize(self, '-32 -32 0', '32 32 64');
+	self.solid = SOLID_TRIGGER;
+	
+	self.touch = tele_touch;
+}
+
+void() trigger_tele_big =
+{
+	trigger_tele();
+	setsize(self, '-64 -64 0', '64 64 128');
+}
+
+void() info_null =
+{
+	self.solid = SOLID_NOT;
+	self.modelindex = 0;
 }
