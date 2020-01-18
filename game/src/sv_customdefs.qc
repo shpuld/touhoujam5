@@ -1,5 +1,8 @@
 // put custom server-only globals and fields here
 
+float edit_mode;
+
+
 const float FL_JUMPRELEASED = 4096;
 .float attack_finished;
 .float takes_damage;

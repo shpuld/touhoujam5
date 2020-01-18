@@ -219,6 +219,8 @@ void() PlayerPostThink =
 	
 	if (pointcontents(self.origin - '0 0 1') == -6 && !self.drowning)
 	{
+		if (edit_mode) return;
+		
 		self.drowning = TRUE;
 		self.frame = ANIM_FALL;
 		self.nextthink = time + 1;

@@ -1,7 +1,8 @@
 
 // SERVER BLOCK
 
-float edit_mode;
+// moved to sv_customdefs
+// float edit_mode;
 
 struct editor_ent
 {
