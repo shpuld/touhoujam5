@@ -3,6 +3,9 @@
 #define printf(x, ...) print(sprintf(x, __VA_ARGS__))
 
 
+const float EV_SETHOOK = 10;
+const float EV_REMOVEHOOK = 11;
+
 float() srandom = { return 2*random() - 1; }
 
 void() precache_everything =
@@ -19,5 +22,6 @@ void() precache_everything =
 	precache_model("models/grass_cut.iqm");
 	precache_model("models/grass_debris.iqm");
 	precache_model("models/rope.iqm");
+	precache_model("models/hook.iqm");
 	
 };

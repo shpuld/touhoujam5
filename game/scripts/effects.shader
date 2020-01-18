@@ -135,6 +135,13 @@ sky1
 	surfaceparm nodraw
 }
 
+rope_ribbon
+{
+	{
+		map textures/rope_ribbon.tga
+	}
+}
+
 defaultskin
 {
 	{

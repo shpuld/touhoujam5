@@ -14,6 +14,22 @@ float(float isnew) bowl_listen =
 	return 1; 
 }
 
+float(float isnew) player_listen =
+{
+	if (self.entnum == player_localentnum) localplayer = self;
+	
+	return 1;
+}
+
+vector hookpos;
+float(float isnew) hook_listen =
+{
+	makevectors(self.angles);
+	hookpos = self.origin - v_forward * 20;
+
+	return 1;
+}
+
 entity sky;
 vector sun_dir;
 noref void(float apiver, string enginename, float enginever) CSQC_Init =
@@ -29,6 +45,8 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	sun_dir = -v_forward;
 	
 	deltalisten("models/bowl.iqm", bowl_listen, 0);
+	deltalisten("models/testplayer.iqm", player_listen, 0);
+	deltalisten("models/hook.iqm", hook_listen, 0);
 };
 
 noref void() CSQC_WorldLoaded =
@@ -38,6 +56,31 @@ noref void() CSQC_WorldLoaded =
 noref void(float isnew) CSQC_Ent_Update =
 {
 	// printf("csqc ent update %f\n", isnew);
+};
+
+void() draw_hook =
+{
+	if (hookpos == '0 0 -999999')
+		return;
+		
+	vector e = localplayer.origin + '0 0 24';
+	vector s = hookpos;
+	
+	float len = vlen(e-s);
+	
+	vector fwd = normalize(e-s);
+	vector up = normalize(campos-s);
+	vector rgt = normalize(crossproduct(fwd, up));
+	
+	float w = 1.25;
+	R_BeginPolygon("rope_ribbon", 0, 0);
+	
+	R_PolygonVertex(s + rgt * w, [1, 0], '1 1 1', 1);
+	R_PolygonVertex(s - rgt * w, [0, 0], '1 1 1', 1);
+	R_PolygonVertex(e - rgt * w, [0, len*0.05], '1 1 1', 1);
+	R_PolygonVertex(e + rgt * w, [1, len*0.05], '1 1 1', 1);
+	
+	R_EndPolygon();
 };
 
 // CALLED EVERY CLIENT RENDER FRAME
@@ -60,9 +103,14 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	addentity(sky);
 	
 	setproperty(VF_ANGLES, camang);
-
-	//autoadd entities received from servers for drawing	
+	
+	//autoadd entities received from servers for drawing
+	
+	// hack:
+	hookpos = '0 0 -999999';
 	addentities(MASK_ENGINE);
+	
+	draw_hook();
 	
 	R_BeginPolygon("watersurf", 0, 0);
 	

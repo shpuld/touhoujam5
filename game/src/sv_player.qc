@@ -35,11 +35,43 @@ vector() get_spawn_point =
 };
 
 .float parachuting;
+.entity hook;
+
+void(entity e) detachhook =
+{
+	e.owner.attack_finished = time + 0.7;
+	e.owner.hook = world;
+	remove(e);
+}
+
+void() hooktouch =
+{
+	printf("contents: %f\n", pointcontents(self.origin));
+	if (pointcontents(self.origin) == -6)
+	{
+		detachhook(self);
+		return;
+	}
+	
+	self.solid = SOLID_NOT;
+	self.movetype = MOVETYPE_NONE;
+	self.nextthink = 0;
+}
+
+void() hookthink =
+{
+	self.angles = vectoangles(self.velocity);
+	self.nextthink = time + 0.1;
+	self.think = hookthink;
+}
+
 void() PlayerPreThink =
 {	
 	CheckImpulses();
 	makevectors(self.v_angle);
-	if(self.button0)
+	
+	// Attack
+	if (self.button0)
 	{
 		if (self.items & IT_NEEDLE && time > self.attack_finished)
 		{
@@ -50,7 +82,9 @@ void() PlayerPreThink =
 				damage(trace_ent, 5, v_forward, self);
 		}
 	}
-	if(self.button2)
+	
+	// Jump
+	if (self.button2)
 	{
 		PlayerJump();
 		
@@ -76,6 +110,31 @@ void() PlayerPreThink =
 	{
 		
 		self.flags = self.flags | FL_JUMPRELEASED;
+	}
+	
+	// Hook
+	if (self.button3 && time > self.attack_finished)
+	{
+		if (self.hook)
+		{
+			detachhook(self.hook);
+		}
+		else
+		{
+			entity newhook = spawn();
+			setmodel(newhook, "models/hook.iqm");
+			setorigin(newhook, self.origin + self.view_ofs - '0 0 8' + v_forward * 16);
+			newhook.velocity = v_forward * 1200;
+			newhook.angles = vectoangles(v_forward);
+			newhook.movetype = MOVETYPE_TOSS;
+			newhook.solid = SOLID_BBOX;
+			newhook.touch = hooktouch;
+			newhook.owner = self;
+			newhook.think = hookthink;
+			newhook.nextthink = time + 0.1;
+			self.attack_finished = time + 0.2;
+			self.hook = newhook;
+		}
 	}
 	
 };
