@@ -144,6 +144,8 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	
 	parachute_model = spawn();
 	setmodel(parachute_model, "models/napkin.iqm");
+	
+	localcmd("fog 0.025 0.65 0.88 1 1 0\n");
 };
 
 noref void() CSQC_WorldLoaded =
