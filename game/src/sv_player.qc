@@ -20,6 +20,7 @@ vector() get_spawn_point =
 	return spawnpoint.origin + '0 0 1';
 };
 
+.float drowning;
 .float parachuting;
 .entity hook;
 
@@ -101,6 +102,7 @@ void() player_attack =
 	self.think = player_normal;
 }
 
+
 void() PlayerJump =
 {
 	if (!(self.flags & FL_ONGROUND))
@@ -115,12 +117,30 @@ void() PlayerJump =
 	player_jump();
 };
 
+void() respawn_on_surface =
+{
+	self.drowning = FALSE;
+	self.parachuting = FALSE;
+	setorigin(self, get_spawn_point());
+	player_normal();
+}
 
 void() PlayerPreThink =
 {	
 	CheckImpulses();
 	makevectors(self.v_angle);
 	
+	if (self.drowning)
+	{
+		if (time > self.attack_finished)
+		{
+			pointparticles(PART_SMALLSPLASH, self.origin, '0 0 1');
+			self.attack_finished = time + 0.1;
+		}
+		return;
+	}
+		
+		
 	// Attack
 	if (self.button0)
 	{
@@ -196,6 +216,16 @@ void() PlayerPostThink =
 	{
 		self.parachuting = FALSE;
 	}
+	
+	if (pointcontents(self.origin - '0 0 1') == -6 && !self.drowning)
+	{
+		self.drowning = TRUE;
+		self.frame = ANIM_FALL;
+		self.nextthink = time + 1;
+		self.think = respawn_on_surface;
+		pointparticles(PART_SPLASH, self.origin, '0 0 1');
+		self.attack_finished = time + 0.1;
+	}
 };
 
 void() ClientKill =
@@ -270,6 +300,12 @@ void(string command_string) SV_ParseClientCommand =
 
 void() SV_RunClientCommand =
 {
+	if (self.drowning)
+	{
+		runstandardplayerphysics(self);
+		self.velocity -= 20 * self.velocity * input_timelength;
+		return;
+	}
 	runstandardplayerphysics(self);
 	
 	if (self.parachuting)

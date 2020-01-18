@@ -18,6 +18,7 @@ void() worldspawn =
 	sv_editor_init();
 	
 	clientstat(STAT_PARACHUTE, EV_FLOAT, parachuting);
+	clientstat(STAT_DROWNING, EV_FLOAT, drowning);
 };
 
 void() SpectatorConnect =

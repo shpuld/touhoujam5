@@ -7,6 +7,10 @@ const float EV_SETHOOK = 10;
 const float EV_REMOVEHOOK = 11;
 
 const float STAT_PARACHUTE = 50;
+const float STAT_DROWNING = 51;
+
+float PART_SPLASH;
+float PART_SMALLSPLASH;
 
 float() srandom = { return 2*random() - 1; }
 
@@ -26,5 +30,8 @@ void() precache_everything =
 	precache_model("models/rope.iqm");
 	precache_model("models/hook.iqm");
 	precache_model("models/napkin.iqm");
+	
+	PART_SPLASH = particleeffectnum("weapons.splash");
+	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");
 	
 };
