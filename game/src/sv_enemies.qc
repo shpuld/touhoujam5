@@ -59,7 +59,7 @@ void() enemy_die_blowup =
 enum float { AI_IDLE, AI_CHASING };
 
 
-void() crab_think =
+void() enemy_think =
 {
 	entity pl;
 	vector vec_to_player;
@@ -109,8 +109,19 @@ void() crab_think =
 	
 	
 	self.nextthink = time + 0.2;
-	self.think = crab_think;
+	self.think = enemy_think;
 }
+
+void() bullet_touch =
+{
+	pointparticles(PART_BULLET1HIT, self.origin, trace_plane_normal);
+	
+	if (other.classname == "player")
+	{
+		damage(other, 1, normalize(self.velocity), self.owner);
+	}
+	remove(self);
+};
 
 void() crab_shoot1;
 void() crab_shoot2 =
@@ -118,7 +129,7 @@ void() crab_shoot2 =
 	if (self.shots_left == 0)
 	{
 		
-		self.think = crab_think;
+		self.think = enemy_think;
 		self.nextthink = time + 0.3;
 		return;
 	}
@@ -133,7 +144,7 @@ void() crab_shoot2 =
 	setsize(bullet, '0 0 0', '0 0 0');
 	bullet.velocity = v_forward * 500;
 	bullet.movetype = MOVETYPE_FLYMISSILE;
-	bullet.touch = sub_remove;
+	bullet.touch = bullet_touch;
 	bullet.solid = SOLID_BBOX;
 	bullet.owner = self;
 	
@@ -146,7 +157,7 @@ void() crab_shoot1 =
 	if (self.shots_left == 0)
 	{
 		
-		self.think = crab_think;
+		self.think = enemy_think;
 		self.nextthink = time + 0.3;
 		return;
 	}
@@ -161,7 +172,7 @@ void() crab_shoot1 =
 	setsize(bullet, '0 0 0', '0 0 0');
 	bullet.velocity = v_forward * 500;
 	bullet.movetype = MOVETYPE_FLYMISSILE;
-	bullet.touch = sub_remove;
+	bullet.touch = bullet_touch;
 	bullet.solid = SOLID_BBOX;
 	bullet.owner = self;
 	
@@ -175,6 +186,7 @@ void() crab_attack =
 	self.nextthink = time + 0.75;
 	self.think = crab_shoot1;
 	self.shots_left = 6;
+	self.attack_finished = time + 2.5;
 }
 
 void(float amount, vector dir, entity dealer) crab_die =
@@ -195,7 +207,7 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 	self.velocity = dir * 100 + '0 0 300';
 	self.frame = 3;
 	self.nextthink = time  + 0.4;
-	self.think = crab_think;
+	self.think = enemy_think;
 	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
 }
 
@@ -211,7 +223,7 @@ void() enemy_crab =
 	self.movetype = MOVETYPE_STEP;
 	self.enemy = world;
 	self.aistate = AI_IDLE;
-	self.think = crab_think;
+	self.think = enemy_think;
 	self.nextthink = 0.5 + random();
 	self.yaw_speed = 10;
 	self.attack = crab_attack;

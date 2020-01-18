@@ -9,6 +9,7 @@ Loaded extended texinfo flags from main.texinfo
 7 entities read, 5 are lights.
 --- OptionsSummary ---
     "dirt" was set to "1" from commandline
+    "dirtscale" was set to "1.000000" from commandline
     "minlight_dirt" was set to "1" from map
     "phong" was set to "1" from map
     "bounce" was set to "1" from commandline
@@ -42,13 +43,13 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 Lighting Completed.
 
-lightdatasize: 512265
+lightdatasize: 513353
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version 29
-30.750 seconds elapsed
+19.335 seconds elapsed
 
 stats:
 0.013827 lights tested, 0.011600 hits per sample point
-17.724364 bounce lights tested, 11.232000 hits per sample point
+17.738267 bounce lights tested, 11.245002 hits per sample point
 0 empty lightmaps

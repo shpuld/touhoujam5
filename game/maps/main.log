@@ -75,11 +75,10 @@ Wrote main.bsp
          8971 marksurfaces      17942
         39778 surfedges        159112
         19892 edges             79568
-            5 textures         130784
+            5 textures            224
               lightdata             0
               visdata               0
               entdata             492
-         BSPX BRUSHLIST             0
 
-1.266 seconds elapsed
+0.752 seconds elapsed
 Peak memory usage: 40466222 (38.6M)

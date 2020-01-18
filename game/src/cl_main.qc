@@ -162,7 +162,7 @@ void() draw_hook =
 	if (hookpos == '0 0 -999999')
 		return;
 		
-	vector e = localplayer.origin + '0 0 24';
+	vector e = localplayer.origin + '0 0 32';
 	vector s = hookpos;
 	
 	float len = vlen(e-s);
@@ -253,6 +253,7 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	
 	R_EndPolygon();
 	
+	draw_hud();
 	
 	sui_begin(g_width, g_height);
 	

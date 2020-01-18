@@ -12,6 +12,7 @@ const float STAT_DROWNING = 51;
 float PART_SPLASH;
 float PART_SMALLSPLASH;
 float PART_ENEMYBLOWUP;
+float PART_BULLET1HIT;
 
 float() srandom = { return 2*random() - 1; }
 
@@ -39,9 +40,11 @@ void() precache_everything =
 	precache_sound("sounds/parachuteopen.wav");
 	precache_sound("sounds/dunnoimpact1.wav");
 	precache_sound("sounds/dunnoimpact2.wav");
+	precache_sound("sounds/waterdeath.wav");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");
 	PART_ENEMYBLOWUP = particleeffectnum("weapons.enemy_blowup");
+	PART_BULLET1HIT = particleeffectnum("weapons.bullet1_hit");
 	
 };
