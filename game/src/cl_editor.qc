@@ -18,6 +18,7 @@ void() cl_editor_init =
 float selected_entity_index;
 
 string entlist[] = {
+	"enemy_crab",
 	"item_parachute",
 	"item_needle",
 	"item_rope",

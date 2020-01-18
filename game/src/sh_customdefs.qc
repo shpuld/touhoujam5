@@ -30,6 +30,7 @@ void() precache_everything =
 	precache_model("models/rope.iqm");
 	precache_model("models/hook.iqm");
 	precache_model("models/napkin.iqm");
+	precache_model("models/crab.iqm");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");

@@ -18,3 +18,13 @@ class item_needle
 organg 128 -128 128 0 90 0
 end
 
+ent_begin
+class enemy_crab
+organg -112 -80 128 0 90 0
+end
+
+ent_begin
+class enemy_crab
+organg -80 -272 128 0 180 0
+end
+

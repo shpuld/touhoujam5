@@ -150,7 +150,7 @@ void() PlayerPreThink =
 			self.attack_finished = time + 0.5; 
 			traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 48, 0, self);
 			if (trace_ent) 
-				damage(trace_ent, 5, v_forward, self);
+				damage(trace_ent, 1, v_forward, self);
 				
 			player_attack();
 		}

@@ -217,6 +217,11 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-24 -24 -16', '24 24 64');
 		e.solid = SOLID_BBOX;
 		break;
+	case "enemy_crab":
+		setmodel(e, "models/crab.iqm");
+		setsize(e, '-24 -24 -16', '24 24 64');
+		e.solid = SOLID_BBOX;
+		break;
 	default: return FALSE;
 	}
 	
