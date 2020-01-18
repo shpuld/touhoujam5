@@ -13,22 +13,22 @@ Loaded extended texinfo flags from main.texinfo
     "phong" was set to "1" from map
     "bounce" was set to "1" from commandline
     "bouncescale" was set to "0.500000" from commandline
-    "sunlight" was set to "300.000000" from map
+    "sunlight" was set to "250.000000" from map
     "sunlight_color" was set to "255 238 185" from map
-    "sunlight2" was set to "300.000000" from map
+    "sunlight2" was set to "250.000000" from map
     "sunlight_dirt" was set to "1.000000" from map
     "sunlight2_dirt" was set to "1.000000" from map
     "sunlight_mangle" was set to "0.353553 0.353553 -0.866025" from map
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
-	873 sky faces
-	4625 solid faces
+	1087 sky faces
+	5712 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
 SetupLights: 6 initial lights
 SetupLights: 6 after surface lights
 SetupLights: 6 after jittering
-using 65 suns for _sunlight2. total light: 300.000000 color: 255.000000 255.000000 255.000000
+using 65 suns for _sunlight2. total light: 250.000000 color: 255.000000 255.000000 255.000000
 --- EstimateLightVisibility ---
 0....1....2....3....4....5....6....7....8.
 Final count: 6 lights 66 suns in use.
@@ -42,13 +42,13 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 Lighting Completed.
 
-lightdatasize: 383300
+lightdatasize: 436107
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version 29
-22.481 seconds elapsed
+29.607 seconds elapsed
 
 stats:
-0.022230 lights tested, 0.017348 hits per sample point
-18.795887 bounce lights tested, 11.438010 hits per sample point
+0.019101 lights tested, 0.014906 hits per sample point
+16.467234 bounce lights tested, 10.688058 hits per sample point
 0 empty lightmaps

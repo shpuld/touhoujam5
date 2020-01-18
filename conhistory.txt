@@ -52,3 +52,7 @@ quit
 vid_restart
 vid_restart
 quit
+/chase_back 100
+chase_back 100
+chase_active 1
+chase_active 1
