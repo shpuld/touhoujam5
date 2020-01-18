@@ -45,3 +45,6 @@ chast_ back 150
 chase_back 150
 bind v noclip
 bind v noclip
+bind v noclip
+quit
+quit
