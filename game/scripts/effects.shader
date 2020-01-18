@@ -149,7 +149,7 @@ defaultskin
 	}
 	{
 		map $diffuse
-		rgbGen const 0.5 0.5 0.5
+		rgbGen const 0.2 0.2 0.2
 		blendFunc GL_ONE GL_ONE
 	}
 }

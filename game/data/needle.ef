@@ -1,4 +1,14 @@
 ent_begin
+class item_rope
+organg 32 -32 128 0 90 0
+end
+
+ent_begin
+class item_parachute
+organg 176 -128 128 0 90 0
+end
+
+ent_begin
 class misc_grass
 organg 112 -48 128 0 90 0
 end

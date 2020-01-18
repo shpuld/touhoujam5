@@ -14,10 +14,90 @@ float(float isnew) bowl_listen =
 	return 1; 
 }
 
+float(float a, float b, float amount) turn_angle =
+{
+	//a = anglemod(a);
+	//b = anglemod(b);
+	float diff = b - a;
+	
+	if (fabs(diff) < amount)
+	{
+		return b;
+	}
+	
+	if (diff < -180)
+	{
+		b += 360;	
+	}
+	else if (diff > 180)
+	{
+		b -= 360;
+	}
+	
+	if (fabs(b - a) < amount)
+	{
+		return b;
+	}
+	if (a < b)
+		return a + amount;
+	else
+		return a - amount;
+	
+}
+
+.float ideal_yaw;
+.float yaw_speed;
+vector player_model_angles;
+vector wanted_angles;
+entity parachute_model;
 float(float isnew) player_listen =
 {
-	if (self.entnum == player_localentnum) localplayer = self;
+	if (self.entnum == player_localentnum) 
+	{
+		localplayer = self;
+	}
+	vector horvel = [self.velocity_x, self.velocity_y, 0];
+	float speed = vlen(horvel);
+	if (speed > 20)
+	{
+		wanted_angles = vectoangles(horvel);
+	}
 	
+	if (speed > 10)
+	{
+		player_model_angles.y = turn_angle(player_model_angles_y, wanted_angles_y, frametime * 1200);
+	}
+	
+	self.angles = player_model_angles;
+
+	if (self.lerpfrac > 0)
+	{
+		// Lerpfrac in engine starts at 1 and goes to 0,
+		// frame = targetframe, frame2 = previous frame
+		self.lerpfrac = 1-(1-self.lerpfrac)*7;
+		
+		if (self.lerpfrac > 1)
+		{
+			self.lerpfrac = 1;
+		}
+		if (self.lerpfrac < 0)
+		{
+			self.lerpfrac = 0;
+		}
+	}
+	
+	parachute_model.origin = self.origin + '0 0 50';
+	parachute_model.angles = self.angles;
+	if (getstatf(STAT_PARACHUTE))
+	{
+		parachute_model.scale += frametime * 10;
+	}
+	else
+	{
+		parachute_model.scale -= frametime * 10;
+	}
+	parachute_model.scale = bound(0.01, parachute_model.scale, 0.8);
+	addentity(parachute_model);
 	return 1;
 }
 
@@ -45,8 +125,11 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	sun_dir = -v_forward;
 	
 	deltalisten("models/bowl.iqm", bowl_listen, 0);
-	deltalisten("models/testplayer.iqm", player_listen, 0);
+	deltalisten("models/sinmyoumaru.iqm", player_listen, 0);
 	deltalisten("models/hook.iqm", hook_listen, 0);
+	
+	parachute_model = spawn();
+	setmodel(parachute_model, "models/napkin.iqm");
 };
 
 noref void() CSQC_WorldLoaded =
