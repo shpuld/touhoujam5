@@ -26,9 +26,29 @@ vector() get_spawn_point =
 
 void(entity e) detachhook =
 {
-	e.owner.attack_finished = time + 0.7;
+	e.owner.attack_finished = time + 0.2;
 	e.owner.hook = world;
 	remove(e);
+}
+
+void() hook_pull =
+{
+	vector dist = self.owner.origin - self.origin;
+	
+	
+	if (vlen(dist) > 100)
+	{	
+		self.owner.velocity *= 0.85;
+		self.owner.velocity -= normalize(dist) * bound(0, vlen(dist) * 0.5, 200);
+		if (self.owner.flags & FL_ONGROUND)
+		{
+			self.owner.velocity += '0 0 190';
+			self.owner.flags -= self.owner.flags & FL_ONGROUND;
+		}
+	}
+	
+	self.nextthink = time + 0.025;
+	self.think = hook_pull;
 }
 
 void() hooktouch =
@@ -42,7 +62,9 @@ void() hooktouch =
 	
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
-	self.nextthink = 0;
+	
+	self.nextthink = time + 0.1;
+	self.think = hook_pull;
 }
 
 void() hookthink =
@@ -88,18 +110,28 @@ void() player_land =
 	self.think = player_normal;
 }
 
-void() player_hurt =
+void(float amount, vector dir, entity dealer) player_hurt =
 {
 	self.frame = ANIM_HURT;
 	self.nextthink = time + 0.2;
 	self.think = player_normal;
 }
 
+void() player_attack2 =
+{
+	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 48, 0, self);
+	if (trace_ent) 
+		damage(trace_ent, 1, v_forward, self);
+	
+	self.nextthink = time + 0.25;
+	self.think = player_normal;
+}
+
 void() player_attack =
 {
 	self.frame = ANIM_ATTACK;
-	self.nextthink = time + 0.4;
-	self.think = player_normal;
+	self.nextthink = time + 0.25;
+	self.think = player_attack2;
 }
 
 
@@ -146,11 +178,7 @@ void() PlayerPreThink =
 	{
 		if (self.items & IT_NEEDLE && time > self.attack_finished)
 		{
-			print("attack\n");
 			self.attack_finished = time + 0.5; 
-			traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 48, 0, self);
-			if (trace_ent) 
-				damage(trace_ent, 1, v_forward, self);
 				
 			player_attack();
 		}
@@ -161,18 +189,18 @@ void() PlayerPreThink =
 	{
 		PlayerJump();
 		
-		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 150 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
+		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 30 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
 		{
 			self.flags -= self.flags & FL_JUMPRELEASED;
 			if (!self.parachuting)
 			{
-				print("activate para\n");
+				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
 				self.velocity_z *= 0.2;
 				self.parachuting = TRUE;
 			}
 			else
 			{
-				print("deactivate para\n");
+				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.5, 1);
 				self.parachuting = FALSE;
 			}
 		}
@@ -221,9 +249,10 @@ void() PlayerPostThink =
 	{
 		if (edit_mode) return;
 		
+		sound(self, CHAN_AUTO, "sounds/waterdeath.wav", 1, 1, 125);
 		self.drowning = TRUE;
 		self.frame = ANIM_FALL;
-		self.nextthink = time + 1;
+		self.nextthink = time + 1.8;
 		self.think = respawn_on_surface;
 		pointparticles(PART_SPLASH, self.origin, '0 0 1');
 		self.attack_finished = time + 0.1;
@@ -249,8 +278,10 @@ void() PlayerSpawn =
 	self.health = 100;
 	setorigin(self, get_spawn_point());
 	self.fixangle = TRUE;
-	setsize(self, [-16, -16, 0], [16, 16, 56]);
+	setsize(self, [-12, -12, 0], [12, 12, 56]);
 	self.view_ofs = [0, 0, 48];
+	self.hurt = player_hurt;
+	self.takes_damage = TRUE;
 	player_normal();
 };
 

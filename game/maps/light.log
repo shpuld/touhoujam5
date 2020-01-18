@@ -13,6 +13,7 @@ Loaded extended texinfo flags from main.texinfo
 8 entities read, 6 are lights.
 --- OptionsSummary ---
     "dirt" was set to "1" from commandline
+    "dirtscale" was set to "1.000000" from commandline
     "minlight_dirt" was set to "1" from map
     "phong" was set to "1" from map
     "bounce" was set to "1" from commandline
