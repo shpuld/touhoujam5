@@ -6,12 +6,14 @@
 const float EV_SETHOOK = 10;
 const float EV_REMOVEHOOK = 11;
 
+const float STAT_PARACHUTE = 50;
+
 float() srandom = { return 2*random() - 1; }
 
 void() precache_everything =
 {
 	precache_sound("demon/dland2.wav");
-	precache_model("models/testplayer.iqm");
+	precache_model("models/sinmyoumaru.iqm");
 	precache_model("models/barrel.iqm");
 	precache_model("models/bowl.iqm");
 	precache_model("models/sky.iqm");
@@ -23,5 +25,6 @@ void() precache_everything =
 	precache_model("models/grass_debris.iqm");
 	precache_model("models/rope.iqm");
 	precache_model("models/hook.iqm");
+	precache_model("models/napkin.iqm");
 	
 };

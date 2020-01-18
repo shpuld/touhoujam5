@@ -16,6 +16,8 @@ void() worldspawn =
 	precache_everything();
 	
 	sv_editor_init();
+	
+	clientstat(STAT_PARACHUTE, EV_FLOAT, parachuting);
 };
 
 void() SpectatorConnect =
