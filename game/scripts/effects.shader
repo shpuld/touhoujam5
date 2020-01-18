@@ -1,7 +1,18 @@
 aparticle
 {
 	{
-		map $nearest:particles/ccloud.tga
+		map particles/puff.tga
+		alphagen vertex
+		rgbGen vertex
+		alphafunc GE128
+		blendFunc GL_ONE GL_ONE
+	}
+}
+
+aring
+{
+	{
+		map particles/ring.tga
 		alphagen vertex
 		rgbGen vertex
 		alphafunc GE128
@@ -12,7 +23,7 @@ aparticle
 adot
 {
 	{
-		map $nearest:particles/dot.tga
+		map particles/dot.tga
 		alphagen vertex
 		rgbGen vertex
 		alphafunc GE128

@@ -16,8 +16,8 @@ float(float isnew) bowl_listen =
 
 float(float a, float b, float amount) turn_angle =
 {
-	//a = anglemod(a);
-	//b = anglemod(b);
+	a = anglemod(a);
+	b = anglemod(b);
 	float diff = b - a;
 	
 	if (fabs(diff) < amount)
@@ -50,6 +50,8 @@ float(float a, float b, float amount) turn_angle =
 vector player_model_angles;
 vector wanted_angles;
 entity parachute_model;
+float drowning_ofs;
+
 float(float isnew) player_listen =
 {
 	if (self.entnum == player_localentnum) 
@@ -96,8 +98,20 @@ float(float isnew) player_listen =
 	{
 		parachute_model.scale -= frametime * 10;
 	}
-	parachute_model.scale = bound(0.01, parachute_model.scale, 0.8);
-	addentity(parachute_model);
+	parachute_model.scale = bound(0, parachute_model.scale, 0.8);
+	if (parachute_model.scale > 0)
+		addentity(parachute_model);
+		
+	if (getstatf(STAT_DROWNING))
+	{
+		drowning_ofs -= frametime * 60;
+		self.origin_z += drowning_ofs;
+		self.angles_z = sin(drowning_ofs * 0.2) * 5;
+	}
+	else
+	{
+		drowning_ofs = 0;
+	}
 	return 1;
 }
 
