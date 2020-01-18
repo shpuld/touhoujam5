@@ -48,3 +48,7 @@ bind v noclip
 bind v noclip
 quit
 quit
+quit
+vid_restart
+vid_restart
+quit

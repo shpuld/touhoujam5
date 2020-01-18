@@ -1,5 +1,6 @@
 
 *.bat
+autosave
 game/maps/autosave/main.10.map
 game/maps/autosave/main.11.map
 game/maps/autosave/main.12.map
