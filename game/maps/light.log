@@ -6,7 +6,7 @@ LoadBSPFile: 'main.bsp'
 BSP is version 29
 Loaded extended texinfo flags from main.texinfo
 --- LoadEntities ---
-8 entities read, 6 are lights.
+7 entities read, 5 are lights.
 --- OptionsSummary ---
     "dirt" was set to "1" from commandline
     "minlight_dirt" was set to "1" from map
@@ -22,16 +22,16 @@ Loaded extended texinfo flags from main.texinfo
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
 	1087 sky faces
-	5712 solid faces
+	5706 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
-SetupLights: 6 initial lights
-SetupLights: 6 after surface lights
-SetupLights: 6 after jittering
+SetupLights: 5 initial lights
+SetupLights: 5 after surface lights
+SetupLights: 5 after jittering
 using 65 suns for _sunlight2. total light: 250.000000 color: 255.000000 255.000000 255.000000
 --- EstimateLightVisibility ---
-0....1....2....3....4....5....6....7....8.
-Final count: 6 lights 66 suns in use.
+0....1....2....3....4....5....6....7....8
+Final count: 5 lights 66 suns in use.
 Colored light entities/settings detected: .lit output enabled.
 --- SetupDirt ---
        48 dirtmap vectors
@@ -42,13 +42,13 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 Lighting Completed.
 
-lightdatasize: 436107
+lightdatasize: 435919
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version 29
-29.607 seconds elapsed
+27.157 seconds elapsed
 
 stats:
-0.019101 lights tested, 0.014906 hits per sample point
-16.467234 bounce lights tested, 10.688058 hits per sample point
+0.015974 lights tested, 0.013401 hits per sample point
+16.352530 bounce lights tested, 10.611735 hits per sample point
 0 empty lightmaps
