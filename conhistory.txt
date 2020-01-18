@@ -52,3 +52,14 @@ quit
 vid_restart
 vid_restart
 quit
+/chase_back 100
+chase_back 100
+chase_active 1
+chase_active 1
+chase_active 1
+fog
+fog 1
+fog 0.1
+fog 0.01
+fog 0.05
+fog 0.025
