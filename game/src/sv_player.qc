@@ -275,7 +275,7 @@ void() PlayerSpawn =
 	self.solid = SOLID_SLIDEBOX;
 	setmodel(self, "models/sinmyoumaru.iqm");
 	self.movetype = MOVETYPE_WALK;
-	self.health = 100;
+	self.health = 10;
 	setorigin(self, get_spawn_point());
 	self.fixangle = TRUE;
 	setsize(self, [-12, -12, 0], [12, 12, 56]);

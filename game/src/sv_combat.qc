@@ -9,11 +9,17 @@ void(entity target, float amount, vector dir, entity dealer) damage =
 	
 	if (target.health > 0)
 	{
-		if (target.hurt) withself(target, target.hurt(amount, dir, dealer));
+		if (target.hurt)
+		{
+			withself(target, target.hurt(amount, dir, dealer));
+		}
 	}
 	else
 	{
-		if (target.die) withself(target, target.die(amount, dir, dealer));
+		if (target.die) 
+		{
+			withself(target, target.die(amount, dir, dealer));
+		}
 	}
 };
 

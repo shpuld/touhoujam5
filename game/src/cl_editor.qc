@@ -19,6 +19,7 @@ float selected_entity_index;
 
 string entlist[] = {
 	"enemy_crab",
+	"giant_enemy_crab",
 	"item_parachute",
 	"item_needle",
 	"item_rope",

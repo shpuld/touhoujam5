@@ -219,7 +219,15 @@ float(entity e, string type) editor_set_ent_type =
 		break;
 	case "enemy_crab":
 		setmodel(e, "models/crab.iqm");
+		setsize(e, '-16 -16 0', '1616 64');
+		e.scale = 1;
+		e.solid = SOLID_BBOX;
+		break;
+	case "giant_enemy_crab":
+		setmodel(e, "models/crab.iqm");
 		setsize(e, '-24 -24 0', '24 24 64');
+		e.colormod = '1 0.2 0.5';
+		e.scale = 1.5;
 		e.solid = SOLID_BBOX;
 		break;
 	default: return FALSE;

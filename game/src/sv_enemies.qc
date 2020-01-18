@@ -123,6 +123,29 @@ void() bullet_touch =
 	remove(self);
 };
 
+void() bullet_think =
+{
+	pointparticles(PART_BULLET1HIT, self.origin, '0 0 1');
+	remove(self);
+}
+
+void(vector org, vector vel) bullet_spawn =
+{
+	entity bullet = spawn();
+	setmodel(bullet, "models/bullet1.iqm");
+	bullet.avelocity = randomvec() * 2000;
+	setsize(bullet, '0 0 0', '0 0 0');
+	bullet.movetype = MOVETYPE_FLYMISSILE;
+	bullet.touch = bullet_touch;
+	bullet.think = bullet_think;
+	bullet.nextthink = time + 4;
+	bullet.solid = SOLID_BBOX;
+	bullet.owner = self;
+	
+	setorigin(bullet, org);
+	bullet.velocity = vel;
+}
+
 void() crab_shoot1;
 void() crab_shoot2 =
 {
@@ -136,17 +159,11 @@ void() crab_shoot2 =
 	
 	self.shots_left--;
 	
-	entity bullet = spawn();
-	setmodel(bullet, "models/bullet1.iqm");
-	bullet.avelocity = randomvec() * 2000;
 	makevectors(self.angles);
-	setorigin(bullet, self.origin + v_forward * 20 + v_right * 28 + '0 0 30');
-	setsize(bullet, '0 0 0', '0 0 0');
-	bullet.velocity = v_forward * 500;
-	bullet.movetype = MOVETYPE_FLYMISSILE;
-	bullet.touch = bullet_touch;
-	bullet.solid = SOLID_BBOX;
-	bullet.owner = self;
+	vector pos = self.origin + v_forward * 20 + v_right * 28 + '0 0 30';
+	vector vel = v_forward * 500;
+	
+	bullet_spawn(pos, vel);
 	
 	self.nextthink = time + 0.1;
 	self.think = crab_shoot1;
@@ -164,20 +181,49 @@ void() crab_shoot1 =
 	
 	self.shots_left--;
 	
-	entity bullet = spawn();
-	setmodel(bullet, "models/bullet1.iqm");
-	bullet.avelocity = randomvec() * 2000;
 	makevectors(self.angles);
-	setorigin(bullet, self.origin + v_forward * 20 - v_right * 28 + '0 0 30');
-	setsize(bullet, '0 0 0', '0 0 0');
-	bullet.velocity = v_forward * 500;
-	bullet.movetype = MOVETYPE_FLYMISSILE;
-	bullet.touch = bullet_touch;
-	bullet.solid = SOLID_BBOX;
-	bullet.owner = self;
+	vector pos = self.origin + v_forward * 20 - v_right * 28 + '0 0 30';
+	vector vel = v_forward * 500;
+	
+	bullet_spawn(pos, vel);
 	
 	self.nextthink = time + 0.1;
 	self.think = crab_shoot2;
+}
+
+void() spiral_shoot =
+{
+	self.frame = 1;
+	
+	if (self.shots_left == 0)
+	{
+		
+		self.think = enemy_think;
+		self.nextthink = time + 0.3;
+		return;
+	}
+	
+	self.shots_left --;
+	
+	makevectors(self.angles);
+	vector pos = self.origin + v_forward * 20 + '0 0 30';
+	bullet_spawn(pos, v_forward * 400);
+	bullet_spawn(pos, normalize(v_forward*3 + v_right*2) * 400);
+	bullet_spawn(pos, normalize(v_forward*3 - v_right*2) * 400);
+	
+	self.angles_y += 8;
+	
+	self.nextthink = time + 0.1;
+	self.think = spiral_shoot;
+}
+
+void() giant_crab_attack =
+{
+	self.frame = 2;
+	self.nextthink = time + 0.5;
+	self.think = spiral_shoot;
+	self.shots_left = 60;
+	self.attack_finished = time + 10;
 }
 
 void() crab_attack =
@@ -216,7 +262,7 @@ void() enemy_crab =
 	setmodel(self, "models/crab.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
 	self.solid = SOLID_BBOX;
-	self.health = 1;
+	self.health = 3;
 	self.takes_damage = TRUE;
 	self.die = crab_die;
 	self.hurt = crab_hurt;
@@ -229,4 +275,25 @@ void() enemy_crab =
 	self.attack = crab_attack;
 	self.movespeed = 10;
 	droptofloor();
+}
+
+void() giant_enemy_crab =
+{
+	setmodel(self, "models/crab.iqm");
+	setsize(self, '-16 -16 0', '16 16 56');
+	self.solid = SOLID_BBOX;
+	self.health = 5;
+	self.takes_damage = TRUE;
+	self.die = crab_die;
+	self.hurt = crab_hurt;
+	self.movetype = MOVETYPE_STEP;
+	self.enemy = world;
+	self.aistate = AI_IDLE;
+	self.think = enemy_think;
+	self.nextthink = 0.5 + random();
+	self.yaw_speed = 10;
+	self.attack = giant_crab_attack;
+	self.movespeed = 10;
+	self.scale = 1.5;
+	droptofloor();	
 }
