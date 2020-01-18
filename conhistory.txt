@@ -1,65 +1,91 @@
-vid_restart
-map main
-edit
-quit
-map main
-map main
-bind v noclip
-map main
-cmd edit_save
-cmd load_save
-edit_save
-edit_save
-edit_save
-cmd load_save
-cmd load_save test3.ef
-cmd edit_save
-cmd edit_save benis.ef
-cmd edit_save benis.ef
-cmd edit_save
-
-cmd load_save test3.ef
-cmd load_save
-cmd edit_load
-cmd edit_load test3
-cmd edit_load boat
-cmd edit_load boat
-map main
-map main
-chase_active 1
-/chase_back 9
-/chase_back 91
-/chase_up 80
-/chase_up 40
-/chase_up 20
-/chase_up 10
-/chase_up 0
-/chase_up 10
-/chase_back 100
-sv_friction 1
-sv_friction 10
-restart
-sv_friction 8
-restart
-chast_ back 150
-chase_back 150
-bind v noclip
-bind v noclip
-bind v noclip
-quit
-quit
-quit
-vid_restart
-vid_restart
-quit
-/chase_back 100
+r_showbboxes 0
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+slowmo 0.5
+slowmo 
+slowmo 1
+chase_back
 chase_back 100
-chase_active 1
-chase_active 1
-chase_active 1
-fog
-fog 1
-fog 0.1
-fog 0.01
-fog 0.05
-fog 0.025
+chase_back 128
+chase_back 130
+chase_back 140
+r_nolerp 1
+slowmo 0.5
+slowmo 01
+slowmo 1
+r_nolerp 0
+slowmo 0.5
+clear
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+slowmo 1
+slowmo 0.2
+vid_reload
+vid_reload
+vid_reload
+r_nolerp 1
+slowmo 1
+vid_reload
+r_nolerp 0
+cl_maxfps 10
+cl_maxfps 120
+clear
+/rate 
+/apropos rate
+snd_khz
+cmd edit_save needle
+restart
+music 1
+sv_minpitch -80
+sv_maxpitch 80
+sv_maxpitch 70
+stopmusic
+chase_back
+chase_back 128
+restart
+restaart
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+vid_reload
+modelviewer models/crab.iqm
+modelviewer models/crab.iqm
+modelviewer models/crab.iqm
+vid_reload
+modelviewer models/crab.iqm
+vid_reload
+modelviewer models/crab.iqm
+vid_reload
+modelviewer models/crab.iqm
+vid_reload
+modelviewer models/crab.iqm
+vid_reload
+cmd edit_save needle
+vid_reload
+vid_reload
+restart

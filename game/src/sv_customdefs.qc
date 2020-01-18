@@ -8,6 +8,8 @@ const float FL_JUMPRELEASED = 4096;
 .float takes_damage;
 .void(float amount, vector dir, entity dealer) hurt;
 .void(float amount, vector dir, entity dealer) die;
+.void() attack;
+.float movespeed;
 
 const float IT_NEEDLE = 1;
 const float IT_PARACHUTE = 2;

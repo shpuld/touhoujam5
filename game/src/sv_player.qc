@@ -161,18 +161,18 @@ void() PlayerPreThink =
 	{
 		PlayerJump();
 		
-		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 150 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
+		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 30 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
 		{
 			self.flags -= self.flags & FL_JUMPRELEASED;
 			if (!self.parachuting)
 			{
-				print("activate para\n");
+				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
 				self.velocity_z *= 0.2;
 				self.parachuting = TRUE;
 			}
 			else
 			{
-				print("deactivate para\n");
+				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.5, 1);
 				self.parachuting = FALSE;
 			}
 		}
@@ -249,7 +249,7 @@ void() PlayerSpawn =
 	self.health = 100;
 	setorigin(self, get_spawn_point());
 	self.fixangle = TRUE;
-	setsize(self, [-16, -16, 0], [16, 16, 56]);
+	setsize(self, [-12, -12, 0], [12, 12, 56]);
 	self.view_ofs = [0, 0, 48];
 	player_normal();
 };
