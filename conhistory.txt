@@ -63,3 +63,4 @@ fog 0.1
 fog 0.01
 fog 0.05
 fog 0.025
+music 1

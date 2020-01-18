@@ -4,14 +4,14 @@ running with 4 threads
 testlevel = 4
 LoadBSPFile: 'main.bsp'
 BSP is version 29
-  1482 leafs
-  5078 portals
+  1559 leafs
+  5348 portals
 Calculating Base Vis:
 0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
-average leafs visible: 808
+average leafs visible: 878
 c_noclip: 0
 c_chains: 0
-visdatasize:248219  compressed from 275652
+visdatasize:272908  compressed from 304005
 Writing main.bsp as BSP version 29
-  1.1 seconds elapsed
+  1.5 seconds elapsed
