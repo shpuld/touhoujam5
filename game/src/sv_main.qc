@@ -24,6 +24,7 @@ void() worldspawn =
 	clientstat(STAT_BOAT, EV_FLOAT, boat_e);
 	
 	editor_load_ents("default");
+	editor_play();
 };
 
 void() SpectatorConnect =

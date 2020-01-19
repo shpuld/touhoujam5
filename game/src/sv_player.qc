@@ -201,7 +201,19 @@ void() respawn_on_surface =
 {
 	self.drowning = FALSE;
 	self.parachuting = FALSE;
-	setorigin(self, get_spawn_point());
+	entity bt = find(world, classname, "misc_bowl");
+	if (bt)
+	{
+		setorigin(self, bt.origin + '0 0 20');
+		bt.attack_finished = time + 1;
+		bt.think = boat_check_player_nearby;
+		bt.nextthink = time + 0.5;
+		// TODO fade
+	}
+	else
+	{
+		setorigin(self, get_spawn_point());
+	}
 	player_normal();
 }
 
