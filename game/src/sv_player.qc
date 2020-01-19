@@ -65,7 +65,7 @@ void() hooktouch =
 	string text = getsurfacetexture(world, surf);
 	printf("surf tex %s\n", text);
 	
-	
+	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 1);
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
 	
@@ -109,6 +109,7 @@ void() player_normal =
 
 void() player_jump =
 {
+	sound(self, CHAN_AUTO, "sounds/playerjump.wav", 0.3, 1, 125);
 	self.frame = ANIM_JUMP;
 	self.nextthink = time + 0.2;
 	self.think = player_normal;
@@ -315,6 +316,8 @@ void() PlayerPreThink =
 			newhook.nextthink = time + 0.1;
 			self.attack_finished = time + 0.5;
 			self.hook = newhook;
+			
+			sound(self, CHAN_AUTO, "sounds/grapplingfire.wav", 1, 1);
 		}
 	}
 	

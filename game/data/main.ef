@@ -3,3 +3,254 @@ class misc_bowl
 organg -1388 -13272 0 -0 -180 -0
 end
 
+ent_begin
+class trigger_tele_big
+organg -5504 -4472 64 0 180 0
+target island2s
+end
+
+ent_begin
+class info_null
+organg -5384 -4512 64 0 -30 0
+targetname island2se
+end
+
+ent_begin
+class trigger_tele_big
+organg -6080 -5280 -1728 -0 -90 -0
+target island2se
+end
+
+ent_begin
+class info_null
+organg -6080 -5152 -1728 -0 90 -0
+targetname island2s
+end
+
+ent_begin
+class trigger_tele_big
+organg -5728 -4200 1248 0 90 0
+target island2es
+end
+
+ent_begin
+class info_null
+organg -5736 -4320 1248 -0 -90 -0
+targetname island2e
+end
+
+ent_begin
+class trigger_tele_big
+organg -6032 -5280 -928 -0 -90 -0
+target island2e
+end
+
+ent_begin
+class info_null
+organg -6032 -5176 -928 -0 -270 -0
+targetname island2es
+end
+
+ent_begin
+class item_parachute
+organg -5504 -4512 1216 0 0 0
+end
+
+ent_begin
+class misc_grass
+organg -8848 -10352 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -8800 -10352 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -8736 -10352 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -8672 -10336 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -7856 -10272 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -7808 -10288 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -7760 -10288 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -7728 -10320 256 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -8192 -11776 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8224 -11728 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8240 -11696 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8272 -11648 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8320 -11632 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8368 -11616 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8416 -11600 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8464 -11600 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8496 -11616 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8544 -11616 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8576 -11616 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8624 -11616 96 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -8656 -11600 96 -0 -90 -0
+end
+
+ent_begin
+class item_needle
+organg -7968 -12480 112 -0 -90 -0
+end
+
+ent_begin
+class trigger_tele_big
+organg -9184 -10592 544 0 0 0
+target island1s
+end
+
+ent_begin
+class info_null
+organg -9296 -10592 544 0 180 0
+targetname island1se
+end
+
+ent_begin
+class trigger_tele_big
+organg -9152 -9664 416 0 0 0
+target island1e
+end
+
+ent_begin
+class info_null
+organg -9248 -9664 416 0 -180 0
+targetname island1es
+end
+
+ent_begin
+class info_null
+organg -9920 -10912 -864 -0 -360 -0
+targetname island1s
+end
+
+ent_begin
+class info_null
+organg -10240 -9632 -1312 0 0 0
+targetname island1e
+end
+
+ent_begin
+class trigger_tele_big
+organg -10464 -9648 -1312 0 180 0
+target island1es
+end
+
+ent_begin
+class enemy_crab
+organg -8080 -8432 32 0 0 0
+end
+
+ent_begin
+class enemy_crab
+organg -8288 -9232 64 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg -7696 -9024 32 0 0 0
+end
+
+ent_begin
+class enemy_crab
+organg -7184 -9920 128 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg -7728 -10512 256 0 90 0
+end
+
+ent_begin
+class giant_enemy_crab
+organg -9456 -9616 -1280 0 90 0
+end
+
+ent_begin
+class enemy_crab
+organg -9760 -9264 -1312 0 90 0
+end
+
+ent_begin
+class enemy_crab
+organg -8992 -9424 -1312 0 0 0
+end
+
+ent_begin
+class trigger_tele_big
+organg -10144 -10880 -864 0 180 0
+target island1se
+end
+

@@ -4,8 +4,8 @@ running with 4 threads
 testlevel = 4
 LoadBSPFile: 'main.bsp'
 BSP is version 29
-  2206 leafs
-  7819 portals
+  2227 leafs
+  7865 portals
 Calculating Base Vis:
 0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
@@ -2215,9 +2215,30 @@ WARNING: Leaf portals saw into leaf (2202)
 WARNING: Leaf portals saw into leaf (2203)
 WARNING: Leaf portals saw into leaf (2204)
 WARNING: Leaf portals saw into leaf (2205)
-average leafs visible: 1145
+WARNING: Leaf portals saw into leaf (2206)
+WARNING: Leaf portals saw into leaf (2207)
+WARNING: Leaf portals saw into leaf (2208)
+WARNING: Leaf portals saw into leaf (2209)
+WARNING: Leaf portals saw into leaf (2210)
+WARNING: Leaf portals saw into leaf (2211)
+WARNING: Leaf portals saw into leaf (2212)
+WARNING: Leaf portals saw into leaf (2213)
+WARNING: Leaf portals saw into leaf (2214)
+WARNING: Leaf portals saw into leaf (2215)
+WARNING: Leaf portals saw into leaf (2216)
+WARNING: Leaf portals saw into leaf (2217)
+WARNING: Leaf portals saw into leaf (2218)
+WARNING: Leaf portals saw into leaf (2219)
+WARNING: Leaf portals saw into leaf (2220)
+WARNING: Leaf portals saw into leaf (2221)
+WARNING: Leaf portals saw into leaf (2222)
+WARNING: Leaf portals saw into leaf (2223)
+WARNING: Leaf portals saw into leaf (2224)
+WARNING: Leaf portals saw into leaf (2225)
+WARNING: Leaf portals saw into leaf (2226)
+average leafs visible: 1183
 c_noclip: 0
 c_chains: 0
-visdatasize:511891  compressed from 608856
+visdatasize:534158  compressed from 621333
 Writing main.bsp as BSP version 29
-  1.7 seconds elapsed
+  1.8 seconds elapsed

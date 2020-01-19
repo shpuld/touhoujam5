@@ -55,6 +55,13 @@ void() precache_everything =
 	precache_sound("sounds/dunnoimpact1.wav");
 	precache_sound("sounds/dunnoimpact2.wav");
 	precache_sound("sounds/waterdeath.wav");
+	precache_sound("sounds/bulletfire.wav");
+	precache_sound("sounds/bulletfirebig.wav");
+	precache_sound("sounds/fairydie.wav");
+	precache_sound("sounds/fairyhurt.wav");
+	precache_sound("sounds/grapplingfire.wav");
+	precache_sound("sounds/grapplinghit.wav");
+	precache_sound("sounds/playerjump.wav");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");

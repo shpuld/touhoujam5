@@ -276,6 +276,8 @@ void() crab_shoot2 =
 		return;
 	}
 	
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
+	
 	self.shots_left--;
 	
 	makevectors(self.angles);
@@ -300,6 +302,8 @@ void() crab_shoot1 =
 		self.nextthink = time + 0.3;
 		return;
 	}
+	
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
 	
 	self.shots_left--;
 	
@@ -327,6 +331,8 @@ void() spiral_shoot =
 		self.nextthink = time + 0.3;
 		return;
 	}
+	
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
 	
 	self.shots_left --;
 	
@@ -392,6 +398,7 @@ void() fairyshot_touch =
 	if (other.classname == "player")
 		damage(other, 1, self.origin - other.origin, self.owner);
 	
+	sound(self, CHAN_AUTO, "sounds/bulletfirebig.wav", 1, 1);
 	for (int i = 0; i < 16; i++)
 	{
 		makevectors([0, 22.5 * i, 0]);
@@ -406,6 +413,7 @@ void() fairy_shoot =
 	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin)[1];
 	changeyaw();
 	
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
 	makevectors(self.angles);
 	entity proj = spawn();
 	proj.touch = fairyshot_touch;
@@ -439,19 +447,20 @@ void() fairy_attack =
 
 void(float amount, vector dir, entity dealer) fairy_die =
 {
+	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1);
 	self.velocity = dir * 200 + '0 0 400';
 	self.movetype = MOVETYPE_TOSS;
 	self.solid = SOLID_NOT;
 	self.nextthink = time + 1.5;
 	self.think = enemy_die_blowup;
 	self.frame = 4;
-	sound(self, CHAN_AUTO, "sounds/crabdie.wav", 1, 1);
 }
 
 
 
 void(float amount, vector dir, entity dealer) fairy_hurt =
 {
+	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 1);
 	self.velocity = dir * 100 + '0 0 300';
 	self.frame = 3;
 	self.nextthink = time  + 0.3;
@@ -461,7 +470,6 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 		self.enemy = dealer;
 		self.aistate = AI_CHASING;
 	}
-	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
 }
 
 
