@@ -375,6 +375,13 @@ void() PutClientInServer =
 {
 	player_chain_add(self);
 	PlayerSpawn();
+	
+	msg_entity = self;
+	BeginEvent(EV_ISLAND);
+	MulticastByte(numislands);
+	for (int i = 0; i < numislands; i++)
+		MulticastVector(island_positions[i]);
+	multicast('0 0 0', MULTICAST_ONE_R);
 };
 
 void() ClientDisconnect =

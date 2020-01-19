@@ -12,6 +12,11 @@ const float FL_JUMPRELEASED = 4096;
 .float movespeed;
 .float dead;
 
+
+vector island_positions[10];
+float numislands;
+
+
 void() sub_remove =
 {
 	remove(self);

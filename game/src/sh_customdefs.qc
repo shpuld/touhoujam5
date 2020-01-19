@@ -5,6 +5,9 @@
 
 const float EV_SETHOOK = 10;
 const float EV_REMOVEHOOK = 11;
+const float EV_ISLAND = 12;
+const float EV_DROWN = 13;
+const float EV_TELEPORT = 14;
 
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;

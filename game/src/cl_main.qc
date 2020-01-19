@@ -365,6 +365,16 @@ void() CSQC_Parse_Event =
 		case EV_ED_UPDATE:
 			cl_editor_update_selection();
 			break;
+		case EV_ISLAND:
+			float amount = readbyte();
+			for (int i = 0; i < amount; i++) addisland(readvector());
+			break;
+		case EV_DROWN:
+		
+			break;
+		case EV_TELEPORT:
+		
+			break;
 		default:
 			printf("No action for byte %f\n", first);
 			break;

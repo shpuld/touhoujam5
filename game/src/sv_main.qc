@@ -31,3 +31,14 @@ void() SpectatorConnect =
 {	
 };
 
+void(float num) setisland = 
+{
+	island_positions[num] = self.origin;
+	numislands++;
+};
+
+void() island1 = { setisland(0); }
+void() island2 = { setisland(1); }
+void() island3 = { setisland(2); }
+void() island4 = { setisland(3); }
+void() island5 = { setisland(4); }
