@@ -1386,27 +1386,27 @@ end
 
 ent_begin
 class decor_grass
-organg 4704 -2112 768 0 180 0
+organg 4896 -2304 768 0 180 0
 end
 
 ent_begin
 class decor_grass
-organg 5664 -2352 608 0 90 0
+organg 5952 -2352 544 -0 -90 -0
 end
 
 ent_begin
 class decor_grass
-organg 5680 -2400 608 0 90 0
+organg 5936 -2304 544 -0 -90 -0
 end
 
 ent_begin
 class decor_grass
-organg 5728 -2384 608 0 180 0
+organg 5880 -2336 544 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 5696 -2380 636 0 180 0
+organg 5896 -2376 544 0 0 0
 end
 
 ent_begin
@@ -1551,7 +1551,7 @@ end
 
 ent_begin
 class decor_stone_big
-organg 8320 -2928 776 0 90 0
+organg 8320 -2928 744 0 90 0
 end
 
 ent_begin
@@ -2311,5 +2311,125 @@ end
 ent_begin
 class item_coin
 organg 6800 -2608 -1120 0 180 0
+end
+
+ent_begin
+class enemy_crab
+organg 6928 4832 320 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7216 5072 320 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 6880 5440 256 0 180 0
+end
+
+ent_begin
+class enemy_crab
+organg 8384 3584 320 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 8704 3424 320 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 9008 3952 256 -0 -90 -0
+end
+
+ent_begin
+class giant_enemy_crab
+organg 7776 7984 256 0 180 0
+end
+
+ent_begin
+class giant_enemy_crab
+organg 8144 7168 240 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 8336 7376 240 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 8160 7568 240 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 8320 8000 256 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7600 6768 240 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7264 7680 272 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 6800 7264 320 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg 8000 8080 272 0 180 0
+end
+
+ent_begin
+class item_coin
+organg 7744 7184 272 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg 6992 5104 320 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg 8640 3616 320 -0 -90 -0
+end
+
+ent_begin
+class item_coin
+organg 8320 -2928 880 0 0 0
+end
+
+ent_begin
+class item_coin
+organg -3424 -5520 512 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 5920 -2352 568 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 4944 -2256 768 0 180 0
+end
+
+ent_begin
+class item_coin
+organg 7184 -2624 128 0 0 0
+end
+
+ent_begin
+class item_coin
+organg 3984 -2624 992 -0 -90 -0
 end
 
