@@ -4,8 +4,8 @@ running with 4 threads
 testlevel = 4
 LoadBSPFile: 'main.bsp'
 BSP is version 29
-  2095 leafs
-  7227 portals
+  2126 leafs
+  7489 portals
 Calculating Base Vis:
 0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
@@ -1182,6 +1182,7 @@ WARNING: Leaf portals saw into leaf (1169)
 WARNING: Leaf portals saw into leaf (1170)
 WARNING: Leaf portals saw into leaf (1171)
 WARNING: Leaf portals saw into leaf (1172)
+WARNING: Leaf portals saw into leaf (1173)
 WARNING: Leaf portals saw into leaf (1174)
 WARNING: Leaf portals saw into leaf (1175)
 WARNING: Leaf portals saw into leaf (1176)
@@ -2103,9 +2104,40 @@ WARNING: Leaf portals saw into leaf (2091)
 WARNING: Leaf portals saw into leaf (2092)
 WARNING: Leaf portals saw into leaf (2093)
 WARNING: Leaf portals saw into leaf (2094)
-average leafs visible: 1143
+WARNING: Leaf portals saw into leaf (2095)
+WARNING: Leaf portals saw into leaf (2096)
+WARNING: Leaf portals saw into leaf (2097)
+WARNING: Leaf portals saw into leaf (2098)
+WARNING: Leaf portals saw into leaf (2099)
+WARNING: Leaf portals saw into leaf (2100)
+WARNING: Leaf portals saw into leaf (2101)
+WARNING: Leaf portals saw into leaf (2102)
+WARNING: Leaf portals saw into leaf (2103)
+WARNING: Leaf portals saw into leaf (2104)
+WARNING: Leaf portals saw into leaf (2105)
+WARNING: Leaf portals saw into leaf (2106)
+WARNING: Leaf portals saw into leaf (2107)
+WARNING: Leaf portals saw into leaf (2108)
+WARNING: Leaf portals saw into leaf (2109)
+WARNING: Leaf portals saw into leaf (2110)
+WARNING: Leaf portals saw into leaf (2111)
+WARNING: Leaf portals saw into leaf (2112)
+WARNING: Leaf portals saw into leaf (2113)
+WARNING: Leaf portals saw into leaf (2114)
+WARNING: Leaf portals saw into leaf (2115)
+WARNING: Leaf portals saw into leaf (2116)
+WARNING: Leaf portals saw into leaf (2117)
+WARNING: Leaf portals saw into leaf (2118)
+WARNING: Leaf portals saw into leaf (2119)
+WARNING: Leaf portals saw into leaf (2120)
+WARNING: Leaf portals saw into leaf (2121)
+WARNING: Leaf portals saw into leaf (2122)
+WARNING: Leaf portals saw into leaf (2123)
+WARNING: Leaf portals saw into leaf (2124)
+WARNING: Leaf portals saw into leaf (2125)
+average leafs visible: 1179
 c_noclip: 0
 c_chains: 0
-visdatasize:480968  compressed from 548890
+visdatasize:493241  compressed from 565516
 Writing main.bsp as BSP version 29
-  1.5 seconds elapsed
+  1.8 seconds elapsed
