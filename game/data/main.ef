@@ -2011,7 +2011,7 @@ end
 
 ent_begin
 class decor_stone
-organg -7920 -9200 240 -0 -90 -0
+organg -7920 -9200 224 -0 -90 -0
 end
 
 ent_begin
