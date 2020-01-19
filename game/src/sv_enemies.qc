@@ -57,9 +57,13 @@ void() disembark =
 	self.origin += '0 0 2';
 	self.velocity = '0 0 50';
 	self.flags -= self.flags & FL_JUMPRELEASED;
+	self.boat.velocity = '0 0 0';
+	
+	self.safe_spot = self.origin;
 	
 	self.boat = world;
 	self.boat_e = 0;
+
 }
 
 void() misc_bowl =

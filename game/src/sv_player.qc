@@ -8,6 +8,11 @@ void() CheckImpulses =
 	switch (self.impulse)
 	{
 	default: break;
+	case 1: setorigin(self, find(world, classname, "island1").origin); break;
+	case 2: setorigin(self, find(world, classname, "island2").origin); break;
+	case 3: setorigin(self, find(world, classname, "island3").origin); break;
+	case 4: setorigin(self, find(world, classname, "island4").origin); break;
+	case 5: setorigin(self, find(world, classname, "island5").origin); break;
 	}
 	self.impulse = 0;
 };
@@ -63,7 +68,11 @@ void() hooktouch =
 	
 	float surf = getsurfacenearpoint(world, self.origin);
 	string text = getsurfacetexture(world, surf);
-	printf("surf tex %s\n", text);
+	if (text != "wood")
+	{
+		detachhook(self);
+		return;
+	}	
 	
 	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 1);
 	self.solid = SOLID_NOT;
@@ -306,9 +315,9 @@ void() PlayerPreThink =
 			entity newhook = spawn();
 			setmodel(newhook, "models/hook.iqm");
 			setorigin(newhook, self.origin + self.view_ofs - '0 0 8' + v_forward * 16);
-			newhook.velocity = v_forward * 1600;
+			newhook.velocity = v_forward * 2000;
 			newhook.angles = vectoangles(v_forward);
-			newhook.movetype = MOVETYPE_TOSS;
+			newhook.movetype = MOVETYPE_FLYMISSILE;
 			newhook.solid = SOLID_BBOX;
 			newhook.touch = hooktouch;
 			newhook.owner = self;
@@ -371,6 +380,7 @@ void() PlayerSpawn =
 	self.die = player_die;
 	self.takes_damage = TRUE;
 	self.dead = FALSE;
+	self.safe_spot = self.origin;
 	player_normal();
 };
 

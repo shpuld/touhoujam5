@@ -12,6 +12,7 @@ const float FL_JUMPRELEASED = 4096;
 .float movespeed;
 .float dead;
 
+.vector safe_spot;
 
 vector island_positions[10];
 float numislands;

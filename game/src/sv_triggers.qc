@@ -26,8 +26,8 @@ void() item_touch =
 
 void() item_parachute =
 {
-	setmodel(self, "models/barrel.iqm");
-	self.scale = 0.5;
+	setmodel(self, "models/napkin.iqm");
+	self.scale = 0.25;
 	self.modelflags = MF_ROTATE;
 	self.touch = item_touch;
 	self.items = IT_PARACHUTE;
@@ -42,6 +42,8 @@ void() item_needle =
 	self.touch = item_touch;
 	self.items = IT_NEEDLE;
 	self.solid = SOLID_TRIGGER;
+	self.scale = 1.5;
+	self.angles_x = 45;
 	setsize(self, '-16 -16 0', '16 16 32');
 }
 
@@ -52,6 +54,7 @@ void() item_rope =
 	self.touch = item_touch;
 	self.items = IT_ROPE;
 	self.solid = SOLID_TRIGGER;
+	self.scale = 1.2;
 	setsize(self, '-16 -16 0', '16 16 32');
 }
 
@@ -66,6 +69,7 @@ void() tele_touch =
 	other.fixangle = TRUE;
 	setorigin(other, tgt.origin);
 	other.velocity = '0 0 0';
+	other.safe_spot = other.origin;
 }
 
 void() trigger_tele
