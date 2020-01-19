@@ -45,13 +45,13 @@ float(float isnew) player_listen =
 {
 	if (self.entnum == player_localentnum) 
 	{
-		self.origin_z += sin(1.1 * time) * 1.5;
 		localplayer = self;
 	}
 	
 	// Boat frame
 	if (self.frame == 8)
 	{
+		self.origin_z += sin(1.1 * time) * 1.5;
 		self.angles = getentity(getstatf(STAT_BOAT), GE_ANGLES);
 		wanted_angles_y = self.angles_y;
 		player_model_angles_y = wanted_angles_y;

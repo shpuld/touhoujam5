@@ -123,6 +123,13 @@ void(float amount, vector dir, entity dealer) player_hurt =
 	self.think = player_normal;
 }
 
+void(float amount, vector dir, entity dealer) player_die =
+{
+	self.frame = ANIM_DIE;
+	self.dead = TRUE;
+	self.nextthink = 0;
+}
+
 void() player_attack2 =
 {
 	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 64, 0, self);
@@ -205,6 +212,11 @@ void() PlayerPreThink =
 			pointparticles(PART_SMALLSPLASH, self.origin, '0 0 1');
 			self.attack_finished = time + 0.1;
 		}
+		return;
+	}
+	
+	if (self.dead)
+	{
 		return;
 	}
 	
@@ -336,6 +348,7 @@ void() PlayerSpawn =
 	setsize(self, [-12, -12, 0], [12, 12, 56]);
 	self.view_ofs = [0, 0, 48];
 	self.hurt = player_hurt;
+	self.die = player_die;
 	self.takes_damage = TRUE;
 	self.dead = FALSE;
 	player_normal();
@@ -395,6 +408,7 @@ void() SV_RunClientCommand =
 		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (125 - vlen(bt.velocity * 0.05)));
 		makevectors(bt.angles);
 		
+		if (input_movevalues_x < 0) input_movevalues_x *= 0.5;
 		bt.velocity -= 0.5 * bt.velocity * input_timelength;
 		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.8;
 		// setorigin(bt, bt.origin + bt.velocity * input_timelength);
@@ -403,6 +417,13 @@ void() SV_RunClientCommand =
 		vector combined_vel = '0 0 0';
 		float hits = 0;
 		int rays = 16;
+		
+		if (time > bt.attack_finished && vlen(bt.velocity) > 40)
+		{
+			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 + v_right * 32, v_forward + v_up);
+			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 - v_right * 32, v_forward + v_up);
+			bt.attack_finished = time + (0.25 - vlen(bt.velocity) * 0.0005);
+		}
 		for (int i = 0; i < rays; i++)
 		{
 			traceline(bt.origin + '0 0 4', bt.origin + '0 0 4' + v_forward * 42, 0, self);

@@ -27,7 +27,12 @@ string entlist[] = {
 	"trigger_tele_big",
 	"info_null",
 	"misc_grass",
-	"misc_bowl"
+	"misc_bowl",
+	"decor_stone_xs",
+	"decor_stone_s",
+	"decor_stone",
+	"decor_stone_big",
+	"decor_grass"
 };
 
 vector entity_menu_scroll;
@@ -119,7 +124,7 @@ void() cl_editor_draw =
 	sui_fill([0, 0], [4, 4], '0 0 0', 0.5, 0);
 	sui_fill([0, 0], [2, 2], '1 1 1', 0.75, 0);
 	
-	vector ent_menu_size = [120, 200];
+	vector ent_menu_size = [140, 200];
 	sui_set_align([SUI_ALIGN_START, SUI_ALIGN_END]);
 	sui_push_frame([0, 0], ent_menu_size);
 	

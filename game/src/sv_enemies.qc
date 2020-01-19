@@ -85,11 +85,60 @@ void(float amount, vector dir, entity dealer) grass_die =
 	sound(self, CHAN_AUTO, "sounds/dunnoimpact2.wav", 1, 1);
 }
 
+void() decor_stone =
+{
+	setmodel(self, "models/stone.iqm");
+	setsize(self, '-32 -32 -64', '32 32 64');
+	self.scale = 2;
+	self.solid = SOLID_BBOX;
+	self.angles_y = floor(random()*4) * 90;
+}
+
+void() decor_stone_big =
+{
+	setmodel(self, "models/stone.iqm");
+	setsize(self, '-64 -64 -128', '64 64 128');
+	self.scale = 4;
+	self.solid = SOLID_BBOX;
+	self.angles_y = floor(random()*4) * 90;
+}
+
+void() decor_stone_s =
+{
+	setmodel(self, "models/stone_small.iqm");
+	setsize(self, '-16 -16 -16', '16 16 16');
+	self.scale = 2;
+	self.solid = SOLID_BBOX;
+	self.angles_y = floor(random()*4) * 90;
+}
+
+void() decor_stone_xs =
+{
+	setmodel(self, "models/stone_small.iqm");
+	setsize(self, '0 0 0', '0 0 0');
+	self.scale = 1;
+	self.solid = SOLID_NOT;
+	self.angles_y = random() * 360;
+}
+
+
+
+void() decor_grass =
+{
+	setmodel(self, "models/decor_grass.iqm");
+	setsize(self, '0 0 0', '0 0 0');
+	self.scale = 1.8;
+	self.solid = SOLID_NOT;
+	self.angles_y = random() * 360;
+}
+
+
 void() misc_grass =
 {
 	setmodel(self, "models/grass.iqm");
 	setsize(self, '-24 -24 0', '24 24 64');
 	self.solid = SOLID_BBOX;
+	self.scale = 1.2;
 	self.health = 1;
 	self.takes_damage = TRUE;
 	self.die = grass_die;
@@ -105,13 +154,14 @@ void() enemy_die_blowup =
 
 .float aistate;
 .float shots_left;
-enum float { AI_IDLE, AI_CHASING };
+enum float { AI_IDLE, AI_WALKING, AI_CHASING };
 
 
 void() enemy_think =
 {
 	entity pl;
 	vector vec_to_player;
+	float oldyaw = self.angles_y;
 	self.frame = 0;
 	
 	if (!self.enemy)
@@ -121,15 +171,34 @@ void() enemy_think =
 		if (vlen(vec_to_player) < 400)
 		{
 			makevectors(self.angles);
-			if (v_forward * normalize(vec_to_player) > 0)
+			if (v_forward * normalize(vec_to_player) > 0.5)
 			{
 				traceline(self.origin + '0 0 20', pl.origin, MOVE_NOMONSTERS, self);
 				if (trace_fraction >= 1)
 				{
 					self.enemy = pl;
+					self.aistate = AI_CHASING;
 				}
 			}
-		} 
+		}
+		
+		if (!self.enemy)
+		{
+			if (self.aistate == AI_IDLE)
+			{
+				if (random() < 0.05) self.ideal_yaw = random() * 360;
+				changeyaw();
+				if (oldyaw != self.angles_y) self.frame = 1;
+				if (random() < 0.05) self.aistate = AI_WALKING;
+			}
+			else if (self.aistate == AI_WALKING)
+			{
+				if (random() < 0.1) self.aistate = AI_IDLE;
+				float success = walkmove(self.angles_y, self.movespeed);
+				self.frame = 1;
+				if (!success) self.aistate = AI_IDLE;
+			}
+		}
 	}
 	else
 	{
@@ -137,6 +206,7 @@ void() enemy_think =
 		if (vlen(vec_to_player) > 600)
 		{
 			self.enemy = world;
+			self.aistate = AI_IDLE;
 		}
 		else
 		{
@@ -212,6 +282,9 @@ void() crab_shoot2 =
 	vector pos = self.origin + v_forward * 20 + v_right * 28 + '0 0 30';
 	vector vel = v_forward * 500;
 	
+	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
+	changeyaw();
+	
 	bullet_spawn(pos, vel);
 	
 	self.nextthink = time + 0.1;
@@ -233,6 +306,9 @@ void() crab_shoot1 =
 	makevectors(self.angles);
 	vector pos = self.origin + v_forward * 20 - v_right * 28 + '0 0 30';
 	vector vel = v_forward * 500;
+	
+	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
+	changeyaw();
 	
 	bullet_spawn(pos, vel);
 	
@@ -306,43 +382,41 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
 }
 
-void() enemy_crab =
+void() ai_init =
 {
-	setmodel(self, "models/crab.iqm");
-	setsize(self, '-16 -16 0', '16 16 56');
-	self.solid = SOLID_BBOX;
-	self.health = 3;
-	self.takes_damage = TRUE;
-	self.die = crab_die;
-	self.hurt = crab_hurt;
 	self.movetype = MOVETYPE_STEP;
 	self.enemy = world;
 	self.aistate = AI_IDLE;
 	self.think = enemy_think;
+	self.takes_damage = TRUE;
+	self.solid = SOLID_BBOX;
 	self.nextthink = 0.5 + random();
-	self.yaw_speed = 10;
-	self.attack = crab_attack;
-	self.movespeed = 10;
 	droptofloor();
+}
+
+void() enemy_crab =
+{
+	setmodel(self, "models/crab.iqm");
+	setsize(self, '-16 -16 0', '16 16 56');
+	self.health = 3;
+	self.die = crab_die;
+	self.hurt = crab_hurt;
+	self.attack = crab_attack;
+	ai_init();
+	self.movespeed = 10;
+	self.yaw_speed = 10;
 }
 
 void() giant_enemy_crab =
 {
 	setmodel(self, "models/crab.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.solid = SOLID_BBOX;
 	self.health = 5;
-	self.takes_damage = TRUE;
 	self.die = crab_die;
 	self.hurt = crab_hurt;
-	self.movetype = MOVETYPE_STEP;
-	self.enemy = world;
-	self.aistate = AI_IDLE;
-	self.think = enemy_think;
-	self.nextthink = 0.5 + random();
-	self.yaw_speed = 10;
 	self.attack = giant_crab_attack;
+	self.yaw_speed = 10;
 	self.movespeed = 10;
 	self.scale = 1.5;
-	droptofloor();	
+	ai_init();
 }

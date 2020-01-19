@@ -1,0 +1,240 @@
+ent_begin
+class decor_stone_xs
+organg 144 -48 128 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 144 -144 128 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 176 -192 128 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 80 -256 128 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg 112 -240 128 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg 176 -144 128 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg 144 0 128 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg -48 -256 128 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -80 -256 128 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -48 -304 128 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -16 -288 128 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -112 -208 128 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg 208 -64 128 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg 0 -384 128 0 0 0
+end
+
+ent_begin
+class decor_stone
+organg -64 -352 128 0 0 0
+end
+
+ent_begin
+class decor_stone
+organg -96 -432 128 0 0 0
+end
+
+ent_begin
+class decor_stone
+organg 80 -304 128 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg 96 -400 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg 144 -320 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 144 -272 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 176 -304 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 160 -384 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -112 -352 128 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -160 -400 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg 192 16 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg 96 64 128 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 192 -240 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg 16 -256 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -128 -288 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -192 -336 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -192 -256 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -192 -160 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -176 -80 128 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg 128 -176 128 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 16 64 128 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 112 48 144 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 224 -176 128 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg -144 -288 144 -0 -180 -0
+end
+
+ent_begin
+class misc_grass
+organg -128 48 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -96 112 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -144 96 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -48 128 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -80 176 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -128 160 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -192 96 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg -208 160 128 0 0 0
+end
+
+ent_begin
+class misc_grass
+organg 16 160 128 -0 -90 -0
+end
+
+ent_begin
+class item_needle
+organg 0 -160 160 0 180 0
+end
+

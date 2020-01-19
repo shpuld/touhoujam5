@@ -214,7 +214,8 @@ float(entity e, string type) editor_set_ent_type =
 		break;
 	case "misc_grass":
 		setmodel(e, "models/grass.iqm");
-		setsize(e, '-24 -24 -16', '24 24 64');
+		setsize(e, '-24 -24 -16', '24 24 72');
+		e.scale = 1.2;
 		e.solid = SOLID_BBOX;
 		break;
 	case "enemy_crab":
@@ -228,6 +229,36 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-24 -24 0', '24 24 64');
 		e.colormod = '1 0.2 0.5';
 		e.scale = 1.5;
+		e.solid = SOLID_BBOX;
+		break;
+	case "decor_stone":
+		setmodel(e, "models/stone.iqm");
+		setsize(e, '-32 -32 -64', '32 32 64');
+		e.scale = 2;
+		e.solid = SOLID_BBOX;
+		break;
+	case "decor_stone_big":
+		setmodel(e, "models/stone.iqm");
+		setsize(e, '-64 -64 -128', '64 64 128');
+		e.scale = 4;
+		e.solid = SOLID_BBOX;
+		break;
+	case "decor_stone_s":
+		setmodel(e, "models/stone_small.iqm");
+		setsize(e, '-16 -16 -16', '16 16 16');
+		e.scale = 2;
+		e.solid = SOLID_BBOX;
+		break;
+	case "decor_stone_xs":
+		setmodel(e, "models/stone_small.iqm");
+		setsize(e, '-8 -8 -8', '8 8 8');
+		e.scale = 1;
+		e.solid = SOLID_BBOX;
+		break;
+	case "decor_grass":
+		setmodel(e, "models/decor_grass.iqm");
+		setsize(e, '-32 -32 0', '32 32 16');
+		e.scale = 1.8;
 		e.solid = SOLID_BBOX;
 		break;
 	default: return FALSE;
