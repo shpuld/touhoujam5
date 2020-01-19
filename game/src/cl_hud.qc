@@ -15,7 +15,6 @@ void(vector isl) addisland =
 {
 	islands[numislands] = isl;
 	numislands++;
-	printf("island %v\n", isl);
 }
 
 void() draw_map =

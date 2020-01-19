@@ -313,7 +313,7 @@ void() PlayerPreThink =
 	}
 	
 	// Hook
-	if (self.button3 && time > self.attack_finished)
+	if (self.button3 && time > self.attack_finished && self.items & IT_ROPE)
 	{
 		if (self.hook)
 		{
@@ -391,6 +391,7 @@ void() PlayerSpawn =
 	self.dead = FALSE;
 	self.safe_spot = self.origin;
 	player_normal();
+	localcmd("music 2\n");
 };
 
 void() PutClientInServer =

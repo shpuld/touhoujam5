@@ -5253,3 +5253,27 @@
 "classname" "light"
 "origin" "-8200 -12072 312"
 }
+// entity 23
+{
+"classname" "light"
+"origin" "-5992 -4872 -1432"
+"_color" "187 220 238"
+}
+// entity 24
+{
+"classname" "light"
+"origin" "-6088 -4968 -1464"
+"_color" "187 220 238"
+}
+// entity 25
+{
+"classname" "light"
+"origin" "-6024 -5128 -1144"
+"_color" "187 220 238"
+}
+// entity 26
+{
+"classname" "light"
+"origin" "-6216 -5032 -1560"
+"_color" "187 220 238"
+}

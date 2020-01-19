@@ -112,12 +112,10 @@ void(float filehandle) editor_read_ent =
 		switch (argv(0))
 		{
 		case "class":
-			printf("Classname: %s\n", argv(0));
 			e.classname = argv(1);
 			break;
 		case "organg":
 			setorigin(e, [stof(argv(1)), stof(argv(2)), stof(argv(3))]);
-			printf("origin: %v\n", e.origin);
 			e.angles = [stof(argv(4)), stof(argv(5)), stof(argv(6))];
 			break;
 		case "target":
@@ -437,7 +435,7 @@ void(string filename) editor_load_ents =
 	if (filename == "default") filename = cvar_string("mapname");
 	
 	filename = strcat(filename, ".ef");
-	printf("Loading from %s\n", filename);
+	// printf("Loading from %s\n", filename);
 	
 	float filehandle = fopen(filename, FILE_READ);
 	

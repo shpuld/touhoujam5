@@ -120,7 +120,9 @@ name_command bindlist[] =
 	{ "Back", "+back" },
 	{ "Left", "+moveleft" },
 	{ "Right", "+moveright" },
-	{ "Jump", "+jump" }
+	{ "Jump", "+jump" },
+	{ "Attack", "+attack" },
+	{ "Hook", "+button3" }
 };
 
 void(string id, vector pos, vector size, string name, string command) bind_button =

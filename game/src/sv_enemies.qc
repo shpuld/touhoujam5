@@ -151,6 +151,9 @@ void() misc_grass =
 
 void() enemy_die_blowup =
 {
+	if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
+		localcmd("music 2\n");
+		
 	sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5);
 	pointparticles(PART_ENEMYBLOWUP, self.origin, '0 0 1');
 	fake_remove(self);
@@ -182,6 +185,8 @@ void() enemy_think =
 				{
 					self.enemy = pl;
 					self.aistate = AI_CHASING;
+					if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
+						localcmd("music 1\n");
 				}
 			}
 		}
@@ -391,6 +396,8 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 	self.think = enemy_think;
 	if (dealer.classname == "player")
 	{
+		if (self.aistate != AI_CHASING && self.classname == "giant_enemy_crab")
+			localcmd("music 1\n");
 		self.enemy = dealer;
 		self.aistate = AI_CHASING;
 	}
@@ -449,6 +456,7 @@ void() fairy_attack =
 	self.attack_finished = time + 2.5;
 }
 
+void() item_coin;
 void(float amount, vector dir, entity dealer) fairy_die =
 {
 	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1);
@@ -471,8 +479,12 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 	self.think = enemy_think;
 	if (dealer.classname == "player")
 	{
+		if (self.aistate != AI_CHASING)
+			localcmd("music 1\n");
+			
 		self.enemy = dealer;
-		self.aistate = AI_CHASING;
+		self.aistate = AI_CHASING;	
+
 	}
 }
 
