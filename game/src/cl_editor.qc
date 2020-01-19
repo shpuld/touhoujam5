@@ -20,6 +20,7 @@ float selected_entity_index;
 string entlist[] = {
 	"enemy_crab",
 	"giant_enemy_crab",
+	"fairy",
 	"item_parachute",
 	"item_needle",
 	"item_rope",
@@ -43,7 +44,7 @@ string editor_selection_spawnflags;
 string editor_selection_target;
 string editor_selection_targetname;
 
-void() send_org = { print("send org\n"); localcmd(sprintf("cmd edit_setprop origin %s\n", editor_selection_org)); }
+void() send_org = { localcmd(sprintf("cmd edit_setprop origin %s\n", editor_selection_org)); }
 void() send_ang = { localcmd(sprintf("cmd edit_setprop angles %s\n", editor_selection_ang)); }
 void() send_spawnflags = { localcmd(sprintf("cmd edit_setprop spawnflags %s\n", editor_selection_spawnflags)); }
 void() send_target = { localcmd(sprintf("cmd edit_setprop target %s\n", editor_selection_target)); }

@@ -44,6 +44,7 @@ void() precache_everything =
 	precache_model("models/stone.iqm");
 	precache_model("models/stone_small.iqm");
 	precache_model("models/decor_grass.iqm");
+	precache_model("models/fairy.iqm");
 	
 	precache_sound("sounds/crabdie.wav");
 	precache_sound("sounds/crabhurt.wav");

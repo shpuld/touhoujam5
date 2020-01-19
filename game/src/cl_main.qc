@@ -172,7 +172,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	setmodel(hook_model, "models/hook.iqm");
 	setmodel(ripple_model, "models/ripple.iqm");
 	
-	localcmd("fog 0.025 0.65 0.88 1 1 0\n");
+	localcmd("fog 0.025 0.55 0.82 1 1 0\n");
 };
 
 noref void() CSQC_WorldLoaded =

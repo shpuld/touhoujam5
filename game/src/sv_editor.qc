@@ -220,7 +220,7 @@ float(entity e, string type) editor_set_ent_type =
 		break;
 	case "enemy_crab":
 		setmodel(e, "models/crab.iqm");
-		setsize(e, '-16 -16 0', '1616 64');
+		setsize(e, '-16 -16 0', '16 16 64');
 		e.scale = 1;
 		e.solid = SOLID_BBOX;
 		break;
@@ -229,6 +229,12 @@ float(entity e, string type) editor_set_ent_type =
 		setsize(e, '-24 -24 0', '24 24 64');
 		e.colormod = '1 0.2 0.5';
 		e.scale = 1.5;
+		e.solid = SOLID_BBOX;
+		break;
+	case "fairy":
+		setmodel(e, "models/fairy.iqm");
+		setsize(e, '-16 -16 0', '16 16 64');
+		e.scale = 2;
 		e.solid = SOLID_BBOX;
 		break;
 	case "decor_stone":

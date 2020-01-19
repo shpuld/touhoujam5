@@ -203,7 +203,7 @@ void() enemy_think =
 	else
 	{
 		vec_to_player = self.enemy.origin - self.origin;
-		if (vlen(vec_to_player) > 600)
+		if (vlen(vec_to_player) > 900)
 		{
 			self.enemy = world;
 			self.aistate = AI_IDLE;
@@ -379,8 +379,91 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 	self.frame = 3;
 	self.nextthink = time  + 0.4;
 	self.think = enemy_think;
+	if (dealer.classname == "player")
+	{
+		self.enemy = dealer;
+		self.aistate = AI_CHASING;
+	}
 	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
 }
+
+void() fairyshot_touch =
+{
+	if (other.classname == "player")
+		damage(other, 1, self.origin - other.origin, self.owner);
+	
+	for (int i = 0; i < 16; i++)
+	{
+		makevectors([0, 22.5 * i, 0]);
+		bullet_spawn(self.origin + '0 0 40', v_forward * 350);
+	}
+	
+	remove(self);
+}
+
+void() fairy_shoot =
+{
+	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin)[1];
+	changeyaw();
+	
+	makevectors(self.angles);
+	entity proj = spawn();
+	proj.touch = fairyshot_touch;
+	proj.movetype = MOVETYPE_TOSS;
+	proj.velocity = v_forward * (150 + 100 * self.shots_left);
+	proj.owner = self;
+	proj.avelocity = randomvec() * 700;
+	setmodel(proj, "models/bullet1.iqm");
+	proj.scale = 2;
+	setorigin(proj, self.origin + v_forward * 32 + '0 0 90');
+	setsize(proj, '0 0 0', '0 0 0');
+	proj.solid = SOLID_BBOX;
+	self.nextthink = time + 0.25;
+	
+	self.shots_left--;
+	
+	if (self.shots_left)
+		self.think = fairy_shoot;
+	else
+		self.think = enemy_think;
+}
+
+void() fairy_attack =
+{
+	self.frame = 2;
+	self.nextthink = time + 0.6;
+	self.think = fairy_shoot;
+	self.shots_left = 3;
+	self.attack_finished = time + 2.5;
+}
+
+void(float amount, vector dir, entity dealer) fairy_die =
+{
+	self.velocity = dir * 200 + '0 0 400';
+	self.movetype = MOVETYPE_TOSS;
+	self.solid = SOLID_NOT;
+	self.nextthink = time + 1.5;
+	self.think = enemy_die_blowup;
+	self.frame = 4;
+	sound(self, CHAN_AUTO, "sounds/crabdie.wav", 1, 1);
+}
+
+
+
+void(float amount, vector dir, entity dealer) fairy_hurt =
+{
+	self.velocity = dir * 100 + '0 0 300';
+	self.frame = 3;
+	self.nextthink = time  + 0.3;
+	self.think = enemy_think;
+	if (dealer.classname == "player")
+	{
+		self.enemy = dealer;
+		self.aistate = AI_CHASING;
+	}
+	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
+}
+
 
 void() ai_init =
 {
@@ -391,7 +474,8 @@ void() ai_init =
 	self.takes_damage = TRUE;
 	self.solid = SOLID_BBOX;
 	self.nextthink = 0.5 + random();
-	droptofloor();
+	if (!(self.flags & FL_FLY))
+		droptofloor();
 }
 
 void() enemy_crab =
@@ -418,5 +502,20 @@ void() giant_enemy_crab =
 	self.yaw_speed = 10;
 	self.movespeed = 10;
 	self.scale = 1.5;
+	ai_init();
+}
+
+void() fairy =
+{
+	setmodel(self, "models/fairy.iqm");
+	setsize(self, '-16 -16 0', '16 16 56');
+	self.health = 5;
+	self.flags |= FL_FLY;
+	self.die = fairy_die;
+	self.hurt = fairy_hurt;
+	self.attack = fairy_attack;
+	self.yaw_speed = 15;
+	self.movespeed = 15;
+	self.scale = 2;
 	ai_init();
 }
