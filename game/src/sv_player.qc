@@ -61,6 +61,11 @@ void() hooktouch =
 		return;
 	}
 	
+	float surf = getsurfacenearpoint(world, self.origin);
+	string text = getsurfacetexture(world, surf);
+	printf("surf tex %s\n", text);
+	
+	
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
 	
