@@ -67,6 +67,7 @@ void() precache_everything =
 	precache_sound("sounds/playerjump.wav");
 	precache_sound("sounds/boatdrive.wav");
 	precache_sound("sounds/watersound.ogg");
+	precache_sound("sounds/coinpickup.wav");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");

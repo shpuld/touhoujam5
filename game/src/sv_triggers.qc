@@ -75,6 +75,7 @@ void() item_coin =
 	self.scale = 2.0;
 	setsize(self, '-16 -16 0', '16 16 32');
 	totalcoins++;
+	sound(self, CHAN_AUTO, "sounds/coinpickup.wav", 1, 1);
 }
 
 void() tele_touch =
