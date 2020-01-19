@@ -229,9 +229,13 @@ void() respawn_on_surface =
 		setorigin(self, self.safe_spot);
 		// setorigin(self, get_spawn_point());
 	}
+	if (self.health == 0)
+		localcmd("music 2\n");
+		
 	self.health = 3;
 	self.dead = FALSE;
 	player_normal();
+	
 }
 
 void() PlayerPreThink =
@@ -454,12 +458,12 @@ void() SV_RunClientCommand =
 	if (self.boat)
 	{
 		entity bt = self.boat;
-		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (125 - vlen(bt.velocity * 0.05)));
+		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (50 - vlen(bt.velocity * 0.05)));
 		makevectors(bt.angles);
 		
 		if (input_movevalues_x < 0) input_movevalues_x *= 0.5;
 		bt.velocity -= 0.5 * bt.velocity * input_timelength;
-		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.8;
+		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.4;
 		// setorigin(bt, bt.origin + bt.velocity * input_timelength);
 		
 		vector tracedir = v_forward;
@@ -472,7 +476,7 @@ void() SV_RunClientCommand =
 			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 + v_right * 32, v_forward + v_up);
 			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 - v_right * 32, v_forward + v_up);
 			bt.attack_finished = time + (0.25 - vlen(bt.velocity) * 0.0005);
-			sound(bt, CHAN_AUTO, "sounds/boatdrive.wav", 0.2, 1);
+			sound(bt, CHAN_AUTO, "sounds/boatdrive.wav", 0.5, 1);
 		}
 		for (int i = 0; i < rays; i++)
 		{
