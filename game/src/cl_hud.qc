@@ -50,4 +50,9 @@ void() draw_hud =
 	draw_crosshair([6, 2], 5, '1 1 1', 0.6);
 	
 	draw_map();
+	
+	float coins = getstatf(STAT_COINS);
+	float totalcoins = getstatf(STAT_TOTALCOINS);
+	string coinstring = sprintf("%.0f/%.0f Coins", coins, totalcoins);
+	drawstring([g_width - size_x * strlen(coinstring), g_height - size_y], coinstring, size, '1 1 1', 1, 0);
 }

@@ -267,6 +267,12 @@ float(entity e, string type) editor_set_ent_type =
 		e.scale = 1.8;
 		e.solid = SOLID_BBOX;
 		break;
+	case "item_coin":
+		setmodel(e, "models/coin.iqm");
+		setsize(e, '-16 -16 0', '16 16 32');
+		e.scale = 2.0;
+		e.solid = SOLID_BBOX;
+		break;
 	default: return FALSE;
 	}
 	
@@ -462,11 +468,16 @@ void(string filename) editor_load_ents =
 void() editor_play =
 {
 	entity ed_ent = findfloat(world, is_edent, TRUE);
+	
+	coins = 0;
+	totalcoins = 0;
+	
 	while (ed_ent)
 	{
 		withself(ed_ent, callfunction(ed_ent.classname));
 		ed_ent = findfloat(ed_ent, is_edent, TRUE);
 	}
+
 }
 
 void() editor_reset =

@@ -22,6 +22,8 @@ void() worldspawn =
 	clientstat(STAT_PARACHUTE, EV_FLOAT, parachuting);
 	clientstat(STAT_DROWNING, EV_FLOAT, drowning);
 	clientstat(STAT_BOAT, EV_FLOAT, boat_e);
+	globalstat(STAT_COINS, EV_FLOAT, "coins");
+	globalstat(STAT_TOTALCOINS, EV_FLOAT, "totalcoins");
 	
 	editor_load_ents("default");
 	editor_play();

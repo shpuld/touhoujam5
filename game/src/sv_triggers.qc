@@ -58,6 +58,25 @@ void() item_rope =
 	setsize(self, '-16 -16 0', '16 16 32');
 }
 
+void() coin_touch =
+{
+	if (other.classname != "player") return;
+	coins++;
+	fake_remove(self);
+}
+
+
+void() item_coin =
+{
+	setmodel(self, "models/coin.iqm");
+	self.modelflags = MF_ROTATE;
+	self.touch = coin_touch;
+	self.solid = SOLID_TRIGGER;
+	self.scale = 2.0;
+	setsize(self, '-16 -16 0', '16 16 32');
+	totalcoins++;
+}
+
 void() tele_touch =
 {
 	if (other.classname != "player") return;

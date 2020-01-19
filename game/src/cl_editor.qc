@@ -24,6 +24,7 @@ string entlist[] = {
 	"item_parachute",
 	"item_needle",
 	"item_rope",
+	"item_coin",
 	"trigger_tele",
 	"trigger_tele_big",
 	"info_null",

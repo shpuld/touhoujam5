@@ -143,6 +143,7 @@ void(float amount, vector dir, entity dealer) player_die =
 	self.frame = ANIM_DIE;
 	self.dead = TRUE;
 	self.nextthink = 0;
+	self.attack_finished = time + 3;
 }
 
 void() player_attack2 =
@@ -248,6 +249,10 @@ void() PlayerPreThink =
 	
 	if (self.dead)
 	{
+		if (time > self.attack_finished) 
+		{
+			respawn_on_surface();
+		}
 		return;
 	}
 	

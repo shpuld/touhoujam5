@@ -12,6 +12,8 @@ const float EV_TELEPORT = 14;
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;
 const float STAT_BOAT = 52;
+const float STAT_COINS = 53;
+const float STAT_TOTALCOINS = 54;
 
 float PART_SPLASH;
 float PART_SMALLSPLASH;
@@ -48,6 +50,7 @@ void() precache_everything =
 	precache_model("models/stone_small.iqm");
 	precache_model("models/decor_grass.iqm");
 	precache_model("models/fairy.iqm");
+	precache_model("models/coin.iqm");
 	
 	precache_sound("sounds/crabdie.wav");
 	precache_sound("sounds/crabhurt.wav");

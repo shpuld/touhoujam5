@@ -14,6 +14,9 @@ const float FL_JUMPRELEASED = 4096;
 
 .vector safe_spot;
 
+float coins;
+float totalcoins;
+
 vector island_positions[10];
 float numislands;
 
