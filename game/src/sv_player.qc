@@ -229,6 +229,8 @@ void() respawn_on_surface =
 		setorigin(self, self.safe_spot);
 		// setorigin(self, get_spawn_point());
 	}
+	self.health = 3;
+	self.dead = FALSE;
 	player_normal();
 }
 
@@ -380,7 +382,7 @@ void() PlayerSpawn =
 	self.solid = SOLID_SLIDEBOX;
 	setmodel(self, "models/sinmyoumaru.iqm");
 	self.movetype = MOVETYPE_WALK;
-	self.health = 10;
+	self.health = 3;
 	setorigin(self, get_spawn_point());
 	self.fixangle = TRUE;
 	setsize(self, [-12, -12, 0], [12, 12, 56]);

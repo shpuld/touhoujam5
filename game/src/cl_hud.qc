@@ -57,6 +57,14 @@ void() draw_hud =
 	
 	if (coins == totalcoins)
 	{
+		string s1 = "Congratulations!";
+		string s2 = "You get the Miracle Mallet now!";
+		string s3 = "Except we ran out of time to add it...";
+		string s4 = "Thank you for playing!";
 		
+		drawstring([g_width/2 - strlen(s1)*4, g_height/2 - 32], s1, [8, 8], '1 1 1', 1, 0);
+		drawstring([g_width/2 - strlen(s2)*4, g_height/2 - 24], s2, [8, 8], '1 1 1', 1, 0);
+		drawstring([g_width/2 - strlen(s3)*4, g_height/2 - 16], s3, [8, 8], '1 1 1', 1, 0);
+		drawstring([g_width/2 - strlen(s4)*4, g_height/2 + 8], s4, [8, 8], '1 1 1', 1, 0);
 	}
 }

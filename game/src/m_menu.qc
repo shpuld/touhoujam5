@@ -238,6 +238,11 @@ void() main_menu =
 	sui_text([0, 64], MENU_TEXT_LARGE, "Issun Boushi", [1, 1, 1], 1, 0);
 	sui_text([0, 96], MENU_TEXT_SMALL, "Starring Shinmyoumaru-san", [1, 1, 1], 1, 0);
 	
+	sui_text([0, 112], MENU_TEXT_SMALL, "By Shp and Leonovsky", [1, 1, 1], 1, 0);
+	sui_text([0, 128], MENU_TEXT_SMALL, "Check OPTIONS for Controls!", [1, 1, 1], 1, 0);
+	sui_text([0, 128 + 16], MENU_TEXT_SMALL, "Collect new Items and Coins", [1, 1, 1], 1, 0);
+	sui_text([0, 128 + 24], MENU_TEXT_SMALL, "To get the Miracle Mallet from the Oni", [1, 1, 1], 1, 0);
+	
 	vector pos = [0, -24];
 	vector size = [120, 140];
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);
@@ -248,7 +253,7 @@ void() main_menu =
 	
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
 	
-	my_button("mm_start", [0, 8], [size_x - 16, 20], "Start Game") ? localcmd("map test\n") : 0;
+	my_button("mm_start", [0, 8], [size_x - 16, 20], "Start Game") ? localcmd("map main\n") : 0;
 	my_button("mm_settings", [0, 8 + 24], [size_x - 16, 20], "Settings") ? current_menu = MENU_SETTINGS : 0;
 	my_button("mm_help", [0, 8 + 48], [size_x - 16, 20], "Help") ? current_menu = MENU_HELP : 0;
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);

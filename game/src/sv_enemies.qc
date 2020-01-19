@@ -63,6 +63,9 @@ void() disembark =
 	
 	self.boat = world;
 	self.boat_e = 0;
+	
+	self.health = 3;
+	self.dead = FALSE;
 
 }
 
