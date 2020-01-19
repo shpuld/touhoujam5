@@ -26,8 +26,8 @@ Loaded extended texinfo flags from main.texinfo
     "sunlight_mangle" was set to "0.353553 0.353553 -0.866025" from map
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
-	1359 sky faces
-	8036 solid faces
+	1327 sky faces
+	8016 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
 SetupLights: 9 initial lights
@@ -46,17 +46,17 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 --- LightThread ---
 0....1....2....3....4....5....6....7....8....9....
-Indirect lights: 8033 bounce lights, 0 surface lights (0 light points) in use.
+Indirect lights: 8012 bounce lights, 0 surface lights (0 light points) in use.
 Lighting Completed.
 
-lightdatasize: 632320
+lightdatasize: 627780
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version 29
-17.415 seconds elapsed
+17.993 seconds elapsed
 
 stats:
-0.020593 lights tested, 0.018380 hits per sample point
+0.021046 lights tested, 0.018832 hits per sample point
 0.000000 surface lights tested, 0.000000 hits per sample point
-18.844746 bounce lights tested, 13.255264 hits per sample point
+18.553864 bounce lights tested, 13.290537 hits per sample point
 0 empty lightmaps
