@@ -214,15 +214,19 @@ void() respawn_on_surface =
 	entity bt = find(world, classname, "misc_bowl");
 	if (bt)
 	{
-		setorigin(self, bt.origin + '0 0 20');
+		
+		//setorigin(self, bt.origin + '0 0 20');
+		setorigin(self, self.safe_spot);
 		bt.attack_finished = time + 1;
 		bt.think = boat_check_player_nearby;
 		bt.nextthink = time + 0.5;
+		
 		// TODO fade
 	}
 	else
 	{
-		setorigin(self, get_spawn_point());
+		setorigin(self, self.safe_spot);
+		// setorigin(self, get_spawn_point());
 	}
 	player_normal();
 }
