@@ -641,7 +641,7 @@ end
 
 ent_begin
 class decor_grass
-organg -7920 -9168 256 0 0 0
+organg -7920 -9104 256 0 0 0
 end
 
 ent_begin
@@ -681,7 +681,7 @@ end
 
 ent_begin
 class decor_stone_xs
-organg -8304 -8128 32 0 90 0
+organg -8240 -8128 32 0 90 0
 end
 
 ent_begin
@@ -1997,5 +1997,20 @@ end
 ent_begin
 class decor_stone_big
 organg 9008 6144 92 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -8352 -8096 96 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -8448 -8224 96 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg -7920 -9200 240 -0 -90 -0
 end
 
