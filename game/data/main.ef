@@ -276,7 +276,7 @@ end
 
 ent_begin
 class decor_grass
-organg -7600 -10688 256 0 0 0
+organg -7584 -10544 256 0 0 0
 end
 
 ent_begin
@@ -1206,7 +1206,7 @@ end
 
 ent_begin
 class decor_grass
-organg -336 -14464 128 0 90 0
+organg -304 -14408 128 0 90 0
 end
 
 ent_begin
@@ -1961,17 +1961,17 @@ end
 
 ent_begin
 class decor_stone
-organg 7008 4784 800 0 90 0
+organg 7168 4672 800 0 90 0
 end
 
 ent_begin
 class decor_stone
-organg 7076 4796 972 0 90 0
+organg 7236 4620 972 0 90 0
 end
 
 ent_begin
 class decor_stone_big
-organg 7084 4784 840 0 90 0
+organg 7228 4608 840 0 90 0
 end
 
 ent_begin
@@ -2142,5 +2142,95 @@ end
 ent_begin
 class decor_stone_big
 organg -4080 -2880 24 0 90 0
+end
+
+ent_begin
+class item_coin
+organg -8432 -12624 400 0 90 0
+end
+
+ent_begin
+class item_coin
+organg -10112 -9664 256 0 0 0
+end
+
+ent_begin
+class item_coin
+organg -7456 -12240 176 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg -7584 -10704 272 0 90 0
+end
+
+ent_begin
+class item_coin
+organg -5328 -4208 1200 0 180 0
+end
+
+ent_begin
+class item_coin
+organg -3664 -5184 608 0 180 0
+end
+
+ent_begin
+class item_coin
+organg -4032 -5520 608 0 90 0
+end
+
+ent_begin
+class item_coin
+organg 8480 -2448 848 0 180 0
+end
+
+ent_begin
+class item_coin
+organg 6944 7104 336 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -2000 -13872 -88 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -2160 -13808 -88 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg 8672 7648 16 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg 8672 7640 152 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -2104 -13912 -96 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -2072 -13800 -32 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -2080 -13848 8 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg -2080 -13848 80 -0 -90 -0
+end
+
+ent_begin
+class item_coin
+organg -368 -14496 136 0 90 0
 end
 
