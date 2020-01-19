@@ -62,6 +62,7 @@ void() coin_touch =
 {
 	if (other.classname != "player") return;
 	coins++;
+	sound(other, CHAN_ITEM, "sounds/coinpickup.wav", 0.6, 1, 125);
 	fake_remove(self);
 }
 
@@ -75,7 +76,6 @@ void() item_coin =
 	self.scale = 2.0;
 	setsize(self, '-16 -16 0', '16 16 32');
 	totalcoins++;
-	sound(self, CHAN_AUTO, "sounds/coinpickup.wav", 1, 1);
 }
 
 void() tele_touch =
