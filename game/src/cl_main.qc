@@ -127,6 +127,10 @@ float(float isnew) player_listen =
 		needle_model.scale = 0.9;
 		addentity(needle_model);
 	}
+	
+	float camdist = vlen(campos - (self.origin + '0 0 24'));
+	if (camdist < 90)
+		self.alpha = bound(0.01, (camdist / 45) - 0.5, 1);
 	return 1;
 }
 

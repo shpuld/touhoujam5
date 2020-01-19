@@ -165,13 +165,9 @@ ripple
 
 defaultskin
 {
+	program defaultskin2
 	{
 		map $diffuse
-	}
-	{
-		map $diffuse
-		rgbGen const 0.2 0.2 0.2
-		blendFunc GL_ONE GL_ONE
 	}
 }
 

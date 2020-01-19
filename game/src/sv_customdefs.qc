@@ -10,6 +10,7 @@ const float FL_JUMPRELEASED = 4096;
 .void(float amount, vector dir, entity dealer) die;
 .void() attack;
 .float movespeed;
+.float dead;
 
 void() sub_remove =
 {
@@ -115,4 +116,5 @@ void(entity removing) player_chain_remove =
 	removing.player_chain_next = world;
 	removing.player_chain_prev = world;
 };
+
 

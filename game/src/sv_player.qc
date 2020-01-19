@@ -125,10 +125,40 @@ void(float amount, vector dir, entity dealer) player_hurt =
 
 void() player_attack2 =
 {
-	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 48, 0, self);
+	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 64, 0, self);
 	if (trace_ent) 
 		damage(trace_ent, 1, v_forward, self);
-	
+	else
+	{
+		entity nme = findradius(self.origin + self.view_ofs, 128);
+		float closest = 9999;
+		entity closestnme = world;
+		vector dir;
+		float dist;
+		while (nme)
+		{
+			if (nme.takes_damage && nme != self)
+			{
+				dir = (self.origin + self.view_ofs) - nme.origin;
+				if (v_forward * dir < 0.7)
+				{
+					dist = vlen(dir);
+					if (dist < 64 + nme.scale * 32 && dist < closest)
+					{
+						closest = dist;
+						closestnme = nme;
+					}
+				}
+			}
+			nme = nme.chain;
+		}
+		
+		if (closestnme)
+		{
+			damage(closestnme, 1, v_forward, self);
+		}
+	}
+		
 	self.nextthink = time + 0.25;
 	self.think = player_normal;
 }
@@ -307,6 +337,7 @@ void() PlayerSpawn =
 	self.view_ofs = [0, 0, 48];
 	self.hurt = player_hurt;
 	self.takes_damage = TRUE;
+	self.dead = FALSE;
 	player_normal();
 };
 
