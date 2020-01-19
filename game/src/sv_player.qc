@@ -24,9 +24,10 @@ vector() get_spawn_point =
 .float parachuting;
 .entity hook;
 
+
 void(entity e) detachhook =
 {
-	e.owner.attack_finished = time + 0.2;
+	e.owner.attack_finished = time + 0.1;
 	e.owner.hook = world;
 	remove(e);
 }
@@ -65,13 +66,17 @@ void() hooktouch =
 	
 	self.nextthink = time + 0.1;
 	self.think = hook_pull;
+	
+	self.owner.parachuting = FALSE;
 }
 
 void() hookthink =
 {
 	self.angles = vectoangles(self.velocity);
-	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.15;
 	self.think = hookthink;
+	
+	if (time > self.owner.attack_finished) detachhook(self);
 }
 
 const float ANIM_IDLE = 0;
@@ -82,6 +87,7 @@ const float ANIM_DIE = 4;
 const float ANIM_JUMP = 5;
 const float ANIM_FALL = 6;
 const float ANIM_LAND = 7;
+const float ANIM_BOAT = 8;
 
 void() player_normal =
 {
@@ -171,6 +177,15 @@ void() PlayerPreThink =
 		}
 		return;
 	}
+	
+	if (self.boat)
+	{
+		if (self.button2)
+		{
+			disembark();
+		}
+		return;
+	}
 		
 		
 	// Attack
@@ -189,19 +204,27 @@ void() PlayerPreThink =
 	{
 		PlayerJump();
 		
-		if (!(self.flags & FL_ONGROUND) && self.velocity_z < 30 && self.flags & FL_JUMPRELEASED && self.items & IT_PARACHUTE)
+		if (
+			!(self.flags & FL_ONGROUND) &&
+			self.velocity_z < 50 &&
+			self.flags & FL_JUMPRELEASED &&
+			self.items & IT_PARACHUTE &&
+			time > self.attack_finished &&
+			!self.hook
+		)
 		{
 			self.flags -= self.flags & FL_JUMPRELEASED;
 			if (!self.parachuting)
 			{
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
-				self.velocity_z *= 0.2;
+				self.velocity_z = 180;
 				self.parachuting = TRUE;
 			}
 			else
 			{
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.5, 1);
 				self.parachuting = FALSE;
+				self.attack_finished = time + 0.5;
 			}
 		}
 	}
@@ -223,7 +246,7 @@ void() PlayerPreThink =
 			entity newhook = spawn();
 			setmodel(newhook, "models/hook.iqm");
 			setorigin(newhook, self.origin + self.view_ofs - '0 0 8' + v_forward * 16);
-			newhook.velocity = v_forward * 1200;
+			newhook.velocity = v_forward * 1600;
 			newhook.angles = vectoangles(v_forward);
 			newhook.movetype = MOVETYPE_TOSS;
 			newhook.solid = SOLID_BBOX;
@@ -231,7 +254,7 @@ void() PlayerPreThink =
 			newhook.owner = self;
 			newhook.think = hookthink;
 			newhook.nextthink = time + 0.1;
-			self.attack_finished = time + 0.2;
+			self.attack_finished = time + 0.5;
 			self.hook = newhook;
 		}
 	}
@@ -248,6 +271,8 @@ void() PlayerPostThink =
 	if (pointcontents(self.origin - '0 0 1') == -6 && !self.drowning)
 	{
 		if (edit_mode) return;
+		
+		if (self.hook) detachhook(self.hook);
 		
 		sound(self, CHAN_AUTO, "sounds/waterdeath.wav", 1, 1, 125);
 		self.drowning = TRUE;
@@ -333,6 +358,42 @@ void(string command_string) SV_ParseClientCommand =
 
 void() SV_RunClientCommand =
 {
+	if (self.boat)
+	{
+		entity bt = self.boat;
+		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (125 - vlen(bt.velocity * 0.05)));
+		makevectors(bt.angles);
+		
+		bt.velocity -= 0.5 * bt.velocity * input_timelength;
+		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.8;
+		// setorigin(bt, bt.origin + bt.velocity * input_timelength);
+		
+		vector tracedir = v_forward;
+		vector combined_vel = '0 0 0';
+		float hits = 0;
+		int rays = 16;
+		for (int i = 0; i < rays; i++)
+		{
+			traceline(bt.origin + '0 0 4', bt.origin + '0 0 4' + v_forward * 42, 0, self);
+			if (trace_fraction < 1)
+			{
+				combined_vel -= vlen(bt.velocity) * v_forward;
+				hits++;
+				// printf("hitting at %v\n", trace_endpos);
+			}
+				
+			rotatevectorsbyangle([0, 360 / rays, 0]);
+		}
+		
+		if (hits)
+			bt.velocity += combined_vel / hits;
+			
+		setorigin(bt, bt.origin + bt.velocity * input_timelength);
+		
+		setorigin(self, bt.origin + v_right * 20 + v_up * 16);
+		self.frame = ANIM_BOAT;
+		return;
+	}
 	if (self.drowning)
 	{
 		runstandardplayerphysics(self);

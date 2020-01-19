@@ -8,11 +8,17 @@ const float EV_REMOVEHOOK = 11;
 
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;
+const float STAT_BOAT = 52;
 
 float PART_SPLASH;
 float PART_SMALLSPLASH;
 float PART_ENEMYBLOWUP;
 float PART_BULLET1HIT;
+
+const float IT_NEEDLE = 1;
+const float IT_PARACHUTE = 2;
+const float IT_ROPE = 4;
+
 
 float() srandom = { return 2*random() - 1; }
 
@@ -34,6 +40,7 @@ void() precache_everything =
 	precache_model("models/napkin.iqm");
 	precache_model("models/crab.iqm");
 	precache_model("models/bullet1.iqm");
+	precache_model("models/ripple.iqm");
 	
 	precache_sound("sounds/crabdie.wav");
 	precache_sound("sounds/crabhurt.wav");
@@ -48,3 +55,33 @@ void() precache_everything =
 	PART_BULLET1HIT = particleeffectnum("weapons.bullet1_hit");
 	
 };
+
+float(float a, float b, float amount) turn_angle =
+{
+	a = anglemod(a);
+	b = anglemod(b);
+	float diff = b - a;
+	
+	if (fabs(diff) < amount)
+	{
+		return b;
+	}
+	
+	if (diff < -180)
+	{
+		b += 360;	
+	}
+	else if (diff > 180)
+	{
+		b -= 360;
+	}
+	
+	if (fabs(b - a) < amount)
+	{
+		return b;
+	}
+	if (a < b)
+		return a + amount;
+	else
+		return a - amount;	
+}

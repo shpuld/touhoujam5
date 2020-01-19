@@ -8,56 +8,56 @@ void() CSQC_Shutdown =
 {
 };
 
-float(float isnew) bowl_listen =
-{
-	self.angles += [sin(time)*2, 0, cos(1.1*time+0.5)*1.8];
-	return 1; 
-}
-
-float(float a, float b, float amount) turn_angle =
-{
-	a = anglemod(a);
-	b = anglemod(b);
-	float diff = b - a;
-	
-	if (fabs(diff) < amount)
-	{
-		return b;
-	}
-	
-	if (diff < -180)
-	{
-		b += 360;	
-	}
-	else if (diff > 180)
-	{
-		b -= 360;
-	}
-	
-	if (fabs(b - a) < amount)
-	{
-		return b;
-	}
-	if (a < b)
-		return a + amount;
-	else
-		return a - amount;
-	
-}
 
 .float ideal_yaw;
 .float yaw_speed;
 vector player_model_angles;
 vector wanted_angles;
 entity parachute_model;
+entity needle_model;
+entity hook_model;
+entity ripple_model;
+float hook_time;
 float drowning_ofs;
+
+float(float isnew) bowl_listen =
+{
+	self.angles += [sin(time)*0.5, 0, cos(1.1*time+0.5)*0.4];
+	
+	self.origin_z += sin(1.1 * time) * 1.5;
+	
+	if (localplayer.frame == 8)
+	{
+		makevectors(localplayer.angles);
+		setorigin(self, localplayer.origin - v_right * 20 - v_up * 16);
+	}
+	
+	ripple_model.origin = [self.origin_x, self.origin_y, 2];
+	ripple_model.angles_y = time * 4;
+	ripple_model.scale = 1.2;
+	addentity(ripple_model);
+	
+	return 1; 
+}
+
 
 float(float isnew) player_listen =
 {
 	if (self.entnum == player_localentnum) 
 	{
+		self.origin_z += sin(1.1 * time) * 1.5;
 		localplayer = self;
 	}
+	
+	// Boat frame
+	if (self.frame == 8)
+	{
+		self.angles = getentity(getstatf(STAT_BOAT), GE_ANGLES);
+		wanted_angles_y = self.angles_y;
+		player_model_angles_y = wanted_angles_y;
+		return 1;
+	}
+	
 	vector horvel = [self.velocity_x, self.velocity_y, 0];
 	float speed = vlen(horvel);
 	if (speed > 20)
@@ -65,7 +65,12 @@ float(float isnew) player_listen =
 		wanted_angles = vectoangles(horvel);
 	}
 	
-	if (speed > 10)
+	if (self.frame == 2)
+	{
+		wanted_angles_y = self.angles_y;
+	}
+	
+	if (speed > 10 || self.frame == 2)
 	{
 		player_model_angles.y = turn_angle(player_model_angles_y, wanted_angles_y, frametime * 1200);
 	}
@@ -112,6 +117,16 @@ float(float isnew) player_listen =
 	{
 		drowning_ofs = 0;
 	}
+	
+	if (getstatf(STAT_ITEMS) & IT_NEEDLE)
+	{
+		float bone = gettagindex(self, "armhand.R");
+		vector org = gettaginfo(self, bone);
+		needle_model.angles = vectoangles(v_forward, v_up);
+		needle_model.origin = org - v_right * 3.25;
+		needle_model.scale = 0.9;
+		addentity(needle_model);
+	}
 	return 1;
 }
 
@@ -120,6 +135,8 @@ float(float isnew) hook_listen =
 {
 	makevectors(self.angles);
 	hookpos = self.origin - v_forward * 20;
+	
+	hook_time = 1;
 
 	return 1;
 }
@@ -143,7 +160,13 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	deltalisten("models/hook.iqm", hook_listen, 0);
 	
 	parachute_model = spawn();
+	needle_model = spawn();
+	hook_model = spawn();
+	ripple_model = spawn();
 	setmodel(parachute_model, "models/napkin.iqm");
+	setmodel(needle_model, "models/needle.iqm");
+	setmodel(hook_model, "models/hook.iqm");
+	setmodel(ripple_model, "models/ripple.iqm");
 	
 	localcmd("fog 0.025 0.65 0.88 1 1 0\n");
 };
@@ -162,14 +185,31 @@ void() draw_hook =
 	if (hookpos == '0 0 -999999')
 		return;
 		
+	
+	if (hook_time <= 0)
+	{
+		hook_time = 0;
+		return;
+	}
+	
 	vector e = localplayer.origin + '0 0 32';
 	vector s = hookpos;
-	
+
 	float len = vlen(e-s);
 	
 	vector fwd = normalize(e-s);
 	vector up = normalize(campos-s);
 	vector rgt = normalize(crossproduct(fwd, up));
+	
+	if (hook_time < 0.95)
+	{
+		hook_model.origin = s * hook_time + e * (1 - hook_time);
+		hook_model.angles = vectoangles(fwd);
+		addentity(hook_model);
+		s = hook_model.origin;
+	}
+		
+	hook_time -= frametime * 10;
 	
 	float w = 1.25;
 	R_BeginPolygon("rope_ribbon", 0, 0);
@@ -198,15 +238,18 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	campos = getproperty(VF_ORIGIN);
 	camang = getproperty(VF_ANGLES);
 	
+	if (campos_z < 4 && campos_z > -48) campos_z = 4;
+	
 	sky.origin = [campos_x, campos_y, 0];
 	addentity(sky);
 	
 	setproperty(VF_ANGLES, camang);
+	setproperty(VF_ORIGIN, campos);
 	
 	//autoadd entities received from servers for drawing
 	
 	// hack:
-	hookpos = '0 0 -999999';
+	// hookpos = '0 0 -999999';
 	addentities(MASK_ENGINE);
 	
 	draw_hook();

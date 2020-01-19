@@ -14,11 +14,60 @@ void() misc_barrel =
 	self.touch = sub_fake_remove;
 }
 
+.entity boat;
+.float boat_e;
+
+void() boat_touch =
+{
+	if (other.classname == "player")
+	{
+		if (other.boat) return;
+		
+		if (time < self.attack_finished) return;
+		
+		other.boat = self;
+		other.boat_e = (float)self;
+		
+		self.solid = SOLID_NOT;
+	}
+}
+
+void() boat_check_player_nearby =
+{
+	entity pl = player_chain_head;
+	if (vlen(pl.origin - self.origin) > 60)
+	{
+		self.attack_finished = time + 0.5;
+	}
+	else
+	{
+		self.attack_finished = time + 0.2;
+		self.nextthink = time + 0.1;
+		self.think = boat_check_player_nearby;
+	}
+}
+
+void() disembark =
+{
+	self.boat.solid = SOLID_BBOX;
+	self.boat.attack_finished = time + 1;
+	self.boat.nextthink = time + 0.8;
+	self.boat.think = boat_check_player_nearby;
+
+	self.origin += '0 0 2';
+	self.velocity = '0 0 50';
+	self.flags -= self.flags & FL_JUMPRELEASED;
+	
+	self.boat = world;
+	self.boat_e = 0;
+}
+
 void() misc_bowl =
 {
 	setmodel(self, "models/bowl.iqm");
-	setsize(self, '-48 -48 -24', '48 48 16');
+	setsize(self, '-48 -48 0', '48 48 20');
 	self.solid = SOLID_BBOX;
+	self.touch = boat_touch;
 }
 
 

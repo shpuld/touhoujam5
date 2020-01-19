@@ -1,4 +1,9 @@
 ent_begin
+class misc_bowl
+organg 384 -144 0 0 0 0
+end
+
+ent_begin
 class item_rope
 organg 32 -32 128 0 90 0
 end
@@ -20,11 +25,11 @@ end
 
 ent_begin
 class enemy_crab
-organg -112 -80 128 0 90 0
+organg -160 128 144 0 90 0
 end
 
 ent_begin
 class enemy_crab
-organg -80 -272 128 0 180 0
+organg -80 -320 144 0 180 0
 end
 

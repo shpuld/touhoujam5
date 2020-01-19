@@ -153,6 +153,16 @@ rope_ribbon
 	}
 }
 
+ripple
+{
+	{
+		map models/ripple.png
+		blendFunc GL_ONE GL_ONE
+		tcMod scroll 0 0.5
+		rgbGen vertex
+	}
+}
+
 defaultskin
 {
 	{

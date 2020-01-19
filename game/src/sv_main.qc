@@ -19,6 +19,7 @@ void() worldspawn =
 	
 	clientstat(STAT_PARACHUTE, EV_FLOAT, parachuting);
 	clientstat(STAT_DROWNING, EV_FLOAT, drowning);
+	clientstat(STAT_BOAT, EV_FLOAT, boat_e);
 };
 
 void() SpectatorConnect =

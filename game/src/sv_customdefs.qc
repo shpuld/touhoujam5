@@ -11,10 +11,6 @@ const float FL_JUMPRELEASED = 4096;
 .void() attack;
 .float movespeed;
 
-const float IT_NEEDLE = 1;
-const float IT_PARACHUTE = 2;
-const float IT_ROPE = 4;
-
 void() sub_remove =
 {
 	remove(self);
