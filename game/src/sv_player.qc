@@ -450,6 +450,7 @@ void() SV_RunClientCommand =
 			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 + v_right * 32, v_forward + v_up);
 			pointparticles(PART_SMALLSPLASH, bt.origin - v_forward * 32 - v_right * 32, v_forward + v_up);
 			bt.attack_finished = time + (0.25 - vlen(bt.velocity) * 0.0005);
+			sound(bt, CHAN_AUTO, "sounds/boatdrive.wav", 0.2, 1);
 		}
 		for (int i = 0; i < rays; i++)
 		{

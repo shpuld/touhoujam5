@@ -17,7 +17,7 @@ void() worldspawn =
 	
 	sv_editor_init();
 	
-	
+	ambientsound('0 0 500', "sounds/watersound.ogg", 1, 0);
 	
 	clientstat(STAT_PARACHUTE, EV_FLOAT, parachuting);
 	clientstat(STAT_DROWNING, EV_FLOAT, drowning);
