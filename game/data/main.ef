@@ -2006,7 +2006,7 @@ end
 
 ent_begin
 class decor_stone_big
-organg -8448 -8224 96 0 180 0
+organg -8400 -8208 96 0 180 0
 end
 
 ent_begin
@@ -2232,5 +2232,84 @@ end
 ent_begin
 class item_coin
 organg -368 -14496 136 0 90 0
+end
+
+ent_begin
+class item_coin
+organg -7952 -9632 352 -0 -90 -0
+end
+
+ent_begin
+class item_coin
+organg -8816 -10000 128 0 180 0
+end
+
+ent_begin
+class item_coin
+organg -8576 -10368 256 0 0 0
+end
+
+ent_begin
+class decor_stone
+organg -8524 -9928 36 -0 -180 -0
+end
+
+ent_begin
+class trigger_tele_big
+organg 8152 -2608 860 0 0 0
+target fairycave
+end
+
+ent_begin
+class info_null
+organg 8040 -2604 864 0 -180 0
+targetname fairyexit
+end
+
+ent_begin
+class trigger_tele_big
+organg 8480 -2800 -1152 0 0 0
+target fairyexit
+end
+
+ent_begin
+class info_null
+organg 8352 -2800 -1152 0 -180 0
+targetname fairycave
+end
+
+ent_begin
+class fairy
+organg 6960 -2528 -1008 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7088 -2784 -1152 -0 -90 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7104 -2512 -1152 -0 -180 -0
+end
+
+ent_begin
+class enemy_crab
+organg 7168 -2304 -1152 0 90 0
+end
+
+ent_begin
+class item_rope
+organg 6736 -2656 -1120 0 180 0
+end
+
+ent_begin
+class item_coin
+organg 6768 -2800 -1120 -0 -180 -0
+end
+
+ent_begin
+class item_coin
+organg 6800 -2608 -1120 0 180 0
 end
 

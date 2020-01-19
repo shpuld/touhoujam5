@@ -54,4 +54,9 @@ void() draw_hud =
 	float totalcoins = getstatf(STAT_TOTALCOINS);
 	string coinstring = sprintf("%.0f/%.0f Coins", coins, totalcoins);
 	drawstring([g_width - size_x * strlen(coinstring), g_height - size_y], coinstring, size, '1 1 1', 1, 0);
+	
+	if (coins == totalcoins)
+	{
+		
+	}
 }

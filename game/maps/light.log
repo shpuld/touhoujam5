@@ -3,14 +3,14 @@ extra 2x2 sampling enabled
 Raytracing backend: Embree
 running with 4 threads
 LoadBSPFile: 'main.bsp'
-BSP is version 29
+BSP is version BSP2
 gamedir: E:/touhoujam5/game/
 basedir: E:/touhoujam5/ID1/
 qdir:    E:/touhoujam5/
 --- ConvertTextures ---
 Loaded extended texinfo flags from main.texinfo
 --- LoadEntities ---
-23 entities read, 16 are lights.
+30 entities read, 23 are lights.
 --- OptionsSummary ---
     "dirt" was set to "1" from commandline
     "dirtscale" was set to "1" from commandline
@@ -26,17 +26,17 @@ Loaded extended texinfo flags from main.texinfo
     "sunlight_mangle" was set to "0.353553 0.353553 -0.866025" from map
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
-	1624 sky faces
-	7268 solid faces
+	1607 sky faces
+	7121 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
-SetupLights: 16 initial lights
-SetupLights: 16 after surface lights
-SetupLights: 16 after jittering
+SetupLights: 23 initial lights
+SetupLights: 23 after surface lights
+SetupLights: 23 after jittering
 using 65 suns for _sunlight2. total light: 250.000000 color: 255.000000 255.000000 255.000000
 --- EstimateLightVisibility ---
-0....1....2....3....4....5....6....7....8....9.
-Final count: 16 lights, 66 suns in use.
+0....1....2....3....4....5....6....7....8....9..
+Final count: 23 lights, 66 suns in use.
 Colored light entities/settings detected: .lit output enabled.
 --- SetupDirt ---
        48 dirtmap vectors
@@ -46,17 +46,17 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 --- LightThread ---
 0....1....2....3....4....5....6....7....8....9....
-Indirect lights: 7267 bounce lights, 0 surface lights (0 light points) in use.
+Indirect lights: 7120 bounce lights, 0 surface lights (0 light points) in use.
 Lighting Completed.
 
-lightdatasize: 522505
+lightdatasize: 510913
 Writing main.lit
 0 switchable light styles (32 max)
-Writing main.bsp as BSP version 29
-14.071 seconds elapsed
+Writing main.bsp as BSP version BSP2
+17.580 seconds elapsed
 
 stats:
-0.051323 lights tested, 0.045332 hits per sample point
+0.074841 lights tested, 0.067799 hits per sample point
 0.000000 surface lights tested, 0.000000 hits per sample point
-17.139870 bounce lights tested, 12.124627 hits per sample point
+18.098559 bounce lights tested, 12.893883 hits per sample point
 0 empty lightmaps

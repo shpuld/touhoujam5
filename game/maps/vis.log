@@ -3,9 +3,9 @@ fastvis = true
 running with 4 threads
 testlevel = 4
 LoadBSPFile: 'main.bsp'
-BSP is version 29
-  2186 leafs
-  7580 portals
+BSP is version BSP2
+  2156 leafs
+  7491 portals
 Calculating Base Vis:
 0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
@@ -2165,39 +2165,9 @@ WARNING: Leaf portals saw into leaf (2152)
 WARNING: Leaf portals saw into leaf (2153)
 WARNING: Leaf portals saw into leaf (2154)
 WARNING: Leaf portals saw into leaf (2155)
-WARNING: Leaf portals saw into leaf (2156)
-WARNING: Leaf portals saw into leaf (2157)
-WARNING: Leaf portals saw into leaf (2158)
-WARNING: Leaf portals saw into leaf (2159)
-WARNING: Leaf portals saw into leaf (2160)
-WARNING: Leaf portals saw into leaf (2161)
-WARNING: Leaf portals saw into leaf (2162)
-WARNING: Leaf portals saw into leaf (2163)
-WARNING: Leaf portals saw into leaf (2164)
-WARNING: Leaf portals saw into leaf (2165)
-WARNING: Leaf portals saw into leaf (2166)
-WARNING: Leaf portals saw into leaf (2167)
-WARNING: Leaf portals saw into leaf (2168)
-WARNING: Leaf portals saw into leaf (2169)
-WARNING: Leaf portals saw into leaf (2170)
-WARNING: Leaf portals saw into leaf (2171)
-WARNING: Leaf portals saw into leaf (2172)
-WARNING: Leaf portals saw into leaf (2173)
-WARNING: Leaf portals saw into leaf (2174)
-WARNING: Leaf portals saw into leaf (2175)
-WARNING: Leaf portals saw into leaf (2176)
-WARNING: Leaf portals saw into leaf (2177)
-WARNING: Leaf portals saw into leaf (2178)
-WARNING: Leaf portals saw into leaf (2179)
-WARNING: Leaf portals saw into leaf (2180)
-WARNING: Leaf portals saw into leaf (2181)
-WARNING: Leaf portals saw into leaf (2182)
-WARNING: Leaf portals saw into leaf (2183)
-WARNING: Leaf portals saw into leaf (2184)
-WARNING: Leaf portals saw into leaf (2185)
-average leafs visible: 1011
+average leafs visible: 1014
 c_noclip: 0
 c_chains: 0
-visdatasize:510301  compressed from 598964
-Writing main.bsp as BSP version 29
+visdatasize:506052  compressed from 582120
+Writing main.bsp as BSP version BSP2
   1.7 seconds elapsed
