@@ -87,9 +87,9 @@ void main ()
 		// if (d < 0.0)		//vertex shader. this might get ugly, but I don't really want to make // it per vertex.
 		//	d = 0.0;	//this avoids the dark side going below the ambient level.
 		// light.rgb += (d*e_light_mul);
-		light.rgb += e_light_mul*1.5;
+		light.rgb += e_light_mul*5.5;
 		if (length(e_light_mul) <= 0.0)
-			light.rgb += vec3(0.45, 0.43, 0.42)*1.5;
+			light.rgb += vec3(0.45, 0.43, 0.42)*5.5;
 	#else
 		light.rgb = vec3(1.0);
 	#endif
@@ -388,7 +388,7 @@ void main ()
 #elif defined(occlusion) && !defined(NOOCCLUDE)
 	col.rgb *= occlusion;
 #endif
-	col *= vec4(light.rgb, 1.0) * e_colourident;
+	col *= 1.1 * e_colourident;
 
 	#ifdef FULLBRIGHT
 		vec4 fb = texture2D(s_fullbright, tc);

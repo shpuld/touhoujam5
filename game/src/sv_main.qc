@@ -44,3 +44,4 @@ void() island2 = { setisland(1); }
 void() island3 = { setisland(2); }
 void() island4 = { setisland(3); }
 void() island5 = { setisland(4); }
+void() island6 = { setisland(5); }

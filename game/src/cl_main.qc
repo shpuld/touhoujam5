@@ -131,6 +131,13 @@ float(float isnew) player_listen =
 	float camdist = vlen(campos - (self.origin + '0 0 24'));
 	if (camdist < 90)
 		self.alpha = bound(0.01, (camdist / 45) - 0.5, 1);
+		
+	tracebox(self.origin, '-8 -8 0', '8 8 16', self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
+	float shadowdist = trace_endpos_z;
+	adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
+	traceline(self.origin, self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
+	if (trace_endpos_z != shadowdist)
+		adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
 	return 1;
 }
 
@@ -242,7 +249,7 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	campos = getproperty(VF_ORIGIN);
 	camang = getproperty(VF_ANGLES);
 	
-	if (campos_z < 4 && campos_z > -48) campos_z = 4;
+	if (campos_z < 4 && campos_z > -64) campos_z = 4;
 	
 	sky.origin = [campos_x, campos_y, 0];
 	addentity(sky);
@@ -261,10 +268,10 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	R_BeginPolygon("watersurf", 0, 0);
 	
 	float fac = 10;
-	R_PolygonVertex(fac*[4096, 4096, 0] + '0 0 3', fac*[0, 0], '1 1 1', 1);
-	R_PolygonVertex(fac*[4096, -4096, 0] + '0 0 3', fac*[10, 0], '1 1 1', 1);
-	R_PolygonVertex(fac*[-4096, -4096, 0] + '0 0 3', fac*[10, 10], '1 1 1', 1);
-	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 3', fac*[0, 10], '1 1 1', 1);
+	R_PolygonVertex(fac*[4096, 4096, 0] + '0 0 5', fac*[0, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[4096, -4096, 0] + '0 0 5', fac*[10, 0], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, -4096, 0] + '0 0 5', fac*[10, 10], '1 1 1', 1);
+	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 5', fac*[0, 10], '1 1 1', 1);
 	
 	R_EndPolygon();
 	
@@ -370,10 +377,14 @@ void() CSQC_Parse_Event =
 			for (int i = 0; i < amount; i++) addisland(readvector());
 			break;
 		case EV_DROWN:
-		
+			fadetime = 1;
 			break;
 		case EV_TELEPORT:
-		
+			fadetime = 1;
+			break;
+		case EV_ITEMHELP:
+			helptime = time + 5;
+			helpitem = readbyte();
 			break;
 		default:
 			printf("No action for byte %f\n", first);

@@ -463,6 +463,14 @@ void(string filename) editor_load_ents =
 	fclose(filehandle);
 }
 
+
+float() entcustomize =
+{
+	if (self.origin_z > -100 && other.origin.z < -100) return FALSE;
+	if (self.origin_z < -100 && other.origin.z > -100) return FALSE;
+	return TRUE;
+}
+
 void() editor_play =
 {
 	entity ed_ent = findfloat(world, is_edent, TRUE);
@@ -472,6 +480,7 @@ void() editor_play =
 	
 	while (ed_ent)
 	{
+		ed_ent.customizeentityforclient = entcustomize;
 		withself(ed_ent, callfunction(ed_ent.classname));
 		ed_ent = findfloat(ed_ent, is_edent, TRUE);
 	}

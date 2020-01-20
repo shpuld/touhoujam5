@@ -8,6 +8,7 @@ const float EV_REMOVEHOOK = 11;
 const float EV_ISLAND = 12;
 const float EV_DROWN = 13;
 const float EV_TELEPORT = 14;
+const float EV_ITEMHELP = 15;
 
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;
@@ -19,6 +20,10 @@ float PART_SPLASH;
 float PART_SMALLSPLASH;
 float PART_ENEMYBLOWUP;
 float PART_BULLET1HIT;
+float PART_PICKUP;
+float PART_ATTACK;
+float PART_HIT;
+float PART_PLAYERHIT;
 
 const float IT_NEEDLE = 1;
 const float IT_PARACHUTE = 2;
@@ -68,11 +73,17 @@ void() precache_everything =
 	precache_sound("sounds/boatdrive.wav");
 	precache_sound("sounds/watersound.ogg");
 	precache_sound("sounds/coinpickup.wav");
+	precache_sound("sounds/needleimpact.wav");
+	precache_sound("sounds/step01.wav");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");
 	PART_ENEMYBLOWUP = particleeffectnum("weapons.enemy_blowup");
 	PART_BULLET1HIT = particleeffectnum("weapons.bullet1_hit");
+	PART_PICKUP = particleeffectnum("weapons.pickup");
+	PART_ATTACK = particleeffectnum("weapons.attack");
+	PART_HIT = particleeffectnum("weapons.hit");
+	PART_PLAYERHIT = particleeffectnum("weapons.playerhit");
 	
 };
 

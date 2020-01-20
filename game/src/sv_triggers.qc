@@ -19,9 +19,16 @@ void() item_touch =
 {
 	if (other.classname == "player")
 	{
+		msg_entity = other;
+		BeginEvent(EV_ITEMHELP);
+		MulticastByte(self.items);
+		multicast('0 0 0', MULTICAST_ONE_R);
+		
+		pointparticles(PART_PICKUP, self.origin + '0 0 16', '0 0 1');
 		other.items |= self.items;
 		fake_remove(self);
-	}
+		sound(other, CHAN_ITEM, "sounds/coinpickup.wav", 0.7, 1, 0.8);
+	}	
 }
 
 void() item_parachute =
@@ -61,6 +68,7 @@ void() item_rope =
 void() coin_touch =
 {
 	if (other.classname != "player") return;
+	pointparticles(PART_PICKUP, self.origin + '0 0 16', '0 0 1');
 	coins++;
 	sound(other, CHAN_ITEM, "sounds/coinpickup.wav", 0.6, 1, 125);
 	fake_remove(self);
@@ -90,6 +98,9 @@ void() tele_touch =
 	setorigin(other, tgt.origin);
 	other.velocity = '0 0 0';
 	other.safe_spot = other.origin;
+	msg_entity = other;
+	BeginEvent(EV_TELEPORT);
+	multicast('0 0 0', MULTICAST_ONE_R);
 }
 
 void() trigger_tele

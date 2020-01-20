@@ -14,6 +14,12 @@ const float FL_JUMPRELEASED = 4096;
 
 .vector safe_spot;
 
+.float drowning;
+.float parachuting;
+.entity hook;
+.float mouse2released;
+
+
 float coins;
 float totalcoins;
 

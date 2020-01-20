@@ -1,5 +1,15 @@
 // Empty
 
+float fadetime;
+
+void() draw_fade =
+{
+	fadetime -= frametime * 2.5;
+	float a = bound(0, fadetime, 1);
+	if (a > 0)
+		drawfill([0, 0], [g_width, g_height], '0 0 0', a);
+}
+
 void(vector ch_size, float ch_gap, vector col, float a) draw_crosshair =
 {
 	drawfill([g_width/2 - ch_size_x - ch_gap, g_height/2 - ch_size_y/2], ch_size, col, a, 0); 
@@ -38,22 +48,62 @@ void() draw_map =
 	// drawfill(playerpos - psize/2 + [0, g_height - size_y], psize, '0.6 0.2 0.1', 1, 0); 
 }
 
+float helptime;
+float helpitem;
+void() draw_item_help =
+{
+	float a = min(1, helptime - time);
+	if (a <= 0) return;
+	
+	string name = "";
+	string desc = "";
+	
+	switch (helpitem)
+	{
+		case IT_NEEDLE: name = "A Needle!"; desc = "You could use it like a sword..."; break;
+		case IT_PARACHUTE: name = "A Napkin!"; desc = "Works as a parachute for a tiny creature..."; break;
+		case IT_ROPE: name = "A Thread!"; desc = "Combined with a needle it's a grappling hook..."; break;
+		default: name = "A Strange Item"; desc = "I... I... I..."; break;
+	}
+	
+	float ypos = 50;
+	
+	string str = "You found...";
+	vector size = '16 16 0';
+	drawstring([g_width/2 - strlen(str)*size_x*0.5, ypos], str, size, '1 1 1', a, 0);
+	ypos += 16 + 8;
+	
+	size = '32 32 0';
+	drawstring([g_width/2 - strlen(name)*size_x*0.5, ypos], name, size, '1 1 1', a, 0);
+	ypos += 32 + 8;
+	
+	size = '8 8 0';
+	drawstring([g_width/2 - strlen(desc)*size_x*0.5, ypos], desc, size, '1 1 1', a, 0);
+}
+
 void() draw_hud =
 {
-	float hp = getstatf(STAT_HEALTH);
-	string hpstr = sprintf("HP:%.0f/3", hp);
-	vector size = '16 16 0';
-	drawstring([g_width/2 - size_x * strlen(hpstr) * 0.5, g_height - 48], hpstr, size, '1 1 1', 1, 0);
 	
-	draw_crosshair([8, 2], 4, '0 0 0', 0.25);
-	draw_crosshair([6, 2], 5, '1 1 1', 0.6);
+	draw_fade();
+	
+	float hp = getstatf(STAT_HEALTH);
+	string hpstr = sprintf("%.0f/3", hp);
+	vector size = '16 16 0';
+	float danger = hp <= 1 ? min(1, fabs(sin(time*4)) + 0.2) : 1;
+	drawpic([4, g_height - 100 - 16 - 16], "textures/heart", size, [1, 0.7*danger, 0.9*danger], 1, 0);
+	drawstring([4 + 16 + 4, g_height - 100 - 16 - 16], hpstr, size, [1, danger, danger], 1, 0);
+	
+	draw_crosshair([4, 2], 3, '0 0 0', 0.2);
+	draw_crosshair([3, 2], 4, '1 1 1', 0.5);
 	
 	draw_map();
+	draw_item_help();
 	
 	float coins = getstatf(STAT_COINS);
 	float totalcoins = getstatf(STAT_TOTALCOINS);
-	string coinstring = sprintf("%.0f/%.0f Coins", coins, totalcoins);
-	drawstring([g_width - size_x * strlen(coinstring), g_height - size_y], coinstring, size, '1 1 1', 1, 0);
+	string coinstring = sprintf("%.0f/%.0f", coins, totalcoins);
+	drawpic([4, g_height - 100 - 16], "textures/coin", size, '1 1 1', 1, 0);
+	drawstring([4 + 16 + 4, g_height - 100 - 16], coinstring, size, '1 1 1', 1, 0);
 	
 	if (coins == totalcoins)
 	{

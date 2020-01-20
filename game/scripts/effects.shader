@@ -141,9 +141,65 @@ watersurf
 	}
 }
 
+sinmyoumaru
+{
+	program fb
+	{
+		map models/sinmyoumaru
+	}
+}
+
+bowl
+{
+	program fb
+	{
+		map models/bowl
+	}
+}
+
+coin
+{
+	program fb
+	{
+		map models/coin
+	}
+}
+
+bullet1
+{
+	program fb
+	{
+		map models/bullet1
+	}
+}
+
 sky1
 {
 	surfaceparm nodraw
+}
+
+needle
+{
+	program fb
+	{
+		map models/needle
+	}
+}
+
+napkin
+{
+	program fb
+	{
+		map models/napkin
+	}
+}
+
+rope
+{
+	program fb
+	{
+		map models/rope
+	}
 }
 
 rope_ribbon
@@ -171,7 +227,18 @@ defaultskin
 	}
 }
 
-
+playershadow
+{
+	polygonOffset 1
+	discrete
+	sort unlitdecal
+	noShadows
+	{
+		map textures/playershadow
+		blendFunc blend
+		alphaGen vertex	
+	}
+}
 
 menu/cursor
 {

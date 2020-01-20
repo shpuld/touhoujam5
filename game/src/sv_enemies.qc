@@ -17,6 +17,7 @@ void() misc_barrel =
 .entity boat;
 .float boat_e;
 
+void(entity hook) detachhook;
 void() boat_touch =
 {
 	if (other.classname == "player")
@@ -24,6 +25,8 @@ void() boat_touch =
 		if (other.boat) return;
 		
 		if (time < self.attack_finished) return;
+		
+		if (other.hook) detachhook(other.hook);
 		
 		other.boat = self;
 		other.boat_e = (float)self;
@@ -164,6 +167,7 @@ void() enemy_die_blowup =
 
 .float aistate;
 .float shots_left;
+.float staggertime;
 enum float { AI_IDLE, AI_WALKING, AI_CHASING };
 
 
@@ -178,12 +182,12 @@ void() enemy_think =
 	{
 		pl = player_chain_head;
 		vec_to_player = pl.origin - self.origin;
-		if (vlen(vec_to_player) < 400)
+		if (vlen(vec_to_player) < 750)
 		{
 			makevectors(self.angles);
-			if (v_forward * normalize(vec_to_player) > 0.5)
+			if (v_forward * normalize(vec_to_player) > 0.3)
 			{
-				traceline(self.origin + '0 0 20', pl.origin, MOVE_NOMONSTERS, self);
+				traceline(self.origin + '0 0 20', pl.origin + '0 0 30', MOVE_NOMONSTERS, self);
 				if (trace_fraction >= 1)
 				{
 					self.enemy = pl;
@@ -201,12 +205,12 @@ void() enemy_think =
 				if (random() < 0.05) self.ideal_yaw = random() * 360;
 				changeyaw();
 				if (oldyaw != self.angles_y) self.frame = 1;
-				if (random() < 0.05) self.aistate = AI_WALKING;
+				if (random() < 0.03) self.aistate = AI_WALKING;
 			}
 			else if (self.aistate == AI_WALKING)
 			{
-				if (random() < 0.1) self.aistate = AI_IDLE;
-				float success = walkmove(self.angles_y, self.movespeed);
+				if (random() < 0.2) self.aistate = AI_IDLE;
+				float success = walkmove(self.angles_y, self.movespeed * 0.2);
 				self.frame = 1;
 				if (!success) self.aistate = AI_IDLE;
 			}
@@ -249,7 +253,8 @@ void() bullet_touch =
 	
 	if (other.classname == "player")
 	{
-		damage(other, 1, normalize(self.velocity), self.owner);
+		if (other.staggertime < time)
+			damage(other, 1, normalize(self.velocity), self.owner);
 	}
 	remove(self);
 };
@@ -346,7 +351,7 @@ void() spiral_shoot =
 	
 	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
 	
-	self.shots_left --;
+	self.shots_left--;
 	
 	makevectors(self.angles);
 	vector pos = self.origin + v_forward * 20 + '0 0 30';
@@ -393,10 +398,9 @@ void(float amount, vector dir, entity dealer) crab_die =
 
 void(float amount, vector dir, entity dealer) crab_hurt =
 {
-	self.velocity = dir * 100 + '0 0 300';
-	self.frame = 3;
-	self.nextthink = time  + 0.4;
-	self.think = enemy_think;
+	
+	self.velocity = dir * 70 + '0 0 230';
+	
 	if (dealer.classname == "player")
 	{
 		if (self.aistate != AI_CHASING && self.classname == "giant_enemy_crab")
@@ -405,6 +409,13 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 		self.aistate = AI_CHASING;
 	}
 	sound(self, CHAN_AUTO, "sounds/crabhurt.wav", 1, 1);
+	
+	if (self.frame == 3 || self.staggertime > time) return;
+	
+	self.frame = 3;
+	self.nextthink = time  + 0.4;
+	self.think = enemy_think;
+	self.staggertime = time + 0.8;
 }
 
 void() fairyshot_touch =
@@ -477,9 +488,6 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 {
 	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 1);
 	self.velocity = dir * 100 + '0 0 300';
-	self.frame = 3;
-	self.nextthink = time  + 0.3;
-	self.think = enemy_think;
 	if (dealer.classname == "player")
 	{
 		if (self.aistate != AI_CHASING)
@@ -489,6 +497,12 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 		self.aistate = AI_CHASING;	
 
 	}
+	
+	if (self.frame == 3 || self.staggertime > time) return;
+	
+	self.frame = 3;
+	self.nextthink = time  + 0.3;
+	self.think = enemy_think;
 }
 
 
@@ -515,18 +529,18 @@ void() enemy_crab =
 	self.attack = crab_attack;
 	ai_init();
 	self.movespeed = 10;
-	self.yaw_speed = 10;
+	self.yaw_speed = 15;
 }
 
 void() giant_enemy_crab =
 {
 	setmodel(self, "models/crab.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.health = 5;
+	self.health = 6;
 	self.die = crab_die;
 	self.hurt = crab_hurt;
 	self.attack = giant_crab_attack;
-	self.yaw_speed = 10;
+	self.yaw_speed = 15;
 	self.movespeed = 10;
 	self.scale = 1.5;
 	ai_init();
