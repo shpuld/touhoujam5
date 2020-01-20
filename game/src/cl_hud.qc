@@ -34,7 +34,7 @@ void() draw_map =
 	
 	vector isize = [10, 10];
 	vector extents = [32678, 32678];
-	vector ofs = [0, -10];
+	vector ofs = [0, -8];
 	vector sspos;
 	vector playerpos = [campos_x/extents_x * size_x + size_x/2, size_y - (campos_y/extents_y * size_y + size_y/2) + ofs_y];
 	
@@ -45,7 +45,7 @@ void() draw_map =
 		drawpic([sspos_x - isize_x/2, g_height - size_y + sspos_y - isize_y/2], "textures/islandx", isize, '0.2 0.1 0.1', 0.7, 0);
 	}
 	vector psize = [4, 4];
-	drawrotpic([playerpos_x, g_height - size_y + playerpos_y], '-8 -8 0', '8 8 0', "textures/plarrow", '1 1 1', 0.7, -camang_y + 90);
+	drawrotpic([playerpos_x, g_height - size_y + playerpos_y], '-6 -6 0', '6 6 0', "textures/plarrow", '1 1 1', 0.7, -camang_y + 90);
 	// drawfill(playerpos - psize/2 + [0, g_height - size_y], psize, '0.6 0.2 0.1', 1, 0); 
 }
 
