@@ -2365,7 +2365,7 @@ end
 
 ent_begin
 class enemy_crab
-organg 8320 8000 256 -0 -180 -0
+organg 7824 7632 256 -0 -180 -0
 end
 
 ent_begin
@@ -2630,7 +2630,7 @@ end
 
 ent_begin
 class item_coin
-organg -672 6464 1088 0 90 0
+organg -448 6336 1104 0 90 0
 end
 
 ent_begin
@@ -3340,5 +3340,65 @@ end
 ent_begin
 class decor_stone
 organg -8400 -11936 672 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg 6736 4720 320 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 6752 4752 320 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 6784 4672 320 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 6624 5072 384 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 6672 5024 384 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 6736 4960 384 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 6736 5040 384 0 0 0
+end
+
+ent_begin
+class misc_grass
+organg -1168 -14672 288 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -1152 -14896 288 0 180 0
+end
+
+ent_begin
+class misc_grass
+organg -576 -14304 288 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -1120 -14688 288 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -1120 -14896 288 -0 -90 -0
 end
 

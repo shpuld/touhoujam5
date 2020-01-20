@@ -13,6 +13,7 @@ void() CheckImpulses =
 	case 3: setorigin(self, find(world, classname, "island3").origin); break;
 	case 4: setorigin(self, find(world, classname, "island4").origin); break;
 	case 5: setorigin(self, find(world, classname, "island5").origin); break;
+	case 6: setorigin(self, find(world, classname, "island6").origin); break;
 	}
 	self.impulse = 0;
 };
@@ -240,8 +241,9 @@ void() respawn_on_surface =
 		setorigin(self, self.safe_spot);
 		// setorigin(self, get_spawn_point());
 	}
-	if (self.health == 0)
-		localcmd("music 2\n");
+	
+	// if (self.health == 0)
+	//	localcmd("music 2\n");
 		
 	self.health = 3;
 	self.dead = FALSE;
@@ -426,6 +428,7 @@ void() PlayerSpawn =
 	self.dead = FALSE;
 	self.safe_spot = self.origin;
 	player_normal();
+	self.items = 0;
 	localcmd("music 2\n");
 };
 

@@ -27,6 +27,8 @@ void() worldspawn =
 	
 	editor_load_ents("default");
 	editor_play();
+	
+	music_thinker = spawn();
 };
 
 void() SpectatorConnect =
@@ -45,3 +47,4 @@ void() island3 = { setisland(2); }
 void() island4 = { setisland(3); }
 void() island5 = { setisland(4); }
 void() island6 = { setisland(5); }
+void() island7 = { setisland(6); }

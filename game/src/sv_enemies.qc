@@ -1,5 +1,30 @@
 // Empty
 
+void() start_boss_music = { localcmd("music 1\n"); }
+void() start_idle_music = { localcmd("music 2\n"); }
+
+
+void() add_boss_music =
+{
+	if (bosses_active <= 0)
+	{
+		start_boss_music();
+	}
+	bosses_active++;
+}
+
+void() remove_boss_music =
+{
+	bosses_active--;
+	if (bosses_active <= 0)
+	{
+		if (bosses_active < 0) bosses_active = 0;
+		music_thinker.nextthink = time + 2;
+		music_thinker.think = start_idle_music;
+		localcmd("stopmusic\n");
+	}
+}
+
 void() misc_barrel =
 {
 	setmodel(self, "models/barrel.iqm");
@@ -154,22 +179,24 @@ void() misc_grass =
 	self.die = grass_die;
 }
 
+.float aistate;
+enum float { AI_IDLE, AI_WALKING, AI_CHASING };
 
 void() enemy_die_blowup =
 {
 	if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
-		localcmd("music 2\n");
+	{
+		if (self.aistate == AI_CHASING)
+			remove_boss_music();
+	}
 		
 	sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5);
 	pointparticles(PART_ENEMYBLOWUP, self.origin, '0 0 1');
 	fake_remove(self);
 }
 
-.float aistate;
 .float shots_left;
 .float staggertime;
-enum float { AI_IDLE, AI_WALKING, AI_CHASING };
-
 
 void() enemy_think =
 {
@@ -190,10 +217,13 @@ void() enemy_think =
 				traceline(self.origin + '0 0 20', pl.origin + '0 0 30', MOVE_NOMONSTERS, self);
 				if (trace_fraction >= 1)
 				{
+					if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
+					{
+						if (self.aistate != AI_CHASING)
+							add_boss_music();
+					}
 					self.enemy = pl;
 					self.aistate = AI_CHASING;
-					if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
-						localcmd("music 1\n");
 				}
 			}
 		}
@@ -221,6 +251,11 @@ void() enemy_think =
 		vec_to_player = self.enemy.origin - self.origin;
 		if (vlen(vec_to_player) > 900)
 		{
+			if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
+			{
+				if (self.aistate == AI_CHASING)
+					remove_boss_music();
+			}
 			self.enemy = world;
 			self.aistate = AI_IDLE;
 		}
@@ -404,7 +439,7 @@ void(float amount, vector dir, entity dealer) crab_hurt =
 	if (dealer.classname == "player")
 	{
 		if (self.aistate != AI_CHASING && self.classname == "giant_enemy_crab")
-			localcmd("music 1\n");
+			add_boss_music();
 		self.enemy = dealer;
 		self.aistate = AI_CHASING;
 	}
@@ -491,7 +526,7 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 	if (dealer.classname == "player")
 	{
 		if (self.aistate != AI_CHASING)
-			localcmd("music 1\n");
+			add_boss_music();
 			
 		self.enemy = dealer;
 		self.aistate = AI_CHASING;	

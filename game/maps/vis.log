@@ -4,8 +4,8 @@ running with 4 threads
 testlevel = 4
 LoadBSPFile: 'main.bsp'
 BSP is version BSP2
-  2841 leafs
- 10154 portals
+  2875 leafs
+ 10251 portals
 Calculating Base Vis:
 0....1....2....3....4....5....6....7....8....9....
 Calculating Full Vis:
@@ -2850,9 +2850,43 @@ WARNING: Leaf portals saw into leaf (2837)
 WARNING: Leaf portals saw into leaf (2838)
 WARNING: Leaf portals saw into leaf (2839)
 WARNING: Leaf portals saw into leaf (2840)
-average leafs visible: 1385
+WARNING: Leaf portals saw into leaf (2841)
+WARNING: Leaf portals saw into leaf (2842)
+WARNING: Leaf portals saw into leaf (2843)
+WARNING: Leaf portals saw into leaf (2844)
+WARNING: Leaf portals saw into leaf (2845)
+WARNING: Leaf portals saw into leaf (2846)
+WARNING: Leaf portals saw into leaf (2847)
+WARNING: Leaf portals saw into leaf (2848)
+WARNING: Leaf portals saw into leaf (2849)
+WARNING: Leaf portals saw into leaf (2850)
+WARNING: Leaf portals saw into leaf (2851)
+WARNING: Leaf portals saw into leaf (2852)
+WARNING: Leaf portals saw into leaf (2853)
+WARNING: Leaf portals saw into leaf (2854)
+WARNING: Leaf portals saw into leaf (2855)
+WARNING: Leaf portals saw into leaf (2856)
+WARNING: Leaf portals saw into leaf (2857)
+WARNING: Leaf portals saw into leaf (2858)
+WARNING: Leaf portals saw into leaf (2859)
+WARNING: Leaf portals saw into leaf (2860)
+WARNING: Leaf portals saw into leaf (2861)
+WARNING: Leaf portals saw into leaf (2862)
+WARNING: Leaf portals saw into leaf (2863)
+WARNING: Leaf portals saw into leaf (2864)
+WARNING: Leaf portals saw into leaf (2865)
+WARNING: Leaf portals saw into leaf (2866)
+WARNING: Leaf portals saw into leaf (2867)
+WARNING: Leaf portals saw into leaf (2868)
+WARNING: Leaf portals saw into leaf (2869)
+WARNING: Leaf portals saw into leaf (2870)
+WARNING: Leaf portals saw into leaf (2871)
+WARNING: Leaf portals saw into leaf (2872)
+WARNING: Leaf portals saw into leaf (2873)
+WARNING: Leaf portals saw into leaf (2874)
+average leafs visible: 1412
 c_noclip: 0
 c_chains: 0
-visdatasize:858536  compressed from 1011396
+visdatasize:883598  compressed from 1035000
 Writing main.bsp as BSP version BSP2
   2.0 seconds elapsed

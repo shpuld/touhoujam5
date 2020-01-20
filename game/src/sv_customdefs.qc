@@ -26,6 +26,9 @@ float totalcoins;
 vector island_positions[10];
 float numislands;
 
+float bosses_active;
+entity music_thinker;
+
 
 void() sub_remove =
 {
