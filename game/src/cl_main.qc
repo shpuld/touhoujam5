@@ -131,12 +131,12 @@ float(float isnew) player_listen =
 	float camdist = vlen(campos - (self.origin + '0 0 24'));
 	if (camdist < 90)
 		self.alpha = bound(0.01, (camdist / 45) - 0.5, 1);
-		
-	tracebox(self.origin, '-8 -8 0', '8 8 16', self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
+	
+	traceline(self.origin, self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
 	float shadowdist = trace_endpos_z;
 	adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
-	traceline(self.origin, self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
-	if (trace_endpos_z != shadowdist)
+	tracebox(self.origin, '-8 -8 0', '8 8 16', self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
+	if (fabs(trace_endpos_z - shadowdist) > 0.1)
 		adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
 	return 1;
 }

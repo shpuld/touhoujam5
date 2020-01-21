@@ -311,13 +311,13 @@ void() PlayerPreThink =
 			}
 			else
 			{
-				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.5, 1);
+				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.9, 1, 75);
 				self.parachuting = FALSE;
 				self.attack_finished = time + 0.5;
 			}
 		}
 		
-		if (self.hook)
+		if (self.hook && self.flags & FL_JUMPRELEASED)
 		{
 			detachhook(self.hook);
 		}
@@ -416,7 +416,7 @@ void() PlayerSpawn =
 	self.dead = FALSE;
 	self.safe_spot = self.origin;
 	player_normal();
-	self.items = 4;
+	self.items = 0;
 	localcmd("music 2\n");
 };
 

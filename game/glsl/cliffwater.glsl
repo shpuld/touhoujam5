@@ -266,7 +266,7 @@ void main ()
 
 //yay, regular texture!
 	vec4 col = texture2D(s_diffuse, tc);
-	gl_FragColor += col;
+	gl_FragColor = col;
 
 #if defined(BUMP) && (defined(DELUXE) || defined(SPECULAR) || defined(REFLECTCUBEMASK))
 	vec3 norm = normalize(texture2D(s_normalmap, tc).rgb - 0.5);

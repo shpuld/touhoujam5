@@ -269,7 +269,7 @@ grasscliff
 
 playershadow
 {
-	polygonOffset 1
+	polygonOffset 2
 	discrete
 	sort unlitdecal
 	noShadows
