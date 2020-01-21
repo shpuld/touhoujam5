@@ -70,7 +70,8 @@ varying vec3 normal;
 
 void main ()
 {
-	light.rgba = vec4(0.5); // vec4(e_light_ambient, 1.0);
+	light.rgba = vec4(e_light_ambient, 1.0);
+	light.rgb = max(vec3(0.35), light.rgb);
 
 #ifdef NONORMALS
 	vec3 n, w;
@@ -83,13 +84,9 @@ void main ()
 	s = normalize(s);
 	t = normalize(t);
 	#ifndef PBR
-		// float d = dot(n,e_light_dir);
-		// if (d < 0.0)		//vertex shader. this might get ugly, but I don't really want to make // it per vertex.
-		//	d = 0.0;	//this avoids the dark side going below the ambient level.
-		// light.rgb += (d*e_light_mul);
-		light.rgb += e_light_mul*1.5;
+		light.rgb += e_light_mul;
 		if (length(e_light_mul) <= 0.0)
-			light.rgb += vec3(0.45, 0.43, 0.42)*1.5;
+			light.rgb += vec3(0.45, 0.43, 0.42);
 	#else
 		light.rgb = vec3(1.0);
 	#endif

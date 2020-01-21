@@ -28,29 +28,9 @@ vector() get_spawn_point =
 
 void(entity e) detachhook =
 {
-	e.owner.attack_finished = time + 0.2;
+	e.owner.attack_finished = time + 0.15;
 	e.owner.hook = world;
 	remove(e);
-}
-
-void() hook_pull =
-{
-	vector dist = self.owner.origin - self.origin;
-	
-	
-	if (vlen(dist) > 100)
-	{	
-		self.owner.velocity *= 0.85;
-		self.owner.velocity -= normalize(dist) * bound(0, vlen(dist) * 0.5, 200);
-		if (self.owner.flags & FL_ONGROUND)
-		{
-			self.owner.velocity += '0 0 190';
-			self.owner.flags -= self.owner.flags & FL_ONGROUND;
-		}
-	}
-	
-	self.nextthink = time + 0.025;
-	self.think = hook_pull;
 }
 
 void() hooktouch =
@@ -69,23 +49,27 @@ void() hooktouch =
 		return;
 	}	
 	
+	self.nextthink = 0;
 	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 1);
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
 	
-	self.nextthink = time + 0.15;
-	self.think = hook_pull;
-	
 	self.owner.parachuting = FALSE;
+	
+	// if (vlen(self.owner.velocity) > 250)
+	//	self.owner.velocity = normalize(self.owner.velocity)*250;
+	
+	// if (self.owner.velocity_z < -300)
+	//	self.owner.velocity_z = -300;
 }
 
 void() hookthink =
 {
 	self.angles = vectoangles(self.velocity);
-	self.nextthink = time + 0.15;
+	self.nextthink = time + 0.05;
 	self.think = hookthink;
 	
-	if (time > self.owner.attack_finished) detachhook(self);
+	if (vlen(self.owner.origin - self.origin) > 1000) detachhook(self);
 }
 
 const float ANIM_IDLE = 0;
@@ -307,7 +291,7 @@ void() PlayerPreThink =
 		
 		if (
 			!(self.flags & FL_ONGROUND) &&
-			self.velocity_z < 50 &&
+			self.velocity_z < 250 &&
 			self.flags & FL_JUMPRELEASED &&
 			self.items & IT_PARACHUTE &&
 			time > self.attack_finished &&
@@ -320,6 +304,9 @@ void() PlayerPreThink =
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
 				self.velocity_z = 180;
 				self.parachuting = TRUE;
+				
+				if (vlen(self.velocity) > 600)
+					self.velocity = normalize(self.velocity) * 600;
 			}
 			else
 			{
@@ -363,7 +350,7 @@ void() PlayerPreThink =
 				newhook.owner = self;
 				newhook.think = hookthink;
 				newhook.nextthink = time + 0.1;
-				self.attack_finished = time + 0.5;
+				self.attack_finished = time + 0.1;
 				self.hook = newhook;
 				
 				sound(self, CHAN_AUTO, "sounds/grapplingfire.wav", 1, 1);
@@ -490,12 +477,12 @@ void() SV_RunClientCommand =
 	if (self.boat)
 	{
 		entity bt = self.boat;
-		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (60 - vlen(bt.velocity * 0.05)));
+		bt.angles_y = turn_angle(bt.angles_y, self.angles_y, input_timelength * (65 - vlen(bt.velocity * 0.05)));
 		makevectors(bt.angles);
 		
 		if (input_movevalues_x < 0) input_movevalues_x *= 0.5;
 		bt.velocity -= 0.5 * bt.velocity * input_timelength;
-		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.5;
+		bt.velocity += v_forward * input_movevalues_x * input_timelength * 0.55;
 		// setorigin(bt, bt.origin + bt.velocity * input_timelength);
 		
 		vector tracedir = v_forward;
@@ -568,6 +555,24 @@ void() SV_RunClientCommand =
 	{
 		if (vlen([proposed_velocity_x, proposed_velocity_y]) < 320)
 			self.velocity = proposed_velocity;
+	}
+	
+	if (self.hook && self.hook.movetype == MOVETYPE_NONE)
+	{
+		vector dist = self.origin - self.hook.origin;
+	
+	
+		if (vlen(dist) > 100)
+		{	
+			// self.owner.velocity *= 0.85;
+			self.velocity_z += cvar("sv_gravity")*0.3 * input_timelength;
+			self.velocity -= normalize(dist) * bound(0, vlen(dist)*3, 1800) * input_timelength;
+			if (self.flags & FL_ONGROUND)
+			{
+				self.velocity += '0 0 190';
+				self.flags -= self.flags & FL_ONGROUND;
+			}
+		}
 	}
 };
 
