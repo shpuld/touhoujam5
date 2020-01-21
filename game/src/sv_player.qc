@@ -51,6 +51,7 @@ void() hooktouch =
 	
 	self.nextthink = 0;
 	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 1);
+	pointparticles(PART_HIT, self.origin, normalize(self.velocity));
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
 	
@@ -97,7 +98,7 @@ void() player_normal =
 
 void() player_jump =
 {
-	sound(self, CHAN_AUTO, "sounds/playerjump.wav", 0.3, 1, 125);
+	sound(self, CHAN_AUTO, "sounds/playerjump.wav", 0.4, 1, 125);
 	self.frame = ANIM_JUMP;
 	self.nextthink = time + 0.2;
 	self.think = player_normal;
@@ -415,7 +416,7 @@ void() PlayerSpawn =
 	self.dead = FALSE;
 	self.safe_spot = self.origin;
 	player_normal();
-	self.items = 0;
+	self.items = 4;
 	localcmd("music 2\n");
 };
 
@@ -497,9 +498,10 @@ void() SV_RunClientCommand =
 			bt.attack_finished = time + (0.25 - vlen(bt.velocity) * 0.0005);
 			sound(bt, CHAN_AUTO, "sounds/boatdrive.wav", 0.7, 1);
 		}
+		
 		for (int i = 0; i < rays; i++)
 		{
-			traceline(bt.origin + '0 0 4', bt.origin + '0 0 4' + v_forward * 42, 0, self);
+			traceline(bt.origin + '0 0 4', bt.origin + '0 0 4' + v_forward * 42 + bt.velocity * input_timelength, 0, self);
 			if (trace_fraction < 1)
 			{
 				combined_vel -= vlen(bt.velocity) * v_forward;
@@ -509,6 +511,12 @@ void() SV_RunClientCommand =
 				
 			rotatevectorsbyangle([0, 360 / rays, 0]);
 		}
+		
+		// Brute force bounds check
+		if (bt.origin_x < -15000) bt.velocity_x = 300;
+		if (bt.origin_x > 15000) bt.velocity_x = -300;
+		if (bt.origin_y < -16100) bt.velocity_y = 300;
+		if (bt.origin_y > 13000) bt.velocity_y = -300;
 		
 		if (hits)
 			bt.velocity += combined_vel / hits;

@@ -27,14 +27,14 @@ void() item_touch =
 		pointparticles(PART_PICKUP, self.origin + '0 0 16', '0 0 1');
 		other.items |= self.items;
 		fake_remove(self);
-		sound(other, CHAN_ITEM, "sounds/coinpickup.wav", 0.7, 1, 0.8);
+		sound(other, CHAN_ITEM, "sounds/coinpickup.wav", 0.7, 1, 0.85);
 	}	
 }
 
 void() item_parachute =
 {
 	setmodel(self, "models/napkin.iqm");
-	self.scale = 0.25;
+	self.scale = 0.35;
 	self.modelflags = MF_ROTATE;
 	self.touch = item_touch;
 	self.items = IT_PARACHUTE;

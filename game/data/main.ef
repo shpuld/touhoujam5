@@ -356,7 +356,7 @@ end
 
 ent_begin
 class decor_stone
-organg -7842 -12370 510 -0 -180 -0
+organg -7842 -12370 518 -0 -180 -0
 end
 
 ent_begin
@@ -1551,7 +1551,7 @@ end
 
 ent_begin
 class decor_stone_big
-organg 8320 -2928 744 0 90 0
+organg 8192 -2992 728 0 90 0
 end
 
 ent_begin
@@ -2131,7 +2131,7 @@ end
 
 ent_begin
 class decor_stone_big
-organg -6032 -5088 64 0 90 0
+organg -4760 -6104 24 0 90 0
 end
 
 ent_begin
@@ -2390,7 +2390,7 @@ end
 
 ent_begin
 class item_coin
-organg 8320 -2928 880 0 0 0
+organg 8192 -2992 864 0 0 0
 end
 
 ent_begin
@@ -2550,12 +2550,12 @@ end
 
 ent_begin
 class item_coin
-organg -6032 -5104 192 0 90 0
+organg -5240 -5776 104 0 90 0
 end
 
 ent_begin
 class decor_stone_big
-organg -5736 -4864 16 0 90 0
+organg -5240 -5768 -32 0 90 0
 end
 
 ent_begin
@@ -3515,5 +3515,10 @@ end
 ent_begin
 class decor_stone
 organg 3728 -2544 1200 0 180 0
+end
+
+ent_begin
+class decor_stone_big
+organg -4160 -6304 71 0 90 0
 end
 

@@ -356,7 +356,7 @@ void main ()
 	
 	float wave = clamp(0.0, 
 		(0.8 * sin(vp.x * 0.035 + vp.y * 0.02 + e_time*1.0) * 0.6 * cos(vp.y*0.04 + vp.x*0.03 + e_time*1.1))
-		+ 1.45 - vp.z * 0.3,
+		+ 1.45 - abs(vp.z) * 0.3,
 		1.0);
 	gl_FragColor.rgb += vec3(min(1.0, wave * 1.7));
 	gl_FragColor.rgb *= min(vec3(1.0), vec3(0.14, 0.38, 0.78) + vec3(1.0 - (wave)));
