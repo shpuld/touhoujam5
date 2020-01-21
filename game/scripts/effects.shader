@@ -116,6 +116,7 @@ water
 	}
 }
 
+/*
 watersurf
 {
 	sort 6
@@ -138,6 +139,16 @@ watersurf
 		rgbGen const 0.4 0.4 0.6
 		tcMod scroll -0.01 -0.02
 		tcMod scale 1.25 1.25
+	}
+}
+*/
+
+watersurf
+{
+	program watersurf
+	{
+		map models/water.png
+		blendFunc add
 	}
 }
 
@@ -226,6 +237,35 @@ defaultskin
 		map $diffuse
 	}
 }
+
+cliff
+{
+	program cliffwater
+	{
+		map textures/cliff
+		rgbGen identity
+	}
+	{
+		map $lightmap
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
+grasscliff
+{
+	program cliffwater
+	{
+		map textures/grasscliff
+		rgbGen identity
+	}
+	{
+		map $lightmap
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
 
 playershadow
 {

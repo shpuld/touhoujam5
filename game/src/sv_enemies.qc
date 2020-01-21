@@ -150,7 +150,7 @@ void() decor_stone_s =
 void() decor_stone_xs =
 {
 	setmodel(self, "models/stone_small.iqm");
-	setsize(self, '0 0 0', '0 0 0');
+	setsize(self, '-16 -16 -16', '16 16 16');
 	self.scale = 1;
 	self.solid = SOLID_NOT;
 	self.angles_y = random() * 360;
@@ -161,7 +161,7 @@ void() decor_stone_xs =
 void() decor_grass =
 {
 	setmodel(self, "models/decor_grass.iqm");
-	setsize(self, '0 0 0', '0 0 0');
+	setsize(self, '-16 -16 -16', '16 16 16');
 	self.scale = 1.8;
 	self.solid = SOLID_NOT;
 	self.angles_y = random() * 360;

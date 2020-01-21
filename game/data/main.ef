@@ -1421,17 +1421,17 @@ end
 
 ent_begin
 class decor_grass
-organg 7168 -2080 128 0 0 0
+organg 7168 -2096 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 7072 -2048 128 0 0 0
+organg 7056 -2064 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 6976 -2080 128 0 0 0
+organg 6960 -2112 128 0 0 0
 end
 
 ent_begin
@@ -3425,5 +3425,95 @@ end
 ent_begin
 class enemy_crab
 organg -656 6368 752 0 90 0
+end
+
+ent_begin
+class enemy_crab
+organg 7216 -2448 128 0 -90 0
+end
+
+ent_begin
+class enemy_crab
+organg 7168 -2832 128 -0 -90 -0
+end
+
+ent_begin
+class misc_grass
+organg 3944 -2776 32 0 180 0
+end
+
+ent_begin
+class misc_grass
+organg 3984 -2544 32 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 3984 -2816 32 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 4000 -2752 32 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 4016 -2592 32 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 4016 -2528 32 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 3760 -2816 1184 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg 3840 -2768 1184 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 3824 -2496 1184 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 3888 -2528 1184 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg 3760 -2752 1184 0 180 0
+end
+
+ent_begin
+class misc_grass
+organg 3824 -2528 1184 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 3824 -2720 1184 0 180 0
+end
+
+ent_begin
+class decor_stone_big
+organg 3664 -2608 1196 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg 3720 -2672 1208 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg 3728 -2544 1200 0 180 0
 end
 

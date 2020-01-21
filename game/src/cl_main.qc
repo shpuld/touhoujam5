@@ -153,6 +153,7 @@ float(float isnew) hook_listen =
 }
 
 entity sky;
+entity watersurf;
 vector sun_dir;
 noref void(float apiver, string enginename, float enginever) CSQC_Init =
 {
@@ -160,6 +161,10 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	
 	sky = spawn();
 	setmodel(sky, "models/sky.iqm");
+	sky.scale = 1.25;
+	
+	watersurf = spawn();
+	setmodel(watersurf, "models/watersurf.iqm");
 	
 	cl_editor_init();
 	
@@ -265,6 +270,7 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	
 	draw_hook();
 	
+	/*
 	R_BeginPolygon("watersurf", 0, 0);
 	
 	float fac = 10;
@@ -274,6 +280,11 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	R_PolygonVertex(fac*[-4096, 4096, 0] + '0 0 5', fac*[0, 10], '1 1 1', 1);
 	
 	R_EndPolygon();
+	*/
+	
+	watersurf.origin_z = 3 + campos_z * 0.005;
+	watersurf.scale = 16;
+	addentity(watersurf);
 	
 	//does what you think it does
 	renderscene();
