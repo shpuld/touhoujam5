@@ -29,7 +29,7 @@ vector() get_spawn_point =
 
 void(entity e) detachhook =
 {
-	e.owner.attack_finished = time + 0.15;
+	e.owner.attack_finished_grapple = time + 0.15;
 	e.owner.hook = world;
 	remove(e);
 }
@@ -311,7 +311,7 @@ void() PlayerPreThink =
 			self.velocity_z < 250 &&
 			self.flags & FL_JUMPRELEASED &&
 			self.items & IT_PARACHUTE &&
-			time > self.attack_finished &&
+			time > self.attack_finished_para &&
 			!self.hook
 		)
 		{
@@ -321,7 +321,7 @@ void() PlayerPreThink =
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
 				self.velocity_z = 180;
 				self.parachuting = TRUE;
-				self.attack_finished = time + 0.3;
+				self.attack_finished_para = time + 0.3;
 				if (vlen(self.velocity) > 600)
 					self.velocity = normalize(self.velocity) * 600;
 			}
@@ -329,7 +329,7 @@ void() PlayerPreThink =
 			{
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.9, 1, 75);
 				self.parachuting = FALSE;
-				self.attack_finished = time + 0.55;
+				self.attack_finished_para = time + 0.55;
 			}
 		}
 		
@@ -347,7 +347,7 @@ void() PlayerPreThink =
 	// Hook
 	if (self.button3)
 	{
-		if (time > self.attack_finished && self.items & IT_ROPE)
+		if (time > self.attack_finished_grapple && self.items & IT_ROPE)
 		{
 			if (self.hook)
 			{
@@ -367,7 +367,7 @@ void() PlayerPreThink =
 				newhook.owner = self;
 				newhook.think = hookthink;
 				newhook.nextthink = time + 0.1;
-				self.attack_finished = time + 0.1;
+				self.attack_finished_grapple = time + 0.1;
 				self.hook = newhook;
 				
 				sound(self, CHAN_AUTO, "sounds/grapplingfire.wav", 1, 1);

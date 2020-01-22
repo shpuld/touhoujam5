@@ -5,6 +5,8 @@ float edit_mode;
 
 const float FL_JUMPRELEASED = 4096;
 .float attack_finished;
+.float attack_finished_grapple;
+.float attack_finished_para;
 .float takes_damage;
 .void(float amount, vector dir, entity dealer) hurt;
 .void(float amount, vector dir, entity dealer) die;

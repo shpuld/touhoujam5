@@ -551,7 +551,7 @@ end
 
 ent_begin
 class decor_stone
-organg -9648 -11200 560 0 0 0
+organg -9644 -11192 560 0 0 0
 end
 
 ent_begin
@@ -561,12 +561,12 @@ end
 
 ent_begin
 class decor_grass
-organg -9424 -10480 544 0 0 0
+organg -9424 -10488 544 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg -9392 -10432 544 0 0 0
+organg -9388 -10436 544 0 0 0
 end
 
 ent_begin
@@ -3594,7 +3594,7 @@ end
 
 ent_begin
 class decor_stone_big
-organg -9200 -10928 944 0 0 0
+organg -9216 -10928 948 0 0 0
 end
 
 ent_begin
@@ -3915,5 +3915,240 @@ end
 ent_begin
 class decor_stone_xs
 organg 7872 -2560 768 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -8400 -12464 512 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -8288 -12368 512 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -8176 -12352 512 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -8784 -12352 448 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9008 -12432 448 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8944 -12448 448 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8416 -12352 512 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8224 -12448 512 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8160 -12460 512 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -8080 -12208 512 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -8000 -12144 512 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -7904 -12432 512 0 0 0
+end
+
+ent_begin
+class misc_grass
+organg -8038 -12176 512 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -7924 -12404 512 -0 -90 -0
+end
+
+ent_begin
+class decor_stone
+organg -8864 -11648 704 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -8888 -11768 704 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -8372 -11976 656 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg -8136 -12104 688 0 180 0
+end
+
+ent_begin
+class decor_stone_big
+organg -9968 -11920 768 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg -9984 -11840 768 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -9888 -12000 768 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -9856 -11952 768 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -9968 -11760 768 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9776 -11920 768 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9232 -11696 640 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9296 -11744 640 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9328 -11968 576 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9200 -12176 512 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -9520 -11952 608 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -9232 -12080 544 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg -9360 -11616 640 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -9328 -10684 544 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg -928 -13984 160 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -1168 -13856 160 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -1104 -13856 160 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -896 -13936 160 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -896 -14048 160 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -896 -13648 128 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -1024 -13360 32 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -1104 -13280 32 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -1280 -13392 32 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -704 -14496 160 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -912 -13776 160 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -1136 -13776 160 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -1136 -14032 160 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -1184 -13568 96 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -940 -13572 128 0 90 0
 end
 
