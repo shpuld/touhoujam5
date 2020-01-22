@@ -34,6 +34,7 @@ vector kickangle;
 float muzzle_light_size;
 float muzzle_light_brightness;
 
+float closest_coin;
 
 float alt_held;
 float shift_held;

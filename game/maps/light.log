@@ -10,7 +10,7 @@ qdir:    E:/touhoujam5/
 --- ConvertTextures ---
 Loaded extended texinfo flags from main.texinfo
 --- LoadEntities ---
-33 entities read, 25 are lights.
+34 entities read, 25 are lights.
 --- OptionsSummary ---
     "light" was set to "0" from map
     "dirt" was set to "1" from commandline
@@ -27,8 +27,8 @@ Loaded extended texinfo flags from main.texinfo
     "sunlight_mangle" was set to "0.353553 0.353553 -0.866025" from map
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
-	1694 sky faces
-	9581 solid faces
+	1707 sky faces
+	10009 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
 SetupLights: 25 initial lights
@@ -47,17 +47,17 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 --- LightThread ---
 0....1....2....3....4....5....6....7....8....9....
-Indirect lights: 9574 bounce lights, 0 surface lights (0 light points) in use.
+Indirect lights: 9999 bounce lights, 0 surface lights (0 light points) in use.
 Lighting Completed.
 
-lightdatasize: 666849
+lightdatasize: 673233
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version BSP2
-15.704 seconds elapsed
+16.149 seconds elapsed
 
 stats:
-0.069638 lights tested, 0.062143 hits per sample point
+0.074994 lights tested, 0.067176 hits per sample point
 0.000000 surface lights tested, 0.000000 hits per sample point
-15.135116 bounce lights tested, 10.667466 hits per sample point
+14.964600 bounce lights tested, 10.741324 hits per sample point
 0 empty lightmaps

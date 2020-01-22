@@ -50,6 +50,7 @@ void(entity e) editor_reset_ent
 	e.nextthink = 0;
 	e.flags = 0;
 	e.touch = sub_noop;
+	e.frame = 0;
 }
 
 void(entity e) editor_delete_ent =

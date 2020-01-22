@@ -20,6 +20,7 @@ entity ripple_model;
 float hook_time;
 float drowning_ofs;
 
+vector old_bowl_pos;
 float(float isnew) bowl_listen =
 {
 	self.angles += [sin(time)*0.5, 0, cos(1.1*time+0.5)*0.4];
@@ -30,6 +31,17 @@ float(float isnew) bowl_listen =
 	{
 		makevectors(localplayer.angles);
 		setorigin(self, localplayer.origin - v_right * 20 - v_up * 16);
+		old_bowl_pos = self.origin;
+	}
+	else if (vlen(old_bowl_pos - self.origin) > 16*60*frametime && vlen(old_bowl_pos - self.origin) < 256)
+	{
+		// print("wait this isn't right\n");
+		old_bowl_pos += (self.origin - old_bowl_pos) * 0.05;
+		self.origin = old_bowl_pos;
+	}
+	else
+	{
+		old_bowl_pos = self.origin;
 	}
 	
 	ripple_model.origin = [self.origin_x, self.origin_y, 2];
@@ -70,7 +82,12 @@ float(float isnew) player_listen =
 		wanted_angles_y = self.angles_y;
 	}
 	
-	if (speed > 10 || self.frame == 2)
+	if (self.frame == 4)
+	{
+		wanted_angles = vectoangles(-horvel);
+	}
+	
+	if (speed > 10 || self.frame == 2 || self.frame == 4)
 	{
 		player_model_angles.y = turn_angle(player_model_angles_y, wanted_angles_y, frametime * 1200);
 	}
@@ -152,6 +169,32 @@ float(float isnew) hook_listen =
 	return 1;
 }
 
+.float coin_flash_time;
+float(float isnew) coin_listen =
+{
+	if (isnew) self.coin_flash_time = time + random() * 2;
+	
+	if (!localplayer) return 1;
+	
+	vector dir = self.origin - localplayer.origin;
+	float dist = vlen(dir);
+	
+	if (time > self.coin_flash_time)
+	{
+		
+		pointparticles(PART_COINFLASH, self.origin + '0 0 28' + randomvec() * 5 + normalize(campos - self.origin) * 20, '0 0 1');
+		self.coin_flash_time = time + 1 + random() * 2;
+	}
+	
+	self.angles_y = anglemod(time * 360 * 1.1);
+	self.origin_z += sin(time * 2.5) * 7;
+	
+	if (dist < closest_coin)
+		closest_coin = dist;
+		
+	return 1;
+}
+
 entity sky;
 entity watersurf;
 vector sun_dir;
@@ -174,6 +217,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	deltalisten("models/bowl.iqm", bowl_listen, 0);
 	deltalisten("models/sinmyoumaru.iqm", player_listen, 0);
 	deltalisten("models/hook.iqm", hook_listen, 0);
+	deltalisten("models/coin.iqm", coin_listen, 0);
 	
 	parachute_model = spawn();
 	needle_model = spawn();
@@ -217,7 +261,7 @@ void() draw_hook =
 	vector up = normalize(campos-s);
 	vector rgt = normalize(crossproduct(fwd, up));
 	
-	if (hook_time < 0.95)
+	if (hook_time < 0.90 && vlen(e-s) > 42)
 	{
 		hook_model.origin = s * hook_time + e * (1 - hook_time);
 		hook_model.angles = vectoangles(fwd);
@@ -262,10 +306,10 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	setproperty(VF_ANGLES, camang);
 	setproperty(VF_ORIGIN, campos);
 	
-	//autoadd entities received from servers for drawing
+	// Set before calling addentities which calls deltalistens
+	closest_coin = 35000;
 	
-	// hack:
-	// hookpos = '0 0 -999999';
+	//autoadd entities received from servers for drawing
 	addentities(MASK_ENGINE);
 	
 	draw_hook();

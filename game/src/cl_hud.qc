@@ -82,6 +82,7 @@ void() draw_item_help =
 	drawstring([g_width/2 - strlen(desc)*size_x*0.5, ypos], desc, size, '1 1 1', a, 0);
 }
 
+float next_blip;
 void() draw_hud =
 {
 	
@@ -103,7 +104,25 @@ void() draw_hud =
 	float coins = getstatf(STAT_COINS);
 	float totalcoins = getstatf(STAT_TOTALCOINS);
 	string coinstring = sprintf("%.0f/%.0f", coins, totalcoins);
+
+	float coinflash = 0;
+	if (closest_coin < 3000)
+	{
+		coinflash = next_blip <= 0.2 ? next_blip * 5 : 0;
+		next_blip -= frametime;
+	}
+	if (next_blip <= 0)
+	{
+		next_blip = 
+			closest_coin < 500 ? 0.2 :
+			closest_coin < 1000 ? 0.4 :
+			closest_coin < 2000 ? 0.8 :
+			closest_coin < 3000 ? 1.6 : 0.2;
+	}
+		
+	
 	drawpic([4, g_height - 100 - 16], "textures/coin", size, '1 1 1', 1, 0);
+	drawpic([4 - 2, g_height - 100 - 16 - 2], "textures/coin", size + [4, 4], '1 1 1' * coinflash * 0.75, 1, 1);
 	drawstring([4 + 16 + 4, g_height - 100 - 16], coinstring, size, '1 1 1', 1, 0);
 	
 	if (coins == totalcoins)

@@ -14,6 +14,7 @@ void() CheckImpulses =
 	case 4: setorigin(self, find(world, classname, "island4").origin); break;
 	case 5: setorigin(self, find(world, classname, "island5").origin); break;
 	case 6: setorigin(self, find(world, classname, "island6").origin); break;
+	case 101: self.items = 7; break;
 	}
 	self.impulse = 0;
 };
@@ -50,7 +51,7 @@ void() hooktouch =
 	}	
 	
 	self.nextthink = 0;
-	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/grapplinghit.wav", 1, 0.5);
 	pointparticles(PART_HIT, self.origin, normalize(self.velocity));
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_NONE;
@@ -127,15 +128,21 @@ void(float amount, vector dir, entity dealer) player_die =
 	sound(self, CHAN_AUTO, "sounds/dunnoimpact2.wav", 0.9, 1, 20);
 	sound(self, CHAN_AUTO, "sounds/needleimpact.wav", 0.9, 1, 500);
 	pointparticles(PART_PLAYERHIT, self.origin + '0 0 32', '0 0 1');
+
+	if (self.hook) detachhook(self.hook);
+	if (self.parachuting) self.parachuting = FALSE;	
+
 	self.frame = ANIM_DIE;
 	self.dead = TRUE;
 	self.nextthink = 0;
 	self.attack_finished = time + 3;
+	self.velocity = dir * 240 + '0 0 350';
+
 }
 
 void() player_attack2 =
 {
-	sound(self, CHAN_AUTO, "sounds/step01.wav", 1, 1, 100);
+	sound(self, CHAN_AUTO, "sounds/step01.wav", 0.6, 1, 100);
 	sound(self, CHAN_AUTO, "sounds/step01.wav", 0.7, 1, 80);
 	pointparticles(PART_ATTACK, self.origin + v_right * 8 + v_up * 32 + v_forward * 20, v_forward);
 	traceline(self.origin + self.view_ofs, self.origin + self.view_ofs + v_forward * 64, 0, self);
@@ -186,7 +193,7 @@ void() player_attack2 =
 void() player_attack =
 {
 	self.frame = ANIM_ATTACK;
-	self.nextthink = time + 0.25;
+	self.nextthink = time + 0.3;
 	self.think = player_attack2;
 }
 
@@ -305,7 +312,7 @@ void() PlayerPreThink =
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 1, 1);
 				self.velocity_z = 180;
 				self.parachuting = TRUE;
-				
+				self.attack_finished = time + 0.3;
 				if (vlen(self.velocity) > 600)
 					self.velocity = normalize(self.velocity) * 600;
 			}
@@ -313,7 +320,7 @@ void() PlayerPreThink =
 			{
 				sound(self, CHAN_AUTO, "sounds/parachuteopen.wav", 0.9, 1, 75);
 				self.parachuting = FALSE;
-				self.attack_finished = time + 0.5;
+				self.attack_finished = time + 0.55;
 			}
 		}
 		
@@ -338,11 +345,11 @@ void() PlayerPreThink =
 				if (self.mouse2released)
 					detachhook(self.hook);
 			}
-			else
+			else if (self.mouse2released)
 			{
 				entity newhook = spawn();
 				setmodel(newhook, "models/hook.iqm");
-				setorigin(newhook, self.origin + self.view_ofs - '0 0 8' + v_forward * 16);
+				setorigin(newhook, self.origin + [0, 0, self.maxs_z] + v_forward * 16);
 				newhook.velocity = v_forward * 2000;
 				newhook.angles = vectoangles(v_forward);
 				newhook.movetype = MOVETYPE_FLYMISSILE;
@@ -529,8 +536,9 @@ void() SV_RunClientCommand =
 	}
 	if (self.drowning)
 	{
+		input_movevalues *= 0.1;
 		runstandardplayerphysics(self);
-		self.velocity -= 20 * self.velocity * input_timelength;
+		self.velocity -=  0.8 * self.velocity * input_timelength;
 		return;
 	}
 	
@@ -570,17 +578,21 @@ void() SV_RunClientCommand =
 		vector dist = self.origin - self.hook.origin;
 	
 	
-		if (vlen(dist) > 100)
+		if (vlen(dist) > 64)
 		{	
 			// self.owner.velocity *= 0.85;
 			self.velocity_z += cvar("sv_gravity")*0.3 * input_timelength;
-			self.velocity -= normalize(dist) * bound(0, vlen(dist)*3, 1800) * input_timelength;
+			self.velocity -= normalize(dist) * bound(0, vlen(dist)*4, 1500) * input_timelength;
 			if (self.flags & FL_ONGROUND)
 			{
 				self.velocity += '0 0 190';
 				self.flags -= self.flags & FL_ONGROUND;
 			}
 		}
+		if (self.origin_z < 36 && self.velocity_z < 0 && self.hook.origin_z > 100)
+			self.velocity_z += 1600 * input_timelength;
+		if (self.origin_z < 8 && self.velocity_z < 0 && self.hook.origin_z > 100)
+			self.velocity_z += 1000 * input_timelength;
 	}
 };
 

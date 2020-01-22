@@ -11,43 +11,43 @@ end
 
 ent_begin
 class info_null
-organg -5384 -4512 64 0 -30 0
+organg -5328 -4488 64 0 0 0
 targetname island2se
 end
 
 ent_begin
 class trigger_tele_big
-organg -6080 -5280 -1728 -0 -90 -0
+organg -5312 -5088 -2304 -0 -90 -0
 target island2se
 end
 
 ent_begin
 class info_null
-organg -6080 -5152 -1728 -0 90 -0
+organg -5312 -4904 -2304 -0 90 -0
 targetname island2s
 end
 
 ent_begin
 class trigger_tele_big
-organg -5728 -4200 1248 0 90 0
+organg -5728 -4152 1248 0 90 0
 target island2es
 end
 
 ent_begin
 class info_null
-organg -5736 -4320 1248 -0 -90 -0
+organg -5736 -4344 1248 -0 -90 -0
 targetname island2e
 end
 
 ent_begin
 class trigger_tele_big
-organg -6032 -5280 -928 -0 -90 -0
+organg -5264 -5112 -1504 -0 -90 -0
 target island2e
 end
 
 ent_begin
 class info_null
-organg -6032 -5176 -928 -0 -270 -0
+organg -5264 -4920 -1504 -0 -270 -0
 targetname island2es
 end
 
@@ -168,13 +168,13 @@ end
 
 ent_begin
 class trigger_tele_big
-organg -9184 -10592 544 0 0 0
+organg -9184 -10576 544 0 0 0
 target island1s
 end
 
 ent_begin
 class info_null
-organg -9296 -10592 544 0 180 0
+organg -9296 -10576 544 0 180 0
 targetname island1se
 end
 
@@ -1700,83 +1700,83 @@ organg -8080 -10496 96 0 0 0
 end
 
 ent_begin
-class decor_stone_xs
-organg -5952 -5088 -1728 -0 -90 -0
+class decor_stone_s
+organg -5344 -4592 -2304 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg -5120 -4688 -2304 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg -5184 -4896 -2304 -0 -90 -0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6128 -5024 -1728 -0 -90 -0
+organg -5104 -4848 -2304 0 0 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5904 -4800 -1728 0 0 0
+organg -5232 -4672 -2304 0 90 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6080 -4752 -1728 0 90 0
+organg -5216 -4592 -2304 0 90 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5824 -4848 -1568 0 0 0
+organg -5392 -4688 -2304 0 180 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5840 -4784 -1568 0 0 0
+organg -5488 -4656 -2240 0 180 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5932 -4752 -1600 0 90 0
+organg -5440 -4832 -2272 -0 -180 -0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6272 -4848 -1664 -0 -180 -0
+organg -5472 -4864 -2272 -0 -180 -0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6144 -4704 -1728 0 90 0
+organg -5456 -4528 -2208 0 90 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5776 -5120 -1536 -0 -90 -0
+organg -5072 -4768 -2112 0 0 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -5792 -5008 -1536 0 0 0
+organg -5040 -4832 -2112 0 0 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6096 -5196 -1400 -0 -180 -0
+organg -5488 -4864 -1920 -0 -180 -0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6256 -5076 -1344 0 180 0
+organg -5472 -4512 -1728 0 90 0
 end
 
 ent_begin
 class decor_stone_xs
-organg -6000 -4736 -1088 0 90 0
-end
-
-ent_begin
-class decor_stone_xs
-organg -6064 -5168 -928 -0 -90 -0
-end
-
-ent_begin
-class decor_stone_xs
-organg -6000 -5184 -928 -0 -90 -0
+organg -5296 -4464 -1664 0 90 0
 end
 
 ent_begin
@@ -2263,49 +2263,49 @@ end
 
 ent_begin
 class trigger_tele_big
-organg 8480 -2800 -1152 0 0 0
+organg 8256 -2512 -1152 0 0 0
 target fairyexit
 end
 
 ent_begin
 class info_null
-organg 8352 -2800 -1152 0 -180 0
+organg 8416 -2512 -1152 0 -360 0
 targetname fairycave
 end
 
 ent_begin
 class fairy
-organg 7536 -2704 -1040 -0 -360 -0
+organg 9232 -2608 -1104 -0 -540 -0
 end
 
 ent_begin
 class enemy_crab
-organg 7088 -2784 -1152 -0 -90 -0
+organg 9488 -2848 -1152 -0 -90 -0
 end
 
 ent_begin
 class enemy_crab
-organg 7104 -2512 -1152 -0 -180 -0
+organg 9568 -2640 -1152 -0 -180 -0
 end
 
 ent_begin
 class enemy_crab
-organg 7168 -2304 -1152 0 90 0
+organg 9472 -2432 -1152 0 90 0
 end
 
 ent_begin
 class item_rope
-organg 6736 -2656 -1120 0 180 0
+organg 9904 -2624 -1120 0 180 0
 end
 
 ent_begin
 class item_coin
-organg 6768 -2800 -1120 -0 -180 -0
+organg 224 7264 784 -0 -90 -0
 end
 
 ent_begin
 class item_coin
-organg 6800 -2608 -1120 0 180 0
+organg 9672 -2248 -832 0 180 0
 end
 
 ent_begin
@@ -3040,7 +3040,7 @@ end
 
 ent_begin
 class item_coin
-organg 3824 -2960 128 0 90 0
+organg 3568 -2880 472 0 90 0
 end
 
 ent_begin
@@ -3299,12 +3299,12 @@ end
 
 ent_begin
 class decor_stone
-organg -9152 -10720 880 0 0 0
+organg -9184 -10784 880 0 0 0
 end
 
 ent_begin
 class decor_stone
-organg -9136 -11648 880 0 0 0
+organg -9104 -11360 880 0 0 0
 end
 
 ent_begin
@@ -3520,5 +3520,35 @@ end
 ent_begin
 class decor_stone_big
 organg -4160 -6304 71 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5168 -4480 -1664 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5296 -4912 -1504 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5232 -4928 -1504 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5152 -4496 -2176 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5200 -4480 -2176 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -5072 -4576 -2144 0 0 0
 end
 

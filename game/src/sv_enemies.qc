@@ -204,6 +204,8 @@ void() enemy_think =
 	vector vec_to_player;
 	float oldyaw = self.angles_y;
 	self.frame = 0;
+		
+	if (self.health <= 0) return;
 	
 	if (!self.enemy)
 	{
@@ -309,7 +311,7 @@ void(vector org, vector vel) bullet_spawn =
 	bullet.movetype = MOVETYPE_FLYMISSILE;
 	bullet.touch = bullet_touch;
 	bullet.think = bullet_think;
-	bullet.nextthink = time + 4;
+	bullet.nextthink = time + 2.0;
 	bullet.solid = SOLID_BBOX;
 	bullet.owner = self;
 	
@@ -328,20 +330,21 @@ void() crab_shoot2 =
 		return;
 	}
 	
-	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.5);
+	// sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.7, 80);
 	
 	self.shots_left--;
 	
 	makevectors(self.angles);
 	vector pos = self.origin + v_forward * 20 + v_right * 28 + '0 0 30';
-	vector vel = v_forward * 500;
+	vector vel = v_forward * 400;
 	
 	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
 	changeyaw();
 	
 	bullet_spawn(pos, vel);
 	
-	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.15;
 	self.think = crab_shoot1;
 }
 
@@ -355,20 +358,21 @@ void() crab_shoot1 =
 		return;
 	}
 	
-	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.5);
+	// sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.7, 80);
 	
 	self.shots_left--;
 	
 	makevectors(self.angles);
 	vector pos = self.origin + v_forward * 20 - v_right * 28 + '0 0 30';
-	vector vel = v_forward * 500;
+	vector vel = v_forward * 400;
 	
 	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
 	changeyaw();
 	
 	bullet_spawn(pos, vel);
 	
-	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.15;
 	self.think = crab_shoot2;
 }
 
@@ -384,19 +388,19 @@ void() spiral_shoot =
 		return;
 	}
 	
-	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.5);
 	
 	self.shots_left--;
 	
 	makevectors(self.angles);
 	vector pos = self.origin + v_forward * 20 + '0 0 30';
 	bullet_spawn(pos, v_forward * 400);
-	bullet_spawn(pos, normalize(v_forward*3 + v_right*2) * 400);
-	bullet_spawn(pos, normalize(v_forward*3 - v_right*2) * 400);
+	bullet_spawn(pos, normalize(v_forward*3 + v_right*2) * 350);
+	bullet_spawn(pos, normalize(v_forward*3 - v_right*2) * 350);
 	
-	self.angles_y += 8;
+	self.angles_y += 12.5;
 	
-	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.15;
 	self.think = spiral_shoot;
 }
 
@@ -405,8 +409,8 @@ void() giant_crab_attack =
 	self.frame = 2;
 	self.nextthink = time + 0.5;
 	self.think = spiral_shoot;
-	self.shots_left = 60;
-	self.attack_finished = time + 10;
+	self.shots_left = 45;
+	self.attack_finished = time + 5;
 }
 
 void() crab_attack =
@@ -458,7 +462,7 @@ void() fairyshot_touch =
 	if (other.classname == "player")
 		damage(other, 1, self.origin - other.origin, self.owner);
 	
-	sound(self, CHAN_AUTO, "sounds/bulletfirebig.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/bulletfirebig.wav", 1, 0.7);
 	for (int i = 0; i < 16; i++)
 	{
 		makevectors([0, 22.5 * i, 0]);
@@ -473,7 +477,7 @@ void() fairy_shoot =
 	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin)[1];
 	changeyaw();
 	
-	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 1);
+	sound(self, CHAN_AUTO, "sounds/bulletfire.wav", 1, 0.6, 80);
 	makevectors(self.angles);
 	entity proj = spawn();
 	proj.touch = fairyshot_touch;
@@ -554,6 +558,20 @@ void() ai_init =
 		droptofloor();
 }
 
+void() crab_touch2=
+{
+	damage(self, 50, [srandom(), srandom(), 1.5 + random()], self);
+}
+
+void() crab_touch =
+{
+	if (self.origin_z < 4 && self.origin_z > -64)
+	{
+		self.nextthink = time;
+		self.think = crab_touch2;
+	}
+}
+
 void() enemy_crab =
 {
 	setmodel(self, "models/crab.iqm");
@@ -562,6 +580,7 @@ void() enemy_crab =
 	self.die = crab_die;
 	self.hurt = crab_hurt;
 	self.attack = crab_attack;
+	self.touch = crab_touch;
 	ai_init();
 	self.movespeed = 10;
 	self.yaw_speed = 15;
@@ -575,6 +594,7 @@ void() giant_enemy_crab =
 	self.die = crab_die;
 	self.hurt = crab_hurt;
 	self.attack = giant_crab_attack;
+	self.touch = crab_touch;
 	self.yaw_speed = 15;
 	self.movespeed = 10;
 	self.scale = 1.5;
