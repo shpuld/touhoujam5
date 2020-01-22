@@ -57,6 +57,16 @@ void() boat_touch =
 		other.boat_e = (float)self;
 		
 		self.solid = SOLID_NOT;
+		
+		self.frame = 1;
+		
+		if (!cvar("skill"))
+		{
+			other.health = 3;
+			other.dead = FALSE;
+		}
+		sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5, 80);
+		sound(self, CHAN_AUTO, "sounds/boatdrive.wav", 1, 0.5);
 	}
 }
 
@@ -81,9 +91,10 @@ void() disembark =
 	self.boat.attack_finished = time + 1;
 	self.boat.nextthink = time + 0.8;
 	self.boat.think = boat_check_player_nearby;
+	self.boat.frame = 0;
 
-	self.origin += '0 0 2';
-	self.velocity = '0 0 50';
+	// self.origin += '0 0 2';
+	self.velocity = '0 0 0';
 	self.flags -= self.flags & FL_JUMPRELEASED;
 	self.boat.velocity = '0 0 0';
 	
@@ -92,9 +103,7 @@ void() disembark =
 	self.boat = world;
 	self.boat_e = 0;
 	
-	self.health = 3;
-	self.dead = FALSE;
-
+	sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5, 70);
 }
 
 void() misc_bowl =

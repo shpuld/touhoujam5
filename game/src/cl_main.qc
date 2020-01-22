@@ -27,16 +27,18 @@ float(float isnew) bowl_listen =
 	
 	self.origin_z += sin(1.1 * time) * 1.5;
 	
-	if (localplayer.frame == 8)
-	{
+	if (self.frame == 1 && localplayer.frame == 8)
+	{	
+		old_bowl_pos = self.origin;
 		makevectors(localplayer.angles);
 		setorigin(self, localplayer.origin - v_right * 20 - v_up * 16);
-		old_bowl_pos = self.origin;
+		if (vlen(self.origin - old_bowl_pos) > 16)
+			setorigin(self, old_bowl_pos);
 	}
 	else if (vlen(old_bowl_pos - self.origin) > 16*60*frametime && vlen(old_bowl_pos - self.origin) < 256)
 	{
 		// print("wait this isn't right\n");
-		old_bowl_pos += (self.origin - old_bowl_pos) * 0.05;
+		old_bowl_pos += (self.origin - old_bowl_pos) * 0.025;
 		self.origin = old_bowl_pos;
 	}
 	else
@@ -46,7 +48,7 @@ float(float isnew) bowl_listen =
 	
 	ripple_model.origin = [self.origin_x, self.origin_y, 2];
 	ripple_model.angles_y = time * 4;
-	ripple_model.scale = 1.2;
+	ripple_model.scale = 1.4;
 	addentity(ripple_model);
 	
 	return 1; 

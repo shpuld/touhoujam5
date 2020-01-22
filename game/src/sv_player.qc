@@ -154,7 +154,7 @@ void() player_attack2 =
 	}
 	else
 	{
-		entity nme = findradius(self.origin + self.view_ofs, 128);
+		entity nme = findradius(self.origin + self.view_ofs, 138);
 		float closest = 9999;
 		entity closestnme = world;
 		vector dir;
@@ -236,10 +236,16 @@ void() respawn_on_surface =
 	
 	// if (self.health == 0)
 	//	localcmd("music 2\n");
-		
-	self.health = 3;
-	self.dead = FALSE;
+	
 	player_normal();
+	
+	if (cvar("skill"))
+		damage(self, 1, '0 0 1', world);
+	else
+	{
+		self.health = 3;
+		self.dead = FALSE;
+	}
 	
 	msg_entity = self;
 	BeginEvent(EV_DROWN);
@@ -266,7 +272,10 @@ void() PlayerPreThink =
 	{
 		if (time > self.attack_finished) 
 		{
-			respawn_on_surface();
+			if (cvar("skill"))
+				print("Game over!\n");
+			else
+				respawn_on_surface();
 		}
 		return;
 	}
@@ -547,6 +556,9 @@ void() SV_RunClientCommand =
 		
 	if (self.frame == ANIM_ATTACK)
 		input_movevalues *= 0.3;
+		
+	if (self.dead)
+		input_movevalues *= 0;
 		
 		
 	runstandardplayerphysics(self);
