@@ -35,7 +35,8 @@ string entlist[] = {
 	"decor_stone_s",
 	"decor_stone",
 	"decor_stone_big",
-	"decor_grass"
+	"decor_grass",
+	"decor_lamp"
 };
 
 vector entity_menu_scroll;

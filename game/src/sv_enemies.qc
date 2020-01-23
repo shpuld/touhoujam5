@@ -165,8 +165,6 @@ void() decor_stone_xs =
 	self.angles_y = random() * 360;
 }
 
-
-
 void() decor_grass =
 {
 	setmodel(self, "models/decor_grass.iqm");
@@ -176,6 +174,14 @@ void() decor_grass =
 	self.angles_y = random() * 360;
 }
 
+void() decor_lamp =
+{
+	setmodel(self, "models/lamp.iqm");
+	setsize(self, '-16 -16 -16', '16 16 16');
+	self.scale = 1;
+	self.solid = SOLID_NOT;
+	self.effects |= EF_FULLBRIGHT;
+}
 
 void() misc_grass =
 {
@@ -228,7 +234,7 @@ void() enemy_think =
 				traceline(self.origin + '0 0 20', pl.origin + '0 0 30', MOVE_NOMONSTERS, self);
 				if (trace_fraction >= 1)
 				{
-					if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
+					if (self.classname == "giant_enemy_crab" || self.classname == "fairy" || self.classname == "suica")
 					{
 						if (self.aistate != AI_CHASING)
 							add_boss_music();
@@ -260,7 +266,7 @@ void() enemy_think =
 	else
 	{
 		vec_to_player = self.enemy.origin - self.origin;
-		if (vlen(vec_to_player) > 900)
+		if (vlen(vec_to_player) > 900 && self.classname != "suica")
 		{
 			if (self.classname == "giant_enemy_crab" || self.classname == "fairy")
 			{
@@ -311,7 +317,7 @@ void() bullet_think =
 	remove(self);
 }
 
-void(vector org, vector vel) bullet_spawn =
+entity(vector org, vector vel) bullet_spawn =
 {
 	entity bullet = spawn();
 	setmodel(bullet, "models/bullet1.iqm");
@@ -326,6 +332,8 @@ void(vector org, vector vel) bullet_spawn =
 	
 	setorigin(bullet, org);
 	bullet.velocity = vel;
+	
+	return bullet;
 }
 
 void() crab_shoot1;
@@ -557,11 +565,27 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 void() suica_attack;
 void() suica_shoot2 =
 {
-	print("attack 2\n");
 	self.attack = suica_attack;
 	
-	self.nextthink = time + 0.2;
+	self.nextthink = time + 0.05;
 	self.shots_left--;
+	
+	float old_speed = self.yaw_speed;
+	self.yaw_speed = 6.5;
+	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
+	changeyaw();
+	self.yaw_speed = old_speed;
+	
+	if (self.shots_left <= 40 && self.shots_left % 10 == 0)
+	{
+		makevectors(self.angles);
+		entity bul = bullet_spawn(self.origin + '0 0 40', v_forward * 1400);
+		bul.scale = 2;
+		bul.nextthink = time + 3;
+		setsize(bul, '-8 -8 -8', '8 8 8');
+		pointparticles(PART_BULLET1HIT, self.origin + '0 0 40' + v_forward * 64, v_forward * 400);
+		sound(self, CHAN_WEAPON, "sounds/cannon.wav", 1, 0.5, 95 + random() * 10);
+	}
 	
 	if (self.shots_left)
 		self.think = suica_shoot2;
@@ -573,20 +597,45 @@ void() suica_shoot2 =
 void() suica_attack2 =
 {
 	self.frame = 2;
-	self.nextthink = time + 0.9;
+	self.nextthink = time + 1.4;
 	self.think = suica_shoot2;
-	self.shots_left = 8;
-	self.attack_finished = time + 3.0;
+	self.shots_left = 50;
+	self.attack_finished = time + 3.5;
 }
 
+void() bounce_bullet_touch = 
+{
+	pointparticles(PART_BULLET1HIT, self.origin, trace_plane_normal);
+	sound(self, CHAN_WEAPON, "sounds/bulletfire.wav", 0.75, 1.0, 130 + random() * 50);
+	self.velocity *= 1.5;
+	
+	if (other.classname == "player")
+	{
+		if (other.staggertime < time)
+			damage(other, 1, normalize(self.velocity), self.owner);
+			
+		remove(self);
+	}
+}
 
 void() suica_shoot =
 {
-	print("attack 1\n");
 	self.attack = suica_attack2;
 	
-	self.nextthink = time + 0.2;
+	sound(self, CHAN_AUTO, "sounds/bulletfirebig.wav", 1, 0.5, 50 +  (12 - self.shots_left) * 13);
+	
+	self.nextthink = time + 0.15;
 	self.shots_left--;
+	
+	entity bul;
+	for (int i = 0; i < 4; i++)
+	{
+		makevectors(self.angles + [0, i * 90 + self.shots_left * 25, 0]);
+		bul = bullet_spawn(self.origin + '0 0 30', v_up * (100 + random() * 140) + v_forward * (180 + random() * 80));
+		bul.touch = bounce_bullet_touch;
+		bul.movetype = MOVETYPE_BOUNCE;
+		bul.nextthink = time + 2.0;
+	}
 	
 	if (self.shots_left)
 		self.think = suica_shoot;
@@ -597,10 +646,10 @@ void() suica_shoot =
 void() suica_attack =
 {
 	self.frame = 2;
-	self.nextthink = time + 0.9;
+	self.nextthink = time + 1.3;
 	self.think = suica_shoot;
-	self.shots_left = 10;
-	self.attack_finished = time + 3.0;
+	self.shots_left = 12;
+	self.attack_finished = time + 3.5;
 }
 
 void(float amount, vector dir, entity dealer) suica_die =
@@ -619,9 +668,9 @@ void(float amount, vector dir, entity dealer) suica_die =
 
 void(float amount, vector dir, entity dealer) suica_hurt =
 {
-	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 40);
-	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 65);
-	self.velocity = dir * 300 + '0 0 50';
+	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 50);
+	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 75);
+	
 	if (dealer.classname == "player")
 	{
 		if (self.aistate != AI_CHASING)
@@ -632,13 +681,18 @@ void(float amount, vector dir, entity dealer) suica_hurt =
 
 	}
 	
+	self.velocity = dir * 300 + '0 0 70';
+	
 	if (self.frame == 3 || self.staggertime > time) return;
 	
+	self.velocity += dir * 200 + '0 0 40';
+	self.angles_y = vectoangles(-dir)[1];
+	
 	self.frame = 3;
-	self.nextthink = time  + 0.3;
+	self.nextthink = time + 0.3;
 	self.think = enemy_think;
 	
-	self.staggertime = time + 2.5;
+	self.staggertime = time + 4.5;
 }
 
 
@@ -719,7 +773,7 @@ void() suica =
 {
 	setmodel(self, "models/suica.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.health = 50;
+	self.health = 30;
 	self.die = suica_die;
 	self.hurt = suica_hurt;
 	self.attack = suica_attack;

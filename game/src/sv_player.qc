@@ -14,6 +14,7 @@ void() CheckImpulses =
 	case 4: setorigin(self, find(world, classname, "island4").origin); break;
 	case 5: setorigin(self, find(world, classname, "island5").origin); break;
 	case 6: setorigin(self, find(world, classname, "island6").origin); break;
+	case 7: setorigin(self, find(world, classname, "island7").origin); break;
 	case 101: self.items = 7; break;
 	}
 	self.impulse = 0;

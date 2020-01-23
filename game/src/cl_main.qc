@@ -63,7 +63,6 @@ float(float isnew) player_listen =
 		if (isnew && !time_ofs)
 		{
 			time_ofs = time;
-			printf("%f\n", time);
 		}
 	}
 	

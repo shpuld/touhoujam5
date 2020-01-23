@@ -272,6 +272,12 @@ float(entity e, string type) editor_set_ent_type =
 		e.scale = 1.8;
 		e.solid = SOLID_BBOX;
 		break;
+	case "decor_lamp":
+		setmodel(e, "models/lamp.iqm");
+		setsize(e, '-16 -16 -40', '16 16 16');
+		e.scale = 1;
+		e.solid = SOLID_BBOX;
+		break;
 	case "item_coin":
 		setmodel(e, "models/coin.iqm");
 		setsize(e, '-16 -16 0', '16 16 32');

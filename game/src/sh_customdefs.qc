@@ -59,6 +59,7 @@ void() precache_everything =
 	precache_model("models/coin.iqm");
 	precache_model("models/watersurf.iqm");
 	precache_model("models/suica.iqm");
+	precache_model("models/lamp.iqm");
 	
 	precache_sound("sounds/crabdie.wav");
 	precache_sound("sounds/crabhurt.wav");
@@ -78,6 +79,7 @@ void() precache_everything =
 	precache_sound("sounds/coinpickup.wav");
 	precache_sound("sounds/needleimpact.wav");
 	precache_sound("sounds/step01.wav");
+	precache_sound("sounds/cannon.wav");
 	
 	PART_SPLASH = particleeffectnum("weapons.splash");
 	PART_SMALLSPLASH = particleeffectnum("weapons.smallsplash");

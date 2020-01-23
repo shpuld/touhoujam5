@@ -118,6 +118,13 @@ void() trigger_tele_big =
 	setsize(self, '-64 -64 0', '64 64 128');
 }
 
+void() trigger_teleport_br =
+{
+	trigger_tele();
+	setmodel(self, self.model);
+	self.modelindex = 0;
+};
+
 void() info_null =
 {
 	self.solid = SOLID_NOT;
