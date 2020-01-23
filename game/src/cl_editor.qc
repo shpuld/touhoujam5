@@ -21,6 +21,7 @@ string entlist[] = {
 	"enemy_crab",
 	"giant_enemy_crab",
 	"fairy",
+	"suica",
 	"item_parachute",
 	"item_needle",
 	"item_rope",

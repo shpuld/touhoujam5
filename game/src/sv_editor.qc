@@ -177,9 +177,9 @@ float(entity e, string type) editor_set_ent_type =
 		e.solid = SOLID_BBOX;
 		break;
 	case "item_parachute":
-		setmodel(e, "models/barrel.iqm");
+		setmodel(e, "models/napkin.iqm");
 		setsize(e, '-16 -16 0', '16 16 32');
-		e.scale = 0.5;
+		e.scale = 0.35;
 		e.solid = SOLID_BBOX;
 		break;
 	case "item_needle":
@@ -232,6 +232,12 @@ float(entity e, string type) editor_set_ent_type =
 		break;
 	case "fairy":
 		setmodel(e, "models/fairy.iqm");
+		setsize(e, '-16 -16 0', '16 16 64');
+		e.scale = 2;
+		e.solid = SOLID_BBOX;
+		break;
+	case "suica":
+		setmodel(e, "models/suica.iqm");
 		setsize(e, '-16 -16 0', '16 16 64');
 		e.scale = 2;
 		e.solid = SOLID_BBOX;

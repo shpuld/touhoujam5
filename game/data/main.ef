@@ -1691,7 +1691,7 @@ end
 
 ent_begin
 class decor_grass
-organg -8464 -10512 96 0 90 0
+organg -8448 -10496 96 0 90 0
 end
 
 ent_begin
@@ -4150,5 +4150,60 @@ end
 ent_begin
 class decor_grass
 organg -940 -13572 128 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -8840 -11176 192 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -8832 -10768 192 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -8784 -11184 192 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg -8832 -11136 192 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -8752 -10960 192 -0 -90 -0
+end
+
+ent_begin
+class decor_grass
+organg -8544 -10896 192 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8736 -11232 192 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8864 -11088 192 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8848 -10848 192 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8496 -10832 192 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -8688 -10736 96 -0 -180 -0
 end
 

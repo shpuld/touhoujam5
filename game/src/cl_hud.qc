@@ -83,10 +83,13 @@ void() draw_item_help =
 }
 
 float next_blip;
+float finish_time;
+float time_ofs;
 void() draw_hud =
 {
-	
 	draw_fade();
+	
+	if (!cvar("cl_hud")) return;
 	
 	float hp = getstatf(STAT_HEALTH);
 	string hpstr = sprintf("%.0f/3", hp);
@@ -127,6 +130,8 @@ void() draw_hud =
 	
 	if (coins == totalcoins)
 	{
+		if (!finish_time) finish_time = time - time_ofs;
+		
 		string s1 = "Congratulations!";
 		string s2 = "You get the Miracle Mallet now!";
 		string s3 = "Except we ran out of time to add it...";
@@ -136,5 +141,16 @@ void() draw_hud =
 		drawstring([g_width/2 - strlen(s2)*4, g_height/2 - 24], s2, [8, 8], '1 1 1', 1, 0);
 		drawstring([g_width/2 - strlen(s3)*4, g_height/2 - 16], s3, [8, 8], '1 1 1', 1, 0);
 		drawstring([g_width/2 - strlen(s4)*4, g_height/2 + 8], s4, [8, 8], '1 1 1', 1, 0);
+	}
+	
+	if (cvar("cl_hud_timer"))
+	{
+		string timestr = sprintf("%.3f", time - time_ofs);
+		drawstring([g_width - 16 * strlen(timestr), 0], timestr, [16, 16], '1 1 1', 1, 0);
+		if (finish_time)
+		{
+			timestr = sprintf("%.3f", finish_time);
+			drawstring([g_width - 16 * strlen(timestr), 16], timestr, [16, 16], '0.5 1 0.1', 1, 0);
+		}
 	}
 }

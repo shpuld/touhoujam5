@@ -60,6 +60,17 @@ float(float isnew) player_listen =
 	if (self.entnum == player_localentnum) 
 	{
 		localplayer = self;
+		if (isnew && !time_ofs)
+		{
+			time_ofs = time;
+			printf("%f\n", time);
+		}
+	}
+	
+	if (!cvar("chase_active"))
+	{
+		self.modelindex = 0;
+		return 1;
 	}
 	
 	// Boat frame
@@ -153,10 +164,11 @@ float(float isnew) player_listen =
 	
 	traceline(self.origin, self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
 	float shadowdist = trace_endpos_z;
-	adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
+	if (shadowdist > 1 || shadowdist < -80)
+		adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.035, '1 1 1', 0.15);
 	tracebox(self.origin, '-8 -8 0', '8 8 16', self.origin - '0 0 20000', MOVE_NOMONSTERS, self);
 	if (fabs(trace_endpos_z - shadowdist) > 0.1)
-		adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.03, '1 1 1', 0.15);
+		adddecal("playershadow", trace_endpos, trace_plane_normal, crossproduct(trace_plane_normal, '1 0 0') * 0.035, '1 1 1', 0.15);
 	return 1;
 }
 
@@ -231,10 +243,14 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	setmodel(ripple_model, "models/ripple.iqm");
 	
 	localcmd("fog 0.025 0.55 0.82 1 1 0\n");
+	
+	registercvar("cl_hud", "1");
+	registercvar("cl_hud_timer", "0");
 };
 
 noref void() CSQC_WorldLoaded =
 {
+
 };
 
 noref void(float isnew) CSQC_Ent_Update =

@@ -518,7 +518,6 @@ void() fairy_attack =
 	self.attack_finished = time + 2.5;
 }
 
-void() item_coin;
 void(float amount, vector dir, entity dealer) fairy_die =
 {
 	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1);
@@ -551,7 +550,97 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 	self.frame = 3;
 	self.nextthink = time  + 0.3;
 	self.think = enemy_think;
+	
+	self.staggertime = time + 1.2;
 }
+
+void() suica_attack;
+void() suica_shoot2 =
+{
+	print("attack 2\n");
+	self.attack = suica_attack;
+	
+	self.nextthink = time + 0.2;
+	self.shots_left--;
+	
+	if (self.shots_left)
+		self.think = suica_shoot2;
+	else
+		self.think = enemy_think;
+
+}
+
+void() suica_attack2 =
+{
+	self.frame = 2;
+	self.nextthink = time + 0.9;
+	self.think = suica_shoot2;
+	self.shots_left = 8;
+	self.attack_finished = time + 3.0;
+}
+
+
+void() suica_shoot =
+{
+	print("attack 1\n");
+	self.attack = suica_attack2;
+	
+	self.nextthink = time + 0.2;
+	self.shots_left--;
+	
+	if (self.shots_left)
+		self.think = suica_shoot;
+	else
+		self.think = enemy_think;
+}
+
+void() suica_attack =
+{
+	self.frame = 2;
+	self.nextthink = time + 0.9;
+	self.think = suica_shoot;
+	self.shots_left = 10;
+	self.attack_finished = time + 3.0;
+}
+
+void(float amount, vector dir, entity dealer) suica_die =
+{
+	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1, 50);
+	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1, 75);
+	self.velocity = dir * 200 + '0 0 400';
+	self.movetype = MOVETYPE_TOSS;
+	self.solid = SOLID_NOT;
+	self.nextthink = time + 1.5;
+	self.think = enemy_die_blowup;
+	self.frame = 4;
+}
+
+
+
+void(float amount, vector dir, entity dealer) suica_hurt =
+{
+	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 40);
+	sound(self, CHAN_AUTO, "sounds/fairyhurt.wav", 1, 0.2, 65);
+	self.velocity = dir * 300 + '0 0 50';
+	if (dealer.classname == "player")
+	{
+		if (self.aistate != AI_CHASING)
+			add_boss_music();
+			
+		self.enemy = dealer;
+		self.aistate = AI_CHASING;	
+
+	}
+	
+	if (self.frame == 3 || self.staggertime > time) return;
+	
+	self.frame = 3;
+	self.nextthink = time  + 0.3;
+	self.think = enemy_think;
+	
+	self.staggertime = time + 2.5;
+}
+
 
 
 void() ai_init =
@@ -619,6 +708,20 @@ void() fairy =
 	self.die = fairy_die;
 	self.hurt = fairy_hurt;
 	self.attack = fairy_attack;
+	self.yaw_speed = 15;
+	self.movespeed = 15;
+	self.scale = 2;
+	ai_init();
+}
+
+void() suica =
+{
+	setmodel(self, "models/suica.iqm");
+	setsize(self, '-16 -16 0', '16 16 56');
+	self.health = 50;
+	self.die = suica_die;
+	self.hurt = suica_hurt;
+	self.attack = suica_attack;
 	self.yaw_speed = 15;
 	self.movespeed = 15;
 	self.scale = 2;
