@@ -740,7 +740,7 @@ void(float amount, vector dir, entity dealer) suica_hurt =
 	self.nextthink = time + 0.3;
 	self.think = enemy_think;
 	
-	self.staggertime = time + 4.5;
+	self.staggertime = time + 5.5;
 }
 
 
@@ -821,7 +821,7 @@ void() suica =
 {
 	setmodel(self, "models/suica.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.health = 30;
+	self.health = 40;
 	self.die = suica_die;
 	self.hurt = suica_hurt;
 	self.attack = suica_attack;
