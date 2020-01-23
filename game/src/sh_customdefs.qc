@@ -25,6 +25,7 @@ float PART_ATTACK;
 float PART_HIT;
 float PART_PLAYERHIT;
 float PART_COINFLASH;
+float PART_BOSSBLOWUP;
 
 const float IT_NEEDLE = 1;
 const float IT_PARACHUTE = 2;
@@ -90,6 +91,7 @@ void() precache_everything =
 	PART_HIT = particleeffectnum("weapons.hit");
 	PART_PLAYERHIT = particleeffectnum("weapons.playerhit");
 	PART_COINFLASH = particleeffectnum("weapons.coinflash");
+	PART_BOSSBLOWUP = particleeffectnum("weapons.boss_blowup");
 	
 };
 

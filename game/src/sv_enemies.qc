@@ -210,6 +210,16 @@ void() enemy_die_blowup =
 	fake_remove(self);
 }
 
+void() boss_blowup =
+{
+	if (self.aistate == AI_CHASING)
+		remove_boss_music();
+		
+	sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5, 50);
+	pointparticles(PART_BOSSBLOWUP, self.origin, '0 0 1');
+	fake_remove(self);
+}
+
 .float shots_left;
 .float staggertime;
 
@@ -563,9 +573,47 @@ void(float amount, vector dir, entity dealer) fairy_hurt =
 }
 
 void() suica_attack;
-void() suica_shoot2 =
+void() suica_shoot3 =
 {
 	self.attack = suica_attack;
+	
+	self.nextthink = time + 0.1;
+	self.shots_left--;
+	
+	float old_speed = self.yaw_speed;
+	self.yaw_speed = 10;
+	self.ideal_yaw = vectoangles(self.enemy.origin - self.origin, '0 0 1')[1];
+	changeyaw();
+	self.yaw_speed = old_speed;
+	
+	pointparticles(PART_BULLET1HIT, self.origin + '0 0 40' + v_forward * 64, v_forward * 400);
+	
+	sound(self, CHAN_WEAPON, "sounds/bulletfire.wav", 1.0, 0.6, 95 + random() * 10);
+	for (int i = 0; i < 6; i++)
+	{
+		makevectors(self.angles + [0, -3*15 + i*15, 0]);
+		entity bul = bullet_spawn(self.origin + '0 0 45', v_forward * 550);
+	}
+	
+	if (self.shots_left)
+		self.think = suica_shoot3;
+	else
+		self.think = enemy_think;
+
+}
+
+void() suica_attack3 =
+{
+	self.frame = 2;
+	self.nextthink = time + 1.4;
+	self.think = suica_shoot3;
+	self.shots_left = 20;
+	self.attack_finished = time + 3.5;
+}
+
+void() suica_shoot2 =
+{
+	self.attack = suica_attack3;
 	
 	self.nextthink = time + 0.05;
 	self.shots_left--;
@@ -579,7 +627,7 @@ void() suica_shoot2 =
 	if (self.shots_left <= 40 && self.shots_left % 10 == 0)
 	{
 		makevectors(self.angles);
-		entity bul = bullet_spawn(self.origin + '0 0 40', v_forward * 1400);
+		entity bul = bullet_spawn(self.origin + '0 0 40', v_forward * 1500);
 		bul.scale = 2;
 		bul.nextthink = time + 3;
 		setsize(bul, '-8 -8 -8', '8 8 8');
@@ -656,11 +704,11 @@ void(float amount, vector dir, entity dealer) suica_die =
 {
 	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1, 50);
 	sound(self, CHAN_AUTO, "sounds/fairydie.wav", 1, 1, 75);
-	self.velocity = dir * 200 + '0 0 400';
+	self.velocity = dir * 250 + '0 0 500';
 	self.movetype = MOVETYPE_TOSS;
 	self.solid = SOLID_NOT;
-	self.nextthink = time + 1.5;
-	self.think = enemy_die_blowup;
+	self.nextthink = time + 2.5;
+	self.think = boss_blowup;
 	self.frame = 4;
 }
 

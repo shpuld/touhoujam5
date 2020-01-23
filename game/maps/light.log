@@ -50,14 +50,14 @@ Colored light entities/settings detected: .lit output enabled.
 Indirect lights: 12134 bounce lights, 0 surface lights (0 light points) in use.
 Lighting Completed.
 
-lightdatasize: 844917
+lightdatasize: 852109
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version BSP2
-25.384 seconds elapsed
+20.160 seconds elapsed
 
 stats:
-0.120544 lights tested, 0.105985 hits per sample point
+0.229272 lights tested, 0.212139 hits per sample point
 0.000000 surface lights tested, 0.000000 hits per sample point
-13.925674 bounce lights tested, 10.247056 hits per sample point
+14.243158 bounce lights tested, 10.538834 hits per sample point
 0 empty lightmaps
