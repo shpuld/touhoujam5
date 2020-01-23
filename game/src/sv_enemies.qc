@@ -436,7 +436,7 @@ void(float amount, vector dir, entity dealer) crab_die =
 	self.velocity = dir * 200 + '0 0 400';
 	self.movetype = MOVETYPE_TOSS;
 	self.solid = SOLID_NOT;
-	self.nextthink = time + 2;
+	self.nextthink = time + 1.0;
 	self.think = enemy_die_blowup;
 	self.frame = 4;
 	sound(self, CHAN_AUTO, "sounds/crabdie.wav", 1, 1);
@@ -673,7 +673,8 @@ void() crab_touch =
 void() enemy_crab =
 {
 	setmodel(self, "models/crab.iqm");
-	setsize(self, '-16 -16 0', '16 16 56');
+	// setsize(self, '-16 -16 0', '16 16 56');
+	setsize(self, '-24 -24 0', '24 24 48');
 	self.health = 3;
 	self.die = crab_die;
 	self.hurt = crab_hurt;
@@ -687,7 +688,7 @@ void() enemy_crab =
 void() giant_enemy_crab =
 {
 	setmodel(self, "models/crab.iqm");
-	setsize(self, '-16 -16 0', '16 16 56');
+	setsize(self, '-40 -40 0', '40 40 48');
 	self.health = 6;
 	self.die = crab_die;
 	self.hurt = crab_hurt;

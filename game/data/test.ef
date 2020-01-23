@@ -1,0 +1,10 @@
+ent_begin
+class item_coin
+organg 96 48 0 0 0 0
+end
+
+ent_begin
+class item_coin
+organg 80 -32 0 0 0 0
+end
+
