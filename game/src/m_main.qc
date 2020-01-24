@@ -80,7 +80,10 @@ float(float evtype, float scanx, float chary, float devid) Menu_InputEvent =
 		switch (cmd)
 		{
 		case "togglemenu":
-			m_close();
+			if (current_menu == MENU_MAIN)
+				m_close();
+			else
+				current_menu = MENU_MAIN;
 			return TRUE;
 			break;
 		default: break;
@@ -102,8 +105,15 @@ float(string cmd) m_consolecommand =
 
 void(float wantmode) m_toggle =
 {
-	if (menu_active) m_close();
-	else m_open();
+	if (menu_active)
+	{
+		m_close();
+	}
+	else
+	{
+		current_menu = MENU_MAIN;
+		m_open();
+	}
 };
 
 void() m_shutdown =

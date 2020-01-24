@@ -82,9 +82,112 @@ void() draw_item_help =
 	drawstring([g_width/2 - strlen(desc)*size_x*0.5, ypos], desc, size, '1 1 1', a, 0);
 }
 
-float next_blip;
+void() draw_gameover =
+{
+	if (gameovertime <= 0) return;
+	
+	float timesince = time - gameovertime;
+	
+	string str = "Game Over";
+	float size = 32;
+	float a = min(1, timesince);
+	
+	drawfill([0, 0], [g_width, g_height], '0 0 0', a * 0.75, 0);
+	
+	drawstring([g_width/2 - strlen(str)*size*0.5, g_height/2 - size*0.5] + [sin(time), cos(time)]*5, str, [size, size], '0 0 0', a*0.5, 0);
+	drawstring([g_width/2 - strlen(str)*size*0.5, g_height/2 - size*0.5] + [sin(time + 1), cos(time + 1)]*5, str, [size, size], '1 0.2 0.1', a, 0);
+	
+	string s1 = "Press ESCAPE to open the menu";
+	drawstring([g_width/2 - strlen(s1)*4, g_height/2 + 64], s1, [8, 8], '1 1 1', a, 0);
+}
+
 float finish_time;
 float time_ofs;
+
+void() draw_win =
+{
+	if (wintime <= 0) return;
+	
+	if (!finish_time) finish_time = time - time_ofs;
+	
+	float timesince = time - wintime;
+	float a = min(1, timesince);
+	drawfill([0, 0], [g_width, g_height], '0 0 0', a * 0.75, 0);
+
+	string str = "Victory";
+	float size = 32;
+	
+	drawstring([g_width/2 - strlen(str)*size*0.5, 48] + [sin(time), cos(time)]*5, str, [size, size], '0 0 0', a*0.5, 0);
+	drawstring([g_width/2 - strlen(str)*size*0.5, 48] + [sin(time + 1), cos(time + 1)]*5, str, [size, size], '0.9 0.6 0.2', a, 0);
+	
+	string s1 = "You have beaten the Oni and";
+	string s2 = "obtained the miracle mallet!";
+	string s3 = "The adventure was a success!";
+	string s4 = "Thank you for playing!";
+	
+	drawstring([g_width/2 - strlen(s1)*4, 64 + 32], s1, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(s2)*4, 64 + 32 + 8], s2, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(s3)*4, 64 + 32 + 24], s3, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(s4)*4, 64 + 38 + 32], s4, [8, 8], '1 1 1', a, 0);
+	
+	str = "Playtime";
+	float minutes = floor(finish_time / 60);
+	float seconds = finish_time - floor(finish_time / 60)*60;
+	string playtime = sprintf("%.0f minutes %.2f seconds", minutes, seconds);
+	drawstring([g_width/2 - strlen(str)*4, g_height/2 - 12], str, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(playtime)*4, g_height/2], playtime, [8, 8], '1 1 1', a, 0);
+	
+	float coins = getstatf(STAT_COINS);
+	float totalcoins = getstatf(STAT_TOTALCOINS);
+		
+	string coinstring = sprintf("Coins collected: %.0f/%.0f", coins, totalcoins);
+	
+	string rank = coins == 0 ? "Are you the Hakurei shrine maiden??" :
+		coins <= 25 ? "You really don't need that money huh?" :
+		coins <= 40 ? "A decent collection." :
+		coins <= 49 ? "You could afford a luxury bowl!" :
+		"100% Perfect!!!";
+		
+	drawstring([g_width/2 - strlen(coinstring)*4, g_height/2 + 32], coinstring, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(rank)*4, g_height/2 + 32 + 12], rank, [8, 8], '1 1 1', a, 0);
+	
+	float kills = getstatf(STAT_KILLEDMONSTERS);
+	float totalmonsters = getstatf(STAT_TOTALMONSTERS);
+	string killstring = sprintf("Enemies defeated: %.0f/%.0f", kills, totalmonsters);
+	
+	float percent = kills / totalmonsters;
+	
+	rank = percent == 0 ? "Pacifist!" :
+		percent <= 0.4 ? "Didn't enjoy fighting?" :
+		percent <= 0.6 ? "Getting rid of everything in your way." :
+		percent < 1.0 ? "No sympathy for the crabs." :
+		"Doink!";
+	
+	drawstring([g_width/2 - strlen(coinstring)*4, g_height/2 + 72], killstring, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(rank)*4, g_height/2 + 72 + 12], rank, [8, 8], '1 1 1', a, 0);
+	
+	float misses = getstatf(STAT_MISSES);
+	string missstring = sprintf("Misses: %.0f", misses);
+	
+	rank = misses == 0 ? "No Misses!!!" :
+		misses == 1 ? "Impressive!" :
+		misses == 2 ? "it's a 1cc!" :
+		misses == 3 ? "Almost a 1cc!" :
+		misses < 6 ? "Not too bad!" :
+		misses < 12 ? "Not afraid of swimming." :
+		misses < 20 ? "Tends to miss the boat." :
+		misses < 30 ? "Blub." : "Blubblublublubblub...";
+		
+	drawstring([g_width/2 - strlen(missstring)*4, g_height/2 + 112], missstring, [8, 8], '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(rank)*4, g_height/2 + 112 + 12], rank, [8, 8], '1 1 1', a, 0);
+	
+	str = "Press F12 to screenshot...";
+	drawstring([g_width/2 - strlen(str)*4, g_height - 12], str, [8, 8], '1 1 1', a * 0.75, 0);
+}
+
+
+float next_blip;
+
 void() draw_hud =
 {
 	draw_fade();
@@ -128,29 +231,23 @@ void() draw_hud =
 	drawpic([4 - 2, g_height - 100 - 16 - 2], "textures/coin", size + [4, 4], '1 1 1' * coinflash * 0.75, 1, 1);
 	drawstring([4 + 16 + 4, g_height - 100 - 16], coinstring, size, '1 1 1', 1, 0);
 	
-	if (coins == totalcoins)
-	{
-		if (!finish_time) finish_time = time - time_ofs;
-		
-		string s1 = "Congratulations!";
-		string s2 = "You get the Miracle Mallet now!";
-		string s3 = "Except we ran out of time to add it...";
-		string s4 = "Thank you for playing!";
-		
-		drawstring([g_width/2 - strlen(s1)*4, g_height/2 - 32], s1, [8, 8], '1 1 1', 1, 0);
-		drawstring([g_width/2 - strlen(s2)*4, g_height/2 - 24], s2, [8, 8], '1 1 1', 1, 0);
-		drawstring([g_width/2 - strlen(s3)*4, g_height/2 - 16], s3, [8, 8], '1 1 1', 1, 0);
-		drawstring([g_width/2 - strlen(s4)*4, g_height/2 + 8], s4, [8, 8], '1 1 1', 1, 0);
-	}
-	
 	if (cvar("cl_hud_timer"))
 	{
-		string timestr = sprintf("%.3f", time - time_ofs);
-		drawstring([g_width - 16 * strlen(timestr), 0], timestr, [16, 16], '1 1 1', 1, 0);
+		
+		float minutes = floor((time - time_ofs) / 60);
+		float seconds = (time - time_ofs) - minutes*60;
+		string timestr = sprintf("%.0f:%.2f", minutes, seconds);
+		
 		if (finish_time)
 		{
-			timestr = sprintf("%.3f", finish_time);
-			drawstring([g_width - 16 * strlen(timestr), 16], timestr, [16, 16], '0.5 1 0.1', 1, 0);
+			minutes = floor(finish_time / 60);
+			seconds = finish_time - minutes*60;
+			timestr = sprintf("%.0f:%.2f", minutes, seconds);
 		}
+		
+		drawstring([g_width - 16 * strlen(timestr), 0], timestr, [16, 16], '1 1 1', 1, 0);
 	}
+	
+	draw_gameover();
+	draw_win();
 }

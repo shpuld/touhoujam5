@@ -21,6 +21,8 @@ const float FL_JUMPRELEASED = 4096;
 .entity hook;
 .float mouse2released;
 
+float misses;
+float enemies_defeated;
 
 float coins;
 float totalcoins;

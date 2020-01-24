@@ -122,6 +122,8 @@ void(float amount, vector dir, entity dealer) player_hurt =
 	self.frame = ANIM_HURT;
 	self.nextthink = time + 0.25;
 	self.think = player_normal;
+	
+	misses++;
 }
 
 void(float amount, vector dir, entity dealer) player_die =
@@ -138,7 +140,8 @@ void(float amount, vector dir, entity dealer) player_die =
 	self.nextthink = 0;
 	self.attack_finished = time + 3;
 	self.velocity = dir * 240 + '0 0 350';
-
+	
+	misses++;
 }
 
 void() player_attack2 =
@@ -246,6 +249,7 @@ void() respawn_on_surface =
 	{
 		self.health = 3;
 		self.dead = FALSE;
+		misses++;
 	}
 	
 	msg_entity = self;
@@ -274,7 +278,15 @@ void() PlayerPreThink =
 		if (time > self.attack_finished) 
 		{
 			if (cvar("skill"))
-				print("Game over!\n");
+			{
+				if (self.dead != 2)
+				{
+					msg_entity = self;
+					BeginEvent(EV_GAMEOVER);
+					multicast('0 0 0', MULTICAST_ONE_R);
+					self.dead = 2;
+				}
+			}
 			else
 				respawn_on_surface();
 		}

@@ -210,11 +210,31 @@ void() enemy_die_blowup =
 	fake_remove(self);
 }
 
+
+void() mallet_touch =
+{
+	if (other.classname != "player") return;
+	
+	BeginEvent(EV_WIN);
+	multicast(self.origin, MULTICAST_ALL_R);
+	
+	remove(self);
+}
+
 void() boss_blowup =
 {
 	if (self.aistate == AI_CHASING)
 		remove_boss_music();
 		
+	entity mallet = spawn();
+	setmodel(mallet, "models/mallet.iqm");
+	setorigin(mallet, self.origin + '0 0 32');
+	mallet.movetype = MOVETYPE_BOUNCE;
+	mallet.solid = SOLID_TRIGGER;
+	setsize(mallet, '-16 -16 -16', '16 16 16');
+	mallet.touch = mallet_touch;
+	mallet.scale = 1.5;
+	
 	sound(self, CHAN_AUTO, "sounds/dunnoimpact1.wav", 1, 0.5, 50);
 	pointparticles(PART_BOSSBLOWUP, self.origin, '0 0 1');
 	fake_remove(self);
@@ -458,6 +478,8 @@ void(float amount, vector dir, entity dealer) crab_die =
 	self.think = enemy_die_blowup;
 	self.frame = 4;
 	sound(self, CHAN_AUTO, "sounds/crabdie.wav", 1, 1);
+	
+	enemies_defeated++;
 }
 
 
@@ -545,6 +567,8 @@ void(float amount, vector dir, entity dealer) fairy_die =
 	self.nextthink = time + 1.5;
 	self.think = enemy_die_blowup;
 	self.frame = 4;
+	
+	enemies_defeated++;
 }
 
 
@@ -785,6 +809,8 @@ void() enemy_crab =
 	ai_init();
 	self.movespeed = 10;
 	self.yaw_speed = 15;
+	
+	total_monsters++;
 }
 
 void() giant_enemy_crab =
@@ -800,6 +826,8 @@ void() giant_enemy_crab =
 	self.movespeed = 10;
 	self.scale = 1.5;
 	ai_init();
+	
+	total_monsters++;
 }
 
 void() fairy =
@@ -815,13 +843,15 @@ void() fairy =
 	self.movespeed = 15;
 	self.scale = 2;
 	ai_init();
+	
+	total_monsters++;
 }
 
 void() suica =
 {
 	setmodel(self, "models/suica.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.health = 40;
+	self.health = 4;
 	self.die = suica_die;
 	self.hurt = suica_hurt;
 	self.attack = suica_attack;

@@ -24,6 +24,9 @@ void() worldspawn =
 	clientstat(STAT_BOAT, EV_FLOAT, boat_e);
 	globalstat(STAT_COINS, EV_FLOAT, "coins");
 	globalstat(STAT_TOTALCOINS, EV_FLOAT, "totalcoins");
+	globalstat(STAT_MISSES, EV_FLOAT, "misses");
+	
+	globalstat(STAT_ENEMIESDEFEATED, EV_FLOAT, "enemies_defeated");
 	
 	editor_load_ents("default");
 	editor_play();

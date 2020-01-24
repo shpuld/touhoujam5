@@ -9,12 +9,16 @@ const float EV_ISLAND = 12;
 const float EV_DROWN = 13;
 const float EV_TELEPORT = 14;
 const float EV_ITEMHELP = 15;
+const float EV_GAMEOVER = 16;
+const float EV_WIN = 17;
 
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;
 const float STAT_BOAT = 52;
 const float STAT_COINS = 53;
 const float STAT_TOTALCOINS = 54;
+const float STAT_ENEMIESDEFEATED = 55;
+const float STAT_MISSES = 56;
 
 float PART_SPLASH;
 float PART_SMALLSPLASH;
@@ -61,6 +65,7 @@ void() precache_everything =
 	precache_model("models/watersurf.iqm");
 	precache_model("models/suica.iqm");
 	precache_model("models/lamp.iqm");
+	precache_model("models/mallet.iqm");
 	
 	precache_sound("sounds/crabdie.wav");
 	precache_sound("sounds/crabhurt.wav");

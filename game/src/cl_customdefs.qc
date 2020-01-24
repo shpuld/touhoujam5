@@ -40,6 +40,9 @@ float alt_held;
 float shift_held;
 float ctrl_held;
 
+float gameovertime;
+float wintime;
+
 vector() readvector =
 {
 	vector r = '0 0 0';

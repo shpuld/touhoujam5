@@ -208,6 +208,28 @@ float(float isnew) coin_listen =
 	return 1;
 }
 
+float(float isnew) mallet_listen =
+{
+	if (isnew) self.coin_flash_time = time + random() * 0.5;
+	
+	if (!localplayer) return 1;
+	
+	if (time > self.coin_flash_time)
+	{
+		
+		pointparticles(PART_COINFLASH, self.origin + '0 0 28' + randomvec() * 5 + normalize(campos - self.origin) * 20, '0 0 1');
+		self.coin_flash_time = time + 0.25 + random() * 0.5;
+	}
+	
+	self.effects |= EF_FULLBRIGHT;
+	
+	self.angles_y = anglemod(time * 360 * 0.7);
+	self.angles_x = sin(time * 0.9) * 10;
+	self.origin_z += 3 + sin(time * 1.4) * 12;
+	
+	return 1;
+}
+
 entity sky;
 entity watersurf;
 vector sun_dir;
@@ -231,6 +253,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	deltalisten("models/sinmyoumaru.iqm", player_listen, 0);
 	deltalisten("models/hook.iqm", hook_listen, 0);
 	deltalisten("models/coin.iqm", coin_listen, 0);
+	deltalisten("models/mallet.iqm", mallet_listen, 0);
 	
 	parachute_model = spawn();
 	needle_model = spawn();
@@ -457,6 +480,12 @@ void() CSQC_Parse_Event =
 		case EV_ITEMHELP:
 			helptime = time + 5;
 			helpitem = readbyte();
+			break;
+		case EV_GAMEOVER:
+			gameovertime = time;
+			break;
+		case EV_WIN:
+			wintime = time;
 			break;
 		default:
 			printf("No action for byte %f\n", first);

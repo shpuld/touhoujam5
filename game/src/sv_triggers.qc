@@ -98,6 +98,7 @@ void() tele_touch =
 	setorigin(other, tgt.origin);
 	other.velocity = '0 0 0';
 	other.safe_spot = other.origin;
+	if (other.hook) detachhook(other.hook);
 	msg_entity = other;
 	BeginEvent(EV_TELEPORT);
 	multicast('0 0 0', MULTICAST_ONE_R);

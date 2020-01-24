@@ -491,6 +491,11 @@ void() editor_play =
 	coins = 0;
 	totalcoins = 0;
 	
+	total_monsters = 0;
+	enemies_defeated = 0;
+	
+	misses = 0;
+	
 	while (ed_ent)
 	{
 		ed_ent.customizeentityforclient = entcustomize;

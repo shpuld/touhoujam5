@@ -1,10 +1,10 @@
-vector MENU_BG = '0.2 0.3 0.4';
-vector MENU_BG_DARK = '0.1 0.15 0.2';
-vector MENU_BORDER = '0.3 0.4 0.5';
-vector MENU_BUTTON = '0.3 0.4 0.5';
-vector MENU_BUTTON_BORDER = '0.35 0.45 0.55';
-vector MENU_TEXT_1 = '1 1 1';
-vector MENU_TEXT_2 = '0.7 0.75 0.75';
+vector MENU_BG = '0.9 0.8 0.8';
+vector MENU_BG_DARK = '0.7 0.55 0.5';
+vector MENU_BORDER = '0.4 0.2 0.2';
+vector MENU_BUTTON = '0.8 0.75 0.7';
+vector MENU_BUTTON_BORDER = '0.5 0.3 0.3';
+vector MENU_TEXT_1 = '0.2 0.05 0.1';
+vector MENU_TEXT_2 = '0.35 0.25 0.25';
 vector MENU_HIGHLIGHT = '1 1 1';
 vector MENU_DARKEN = '1 1 1';
 
@@ -158,12 +158,13 @@ float current_menu;
 const float MENU_MAIN = 1;
 const float MENU_SETTINGS = 2;
 const float MENU_HELP = 3;
+const float MENU_NEWGAME = 4;
 
 vector binds_scroll;
 void() settings_menu =
 {
 	vector pos = [0, 0];
-	vector size = [360, 280];
+	vector size = [380, 280];
 	
 	sui_push_frame(pos, size);
 
@@ -232,30 +233,91 @@ void() help_menu =
 	sui_pop_frame();	
 };
 
+void() newgame_menu =
+{
+	vector pos = [0, 0];
+	vector size = [360, 280];
+	
+	sui_push_frame(pos, size);
+
+	sui_fill([0, 0], size, MENU_BG, 0.75, 0);
+	sui_border_box([0, 0], size, 2, MENU_BORDER, 0.3, 0);
+	
+	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
+	sui_text([0, 4], MENU_TEXT_MEDIUM, "New Adventure", MENU_TEXT_1, 1, 0);
+	
+	float xpos = 0;
+	float ypos = 32;
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "Choose your way of playing", MENU_TEXT_2, 1, 0);
+	ypos += 24;
+	
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "Adventure Mode", MENU_TEXT_1, 1, 0);
+	ypos += 16;
+	
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "Relaxed way of experiencing the game.", MENU_TEXT_2, 1, 0);
+	ypos += 8;
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "No fear of having to start over.", MENU_TEXT_2, 1, 0);
+	ypos += 16 + 4;
+	my_button("ng_easy", [xpos, ypos], [80, 20], "Adventure") ? localcmd("skill 0; map main\n") : 0;
+	ypos += 20 + 16;
+	
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "Devilish Mode", MENU_TEXT_1, 1, 0);
+	ypos += 16;
+	
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "In this mode you can't regain hearts.", MENU_TEXT_2, 1, 0);
+	ypos += 8;
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "If you lose all your hearts, it's game", MENU_TEXT_2, 1, 0);
+	ypos += 8;
+	sui_text([xpos, ypos], MENU_TEXT_SMALL, "over. Challenge yourself.", MENU_TEXT_2, 1, 0);
+	ypos += 16 + 4;
+	my_button("ng_hard", [xpos, ypos], [80, 20], "Devilish") ? localcmd("skill 1; map main\n") : 0;
+	ypos += 20 + 8;
+	
+	sui_set_align([SUI_ALIGN_START, SUI_ALIGN_END]);
+	if (cvar("cl_hud_timer"))
+		my_button("ng_timer_toggle", [8, -8], [150, 20], "Speedrun Timer ON") ? localcmd("cl_hud_timer 0\n") : 0;
+	else
+		my_button("ng_timer_toggle", [8, -8], [150, 20], "Speedrun Timer OFF") ? localcmd("cl_hud_timer 1\n") : 0;
+	sui_set_align([SUI_ALIGN_END, SUI_ALIGN_END]);
+	my_button("ng_back", [-8, -8], [80, 20], "Back") ? current_menu = MENU_MAIN : 0;
+
+	sui_pop_frame();	
+};
+
 void() main_menu =
 {
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
-	sui_text([0, 64], MENU_TEXT_LARGE, "Issun Boushi", [1, 1, 1], 1, 0);
-	sui_text([0, 96], MENU_TEXT_SMALL, "Starring Shinmyoumaru-san", [1, 1, 1], 1, 0);
+	float ypos = 32;
+	sui_text([0, ypos], MENU_TEXT_LARGE, "Issun Boushi", [1, 1, 1], 1, 0);
+	ypos += 32;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "Starring Shinmyoumaru-san", [1, 1, 1], 1, 0);
+	ypos += 32;
 	
-	sui_text([0, 112], MENU_TEXT_SMALL, "By Shp and Leonovsky", [1, 1, 1], 1, 0);
-	sui_text([0, 128], MENU_TEXT_SMALL, "Check OPTIONS for Controls!", [1, 1, 1], 1, 0);
-	sui_text([0, 128 + 16], MENU_TEXT_SMALL, "Collect new Items and Coins", [1, 1, 1], 1, 0);
-	sui_text([0, 128 + 24], MENU_TEXT_SMALL, "To get the Miracle Mallet from the Oni", [1, 1, 1], 1, 0);
+	sui_text([0, ypos], MENU_TEXT_SMALL, "By Shp and Leonovsky", [1, 1, 1], 1, 0);
+	ypos += 32;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "Check SETTINGS for Controls!", [1, 1, 1], 1, 0);
+	ypos += 16;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "Collect new Items and Coins", [1, 1, 1], 1, 0);
+	ypos += 8;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "To get the Miracle Mallet from the Oni", [1, 1, 1], 1, 0);
+	ypos += 32;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "A Touhou Project fan-game.", [1, 1, 1], 1, 0);
+	ypos += 8;
+	sui_text([0, ypos], MENU_TEXT_SMALL, "Touhou Project (C) Team Shanghai Alice", [1, 1, 1], 1, 0);
 	
 	vector pos = [0, -24];
-	vector size = [120, 140];
+	vector size = [120, 120];
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);
 	sui_push_frame(pos, size);
 	
-	sui_fill([0, 0], size, MENU_BG, 0.3, 0);
-	sui_border_box([0, 0], size, 2, MENU_BORDER, 0.2, 0);
+	sui_fill([0, 0], size, MENU_BG, 0.6, 0);
+	sui_border_box([0, 0], size, 2, MENU_BORDER, 0.5, 0);
 	
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
 	
-	my_button("mm_start", [0, 8], [size_x - 16, 20], "Start Game") ? localcmd("map main\n") : 0;
+	my_button("mm_start", [0, 8], [size_x - 16, 20], "Start Game") ? current_menu = MENU_NEWGAME : 0;
 	my_button("mm_settings", [0, 8 + 24], [size_x - 16, 20], "Settings") ? current_menu = MENU_SETTINGS : 0;
-	my_button("mm_help", [0, 8 + 48], [size_x - 16, 20], "Help") ? current_menu = MENU_HELP : 0;
+	// my_button("mm_help", [0, 8 + 48], [size_x - 16, 20], "Help") ? current_menu = MENU_HELP : 0;
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);
 	my_button("mm_quit", [0, -8], [size_x - 16, 20], "Quit") ? localcmd("quit\n") : 0;
 	sui_pop_frame();	
@@ -264,12 +326,14 @@ void() main_menu =
 void(vector size) root_menu =
 {
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_CENTER]);
-	sui_fill([0, 0], size, '0 0 0', 0.5, 0);
+	sui_fill([0, 0], size, '0 0 0', 0.75, 0);
+	sui_fill([0, 0], size, '0.2 0.1 0.05', 0.4, 0);
 	switch (current_menu)
 	{
 		case MENU_MAIN: main_menu(); break;
 		case MENU_SETTINGS: settings_menu(); break;
-		case MENU_HELP: help_menu();
+		case MENU_HELP: help_menu(); break;
+		case MENU_NEWGAME: newgame_menu(); break;
 		default: break;
 	}
 };
