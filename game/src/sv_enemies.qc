@@ -612,6 +612,7 @@ void() suica_shoot3 =
 	changeyaw();
 	self.yaw_speed = old_speed;
 	
+	makevectors(self.angles);
 	pointparticles(PART_BULLET1HIT, self.origin + '0 0 40' + v_forward * 64, v_forward * 400);
 	
 	sound(self, CHAN_WEAPON, "sounds/bulletfire.wav", 1.0, 0.6, 95 + random() * 10);

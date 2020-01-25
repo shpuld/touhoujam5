@@ -177,8 +177,8 @@ void() draw_win =
 	float percent = kills / totalmonsters;
 	
 	rank = percent == 0 ? "Pacifist!" :
-		percent <= 0.4 ? "Didn't enjoy fighting?" :
-		percent <= 0.6 ? "Getting rid of everything in your way." :
+		percent <= 0.4 ? "Didn't enjoy the fighting?" :
+		percent <= 0.7 ? "Getting rid of everything in your way." :
 		percent < 1.0 ? "No sympathy for the crabs." :
 		"Doink!";
 	
@@ -189,13 +189,14 @@ void() draw_win =
 	string missstring = sprintf("Misses: %.0f", misses);
 	
 	rank = misses == 0 ? "No Misses!!!" :
-		misses == 1 ? "Impressive!" :
+		misses == 1 ? "Very Impressive!" :
 		misses == 2 ? "it's a 1cc!" :
 		misses == 3 ? "Almost a 1cc!" :
-		misses < 6 ? "Not too bad!" :
+		misses < 6 ? "Not bad!" :
 		misses < 12 ? "Not afraid of swimming." :
 		misses < 20 ? "Tends to miss the boat." :
-		misses < 30 ? "Blub." : "Blubblublublubblub...";
+		misses < 30 ? "Blub." :
+		"Blubblublublubblub...";
 		
 	drawstring([g_width/2 - strlen(missstring)*4, g_height/2 + 112], missstring, [8, 8], '1 1 1', a, 0);
 	drawstring([g_width/2 - strlen(rank)*4, g_height/2 + 112 + 12], rank, [8, 8], '1 1 1', a, 0);
