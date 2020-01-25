@@ -11,6 +11,7 @@ const float EV_TELEPORT = 14;
 const float EV_ITEMHELP = 15;
 const float EV_GAMEOVER = 16;
 const float EV_WIN = 17;
+const float EV_ENDWARNING = 18;
 
 const float STAT_PARACHUTE = 50;
 const float STAT_DROWNING = 51;

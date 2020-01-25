@@ -1,0 +1,160 @@
+ent_begin
+class decor_stone_xs
+organg 224 16 48 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 48 16 48 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg 112 -16 48 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg 80 -180 -4 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -204 120 -44 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg -96 368 -4 0 0 0
+end
+
+ent_begin
+class misc_grass
+organg -16 256 48 0 90 0
+end
+
+ent_begin
+class misc_grass
+organg -32 192 48 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -16 80 48 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 0 0 48 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 176 0 48 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 96 96 96 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 176 96 96 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 224 112 96 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg 224 160 96 -0 -180 -0
+end
+
+ent_begin
+class decor_grass
+organg 208 224 96 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 40 164 96 0 90 0
+end
+
+ent_begin
+class decor_grass
+organg -64 144 48 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 32 -112 48 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -48 -48 48 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 128 240 96 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg 176 176 96 0 90 0
+end
+
+ent_begin
+class misc_bowl
+organg 224 -116 0 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -60 228 48 0 0 0
+end
+
+ent_begin
+class decor_grass
+organg 80 256 96 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 272 272 48 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 284 132 48 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg 188 272 96 -0 -90 -0
+end
+
+ent_begin
+class decor_stone
+organg 116 180 92 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg 152 212 96 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg 268 80 48 0 180 0
+end
+
+ent_begin
+class decor_grass
+organg -96 -32 48 0 90 0
+end
+

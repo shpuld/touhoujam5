@@ -436,6 +436,7 @@ void() PlayerSpawn =
 	self.movetype = MOVETYPE_WALK;
 	self.health = 3;
 	setorigin(self, get_spawn_point());
+	self.angles = find(world, classname, "info_player_start").angles;
 	self.fixangle = TRUE;
 	setsize(self, [-12, -12, 0], [12, 12, 56]);
 	self.view_ofs = [0, 0, 48];
@@ -446,7 +447,17 @@ void() PlayerSpawn =
 	self.safe_spot = self.origin;
 	player_normal();
 	self.items = 0;
-	localcmd("music 2\n");
+	
+	
+	if (mapname == "menu")
+	{
+		self.movetype = MOVETYPE_NONE;
+		self.modelindex = 0;
+	}
+	else
+	{
+		localcmd("music 2\n");
+	}
 };
 
 void() PutClientInServer =

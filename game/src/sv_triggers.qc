@@ -131,3 +131,21 @@ void() info_null =
 	self.solid = SOLID_NOT;
 	self.modelindex = 0;
 }
+
+void() endwarning =
+{
+	if (other.classname != "player") return;
+	
+	msg_entity = other;
+	BeginEvent(EV_ENDWARNING);
+	multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void() trigger_endwarning =
+{
+	setmodel(self, self.model);
+	self.modelindex = 0;
+	self.solid = SOLID_TRIGGER;
+	
+	self.touch = endwarning;
+}

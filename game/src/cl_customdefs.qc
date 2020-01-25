@@ -24,6 +24,8 @@ const float MENU_POSTGAME = 64;
 float in_input_box;
 float input_cursor;
 
+float cheats_used;
+
 vector campos;
 vector camang;
 

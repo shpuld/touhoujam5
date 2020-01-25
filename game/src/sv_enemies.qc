@@ -231,7 +231,9 @@ void() boss_blowup =
 	setorigin(mallet, self.origin + '0 0 32');
 	mallet.movetype = MOVETYPE_BOUNCE;
 	mallet.solid = SOLID_TRIGGER;
-	setsize(mallet, '-16 -16 -16', '16 16 16');
+	setsize(mallet, '-20 -20 -16', '20 20 24');
+	mallet.velocity = '0 0 500';
+	mallet.gravity = 0.6;
 	mallet.touch = mallet_touch;
 	mallet.scale = 1.5;
 	
@@ -851,7 +853,7 @@ void() suica =
 {
 	setmodel(self, "models/suica.iqm");
 	setsize(self, '-16 -16 0', '16 16 56');
-	self.health = 4;
+	self.health = 35;
 	self.die = suica_die;
 	self.hurt = suica_hurt;
 	self.attack = suica_attack;

@@ -161,8 +161,11 @@ const float MENU_HELP = 3;
 const float MENU_NEWGAME = 4;
 
 vector binds_scroll;
+
+float was_in_options;
 void() settings_menu =
 {
+	was_in_options = TRUE;
 	vector pos = [0, 0];
 	vector size = [380, 280];
 	
@@ -288,10 +291,10 @@ void() main_menu =
 {
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
 	float ypos = 32;
-	sui_text([0, ypos], MENU_TEXT_LARGE, "Issun Boushi", [1, 1, 1], 1, 0);
-	ypos += 32;
+	sui_text([0, ypos], MENU_TEXT_MEDIUM, "Issun Boushi", [1, 1, 1], 1, 0);
+	ypos += 16;
 	sui_text([0, ypos], MENU_TEXT_SMALL, "Starring Shinmyoumaru-san", [1, 1, 1], 1, 0);
-	ypos += 32;
+	ypos += 16;
 	
 	sui_text([0, ypos], MENU_TEXT_SMALL, "By Shp and Leonovsky", [1, 1, 1], 1, 0);
 	ypos += 32;
@@ -300,13 +303,13 @@ void() main_menu =
 	sui_text([0, ypos], MENU_TEXT_SMALL, "Collect new Items and Coins", [1, 1, 1], 1, 0);
 	ypos += 8;
 	sui_text([0, ypos], MENU_TEXT_SMALL, "To get the Miracle Mallet from the Oni", [1, 1, 1], 1, 0);
-	ypos += 32;
+	ypos += 16;
 	sui_text([0, ypos], MENU_TEXT_SMALL, "A Touhou Project fan-game.", [1, 1, 1], 1, 0);
 	ypos += 8;
 	sui_text([0, ypos], MENU_TEXT_SMALL, "Touhou Project (C) Team Shanghai Alice", [1, 1, 1], 1, 0);
 	
 	vector pos = [0, -24];
-	vector size = [120, 120];
+	vector size = [120, 100];
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);
 	sui_push_frame(pos, size);
 	
@@ -320,7 +323,13 @@ void() main_menu =
 	// my_button("mm_help", [0, 8 + 48], [size_x - 16, 20], "Help") ? current_menu = MENU_HELP : 0;
 	sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_END]);
 	my_button("mm_quit", [0, -8], [size_x - 16, 20], "Quit") ? localcmd("quit\n") : 0;
-	sui_pop_frame();	
+	sui_pop_frame();
+	
+	if (was_in_options)
+	{
+		localcmd("saveconfig\n");
+		was_in_options = FALSE;
+	}
 };
 
 void(vector size) root_menu =

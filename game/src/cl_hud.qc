@@ -82,6 +82,24 @@ void() draw_item_help =
 	drawstring([g_width/2 - strlen(desc)*size_x*0.5, ypos], desc, size, '1 1 1', a, 0);
 }
 
+float endwarningtime;
+void() draw_end_warning =
+{
+	float a = min(1, endwarningtime - time);
+	if (a <= 0) return;
+	
+	string s1 = "Warning, once you enter the mountain";
+	string s2 = "there is no coming back anymore.";
+	
+	string s3 = "Make sure you've done everything you want to!";
+	
+	vector size = [8, 8];
+	
+	drawstring([g_width/2 - strlen(s1)*4, g_height/2 - 64], s1, size, '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(s2)*4, g_height/2 - 56], s2, size, '1 1 1', a, 0);
+	drawstring([g_width/2 - strlen(s3)*4, g_height/2 - 42], s3, size, '1 1 1', a, 0);
+}
+
 void() draw_gameover =
 {
 	if (gameovertime <= 0) return;
@@ -112,7 +130,8 @@ void() draw_win =
 	
 	float timesince = time - wintime;
 	float a = min(1, timesince);
-	drawfill([0, 0], [g_width, g_height], '0 0 0', a * 0.75, 0);
+	vector bgcol = cheats_used ? '0.8 0.1 0.4' : '0 0 0';
+	drawfill([0, 0], [g_width, g_height], bgcol, a * 0.75, 0);
 
 	string str = "Victory";
 	float size = 32;
@@ -206,6 +225,7 @@ void() draw_hud =
 	
 	draw_map();
 	draw_item_help();
+	draw_end_warning();
 	
 	float coins = getstatf(STAT_COINS);
 	float totalcoins = getstatf(STAT_TOTALCOINS);

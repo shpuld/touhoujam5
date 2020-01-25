@@ -268,6 +268,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	
 	registercvar("cl_hud", "1");
 	registercvar("cl_hud_timer", "0");
+	registercommand("noclip");
 };
 
 noref void() CSQC_WorldLoaded =
@@ -343,6 +344,14 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	sky.origin = [campos_x, campos_y, 0];
 	addentity(sky);
 	
+	
+	if (mapname == "menu")
+	{
+		campos = [sin(time * 0.2) * 500, cos(time * 0.2)  * 500, 42 + sin(time * 0.5)*24];
+		camang = vectoangles(-campos);
+		camang_x += -15 + sin(time * 0.3) * 17;
+	}
+	
 	setproperty(VF_ANGLES, camang);
 	setproperty(VF_ORIGIN, campos);
 	
@@ -402,9 +411,24 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	
 	R_EndPolygon();
 	
-	draw_hud();
+	if (mapname != "menu")
+		draw_hud();
+	else
+	{
+		string str = "Press ESCAPE to begin...";
+		drawstring([g_width/2 - strlen(str)*4, g_height - 24], str, [8, 8], '1 1 1', min(1, 0.7 + sin(time*1.25)*0.4), 0);
+	}
 	
 	sui_begin(g_width, g_height);
+	
+	if (mapname == "menu")
+	{
+		sui_set_align([SUI_ALIGN_CENTER, SUI_ALIGN_START]);
+		float ypos = 32;
+		sui_text([0, ypos], [16, 16], "Issun Boushi", [1, 1, 1], 1, 0);
+		ypos += 16;
+		sui_text([0, ypos], [8, 8], "Starring Shinmyoumaru-san", [1, 1, 1], 1, 0);
+	}
 	
 	cl_editor_draw();
 	
@@ -418,6 +442,9 @@ float(string cmd) CSQC_ConsoleCommand =
 	tokenize(cmd);
 	switch(argv(0))
 	{
+		case "noclip":
+			cheats_used = TRUE;
+			return FALSE;
 		default:
 			return FALSE;
 	}
@@ -480,6 +507,9 @@ void() CSQC_Parse_Event =
 		case EV_ITEMHELP:
 			helptime = time + 5;
 			helpitem = readbyte();
+			break;
+		case EV_ENDWARNING:
+			endwarningtime = time + 1.5;
 			break;
 		case EV_GAMEOVER:
 			gameovertime = time;

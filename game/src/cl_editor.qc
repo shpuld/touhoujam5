@@ -143,7 +143,8 @@ void() cl_editor_draw =
 	entity_prop_editor([0, 0], ent_menu_size);
 	
 	sui_pop_frame();
-
+	
+	cheats_used = TRUE;
 }
 
 void() cl_editor_update_selection =
@@ -167,7 +168,7 @@ float(string cmd) cl_editor_command =
 	case "toggleeditmode":
 		if (getstatf(STAT_ED_MODE)) setcursormode(FALSE);
 		else setcursormode(TRUE);
-		
+
 		localcmd("cmd toggleeditmode\n");
 		return TRUE;
 		break;

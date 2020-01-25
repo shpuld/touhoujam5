@@ -1421,27 +1421,27 @@ end
 
 ent_begin
 class decor_grass
-organg 7168 -2096 128 0 0 0
+organg 7168 -2176 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 7056 -2064 128 0 0 0
+organg 7056 -2128 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 6960 -2112 128 0 0 0
+organg 6960 -2192 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 7024 -2128 128 0 0 0
+organg 7024 -2144 128 0 0 0
 end
 
 ent_begin
 class decor_grass
-organg 7088 -2096 128 0 0 0
+organg 7088 -2192 128 0 0 0
 end
 
 ent_begin
@@ -2415,7 +2415,7 @@ end
 
 ent_begin
 class item_coin
-organg 4014 -2624 992 -0 -90 -0
+organg 5926 -2584 304 -0 -90 -0
 end
 
 ent_begin
@@ -4465,5 +4465,360 @@ end
 ent_begin
 class decor_lamp
 organg -5930 4662 -2628 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6736 4336 256 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6592 4512 640 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -7232 4432 288 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -7280 4912 672 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6304 4816 288 0 180 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6608 5024 992 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -7040 5200 1056 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -7184 5312 608 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -4736 4880 80 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -5712 4032 -144 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -5776 4000 -16 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6544 2272 16 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -9248 2896 -16 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_big
+organg -5328 5632 0 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -6352 4640 320 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg -6832 4368 576 0 180 0
+end
+
+ent_begin
+class decor_stone
+organg -6368 5264 256 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -5776 4336 16 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -5504 3728 -16 -0 -90 -0
+end
+
+ent_begin
+class decor_stone
+organg -5808 5616 -16 0 90 0
+end
+
+ent_begin
+class decor_stone
+organg -4256 4544 -16 0 0 0
+end
+
+ent_begin
+class decor_stone
+organg -6560 4784 1472 -0 -90 -0
+end
+
+ent_begin
+class decor_stone
+organg -6656 4944 1408 -0 -90 -0
+end
+
+ent_begin
+class decor_stone
+organg -6992 5120 1440 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -7152 4656 1408 -0 -180 -0
+end
+
+ent_begin
+class decor_stone
+organg -7056 4544 1472 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6864 5312 960 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -6656 5216 960 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -6368 5024 960 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6576 4688 1408 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -6736 4512 1408 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -6992 4464 1408 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg -7152 4560 1408 0 90 0
+end
+
+ent_begin
+class decor_stone_s
+organg -7248 4768 1408 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg -7200 5184 960 0 0 0
+end
+
+ent_begin
+class decor_stone_s
+organg -7104 5440 576 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -7296 5264 576 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6416 5344 256 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6192 4960 256 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6240 4672 256 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_s
+organg -6624 4256 256 0 180 0
+end
+
+ent_begin
+class decor_stone_s
+organg -7232 4288 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6848 4240 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6768 4192 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6624 4288 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7152 4336 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7280 4336 256 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7328 4416 256 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7376 4720 576 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7488 4832 256 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7488 5072 256 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7344 4992 576 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7408 4960 576 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7296 5328 576 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7184 5408 576 0 0 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -7072 5344 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6928 5264 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6976 5344 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6624 5152 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6704 5168 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6512 4976 960 -0 -90 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6480 5072 960 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6384 4864 960 -0 -180 -0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6368 4720 576 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6496 4512 576 0 180 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6656 4416 576 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6912 4352 576 0 90 0
+end
+
+ent_begin
+class decor_stone_xs
+organg -6784 4384 576 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -7568 4672 48 0 90 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6880 4160 48 0 0 0
+end
+
+ent_begin
+class decor_stone_big
+organg -6144 4672 64 0 90 0
 end
 
