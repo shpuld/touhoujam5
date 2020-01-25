@@ -220,7 +220,7 @@ end
 
 ent_begin
 class enemy_crab
-organg -7696 -9024 32 0 0 0
+organg -7712 -8976 40 0 0 0
 end
 
 ent_begin
@@ -791,7 +791,7 @@ end
 
 ent_begin
 class decor_stone_xs
-organg -8004 -9648 356 -0 -90 -0
+organg -8004 -9648 348 -0 -90 -0
 end
 
 ent_begin
@@ -2530,7 +2530,7 @@ end
 
 ent_begin
 class item_coin
-organg -9008 -9648 16 0 0 0
+organg -9008 -9668 16 0 0 0
 end
 
 ent_begin
@@ -3269,7 +3269,7 @@ end
 
 ent_begin
 class decor_stone
-organg -9008 -9648 -48 0 0 0
+organg -9008 -9668 -48 0 0 0
 end
 
 ent_begin

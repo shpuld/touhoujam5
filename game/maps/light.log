@@ -28,7 +28,7 @@ Loaded extended texinfo flags from main.texinfo
 Embree_TraceInit: Embree version: 2.15.0
 Embree_TraceInit:
 	1979 sky faces
-	12179 solid faces
+	12190 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
 SetupLights: 30 initial lights
@@ -47,17 +47,17 @@ Colored light entities/settings detected: .lit output enabled.
 0....1....2....3....4....5....6....7....8....9....
 --- LightThread ---
 0....1....2....3....4....5....6....7....8....9....
-Indirect lights: 12156 bounce lights, 0 surface lights (0 light points) in use.
+Indirect lights: 12167 bounce lights, 0 surface lights (0 light points) in use.
 Lighting Completed.
 
-lightdatasize: 853901
+lightdatasize: 854317
 Writing main.lit
 0 switchable light styles (32 max)
 Writing main.bsp as BSP version BSP2
-18.954 seconds elapsed
+23.833 seconds elapsed
 
 stats:
-0.228496 lights tested, 0.211380 hits per sample point
+0.228360 lights tested, 0.211255 hits per sample point
 0.000000 surface lights tested, 0.000000 hits per sample point
-14.302709 bounce lights tested, 10.563521 hits per sample point
+14.299653 bounce lights tested, 10.559239 hits per sample point
 0 empty lightmaps

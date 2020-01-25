@@ -257,7 +257,7 @@ void() draw_hud =
 		
 		float minutes = floor((time - time_ofs) / 60);
 		float seconds = (time - time_ofs) - minutes*60;
-		string timestr = sprintf("%.0f:%.2f", minutes, seconds);
+		string timestr = sprintf("%.0f:%05.2f", minutes, seconds);
 		
 		if (finish_time)
 		{

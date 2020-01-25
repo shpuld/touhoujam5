@@ -190,7 +190,7 @@ void() player_attack2 =
 	
 	if (hit) pointparticles(PART_HIT, self.origin + self.view_ofs + v_forward * 32, v_forward);
 		
-	self.nextthink = time + 0.2;
+	self.nextthink = time + 0.18;
 	self.think = player_normal;
 }
 
@@ -308,7 +308,7 @@ void() PlayerPreThink =
 	{
 		if (self.items & IT_NEEDLE && time > self.attack_finished)
 		{
-			self.attack_finished = time + 0.5; 
+			self.attack_finished = time + 0.52; 
 				
 			player_attack();
 		}
