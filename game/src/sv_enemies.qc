@@ -769,6 +769,11 @@ void(float amount, vector dir, entity dealer) suica_hurt =
 	self.staggertime = time + 5.5;
 }
 
+void() suica_touch =
+{
+	if (other.classname == "player" && other.origin_z > self.origin_z + 62)
+		other.velocity += [srandom() * 200, srandom() * 200, 200];
+}
 
 
 void() ai_init =
@@ -852,7 +857,7 @@ void() fairy =
 void() suica =
 {
 	setmodel(self, "models/suica.iqm");
-	setsize(self, '-16 -16 0', '16 16 56');
+	setsize(self, '-20 -20 0', '20 20 64');
 	self.health = 35;
 	self.die = suica_die;
 	self.hurt = suica_hurt;
@@ -860,5 +865,6 @@ void() suica =
 	self.yaw_speed = 15;
 	self.movespeed = 15;
 	self.scale = 2;
+	self.touch = suica_touch;
 	ai_init();
 }

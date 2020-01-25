@@ -170,7 +170,7 @@ void() draw_win =
 	drawstring([g_width/2 - strlen(coinstring)*4, g_height/2 + 32], coinstring, [8, 8], '1 1 1', a, 0);
 	drawstring([g_width/2 - strlen(rank)*4, g_height/2 + 32 + 12], rank, [8, 8], '1 1 1', a, 0);
 	
-	float kills = getstatf(STAT_KILLEDMONSTERS);
+	float kills = getstatf(STAT_ENEMIESDEFEATED);
 	float totalmonsters = getstatf(STAT_TOTALMONSTERS);
 	string killstring = sprintf("Enemies defeated: %.0f/%.0f", kills, totalmonsters);
 	
